@@ -1,0 +1,28 @@
+﻿# Data files and database stores
+data/
+*.db
+*.sqlite
+
+# Media and presentation files
+*.mp4
+*.pptx
+*.pdf
+
+# Python bytecode and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+env/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# System & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

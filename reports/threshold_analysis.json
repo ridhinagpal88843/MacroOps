@@ -1,0 +1,1220 @@
+{
+  "analysis_name": "Stage A Classification Threshold and Calibration Analysis (Phase 2C)",
+  "synthetic_data_disclaimer": "All models, thresholds, and metrics represent prototype performance on synthetic data.",
+  "sample_sizes": {
+    "validation": 13082,
+    "test": 16210
+  },
+  "base_rates": {
+    "validation_breached_pct": 89.22,
+    "test_breached_pct": 89.64
+  },
+  "model_probability_summaries": {
+    "LogisticRegression": {
+      "validation_brier_score": 0.0951,
+      "validation_pr_auc": 0.9254,
+      "validation_roc_auc": 0.6066,
+      "distribution": {
+        "min": 0.6949,
+        "p10": 0.8396,
+        "p25": 0.8715,
+        "median": 0.9026,
+        "mean": 0.8977,
+        "p75": 0.9301,
+        "p90": 0.9499,
+        "max": 0.9895,
+        "std": 0.0434
+      }
+    },
+    "LightGBM": {
+      "validation_brier_score": 0.0957,
+      "validation_pr_auc": 0.9252,
+      "validation_roc_auc": 0.5971,
+      "distribution": {
+        "min": 0.5893,
+        "p10": 0.8315,
+        "p25": 0.8638,
+        "median": 0.8994,
+        "mean": 0.8981,
+        "p75": 0.9369,
+        "p90": 0.9673,
+        "max": 0.9991,
+        "std": 0.0534
+      }
+    }
+  },
+  "candidate_thresholds": [
+    {
+      "id": "cand_default_50",
+      "name": "Default Binary Reference",
+      "threshold": 0.5,
+      "operational_intent": "Traditional machine learning default baseline (tau = 0.50). Evaluates performance without domain calibration.",
+      "operational_tradeoff": "Flags 100% of orders as breached. Captures all breaches (100% recall), but achieves 0% on-time discrimination.",
+      "validation_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.5,
+          "flagged_orders": 13082,
+          "flagged_pct": 100.0,
+          "confusion_matrix": {
+            "tn": 0,
+            "fp": 1410,
+            "fn": 0,
+            "tp": 11672
+          },
+          "precision_breached": 0.8922,
+          "recall_breached": 1.0,
+          "f1_breached": 0.943,
+          "ontime_precision": 0.0,
+          "ontime_recall": 0.0,
+          "accuracy": 0.8922
+        },
+        "LightGBM": {
+          "threshold": 0.5,
+          "flagged_orders": 13082,
+          "flagged_pct": 100.0,
+          "confusion_matrix": {
+            "tn": 0,
+            "fp": 1410,
+            "fn": 0,
+            "tp": 11672
+          },
+          "precision_breached": 0.8922,
+          "recall_breached": 1.0,
+          "f1_breached": 0.943,
+          "ontime_precision": 0.0,
+          "ontime_recall": 0.0,
+          "accuracy": 0.8922
+        }
+      },
+      "test_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.5,
+          "flagged_orders": 16210,
+          "flagged_pct": 100.0,
+          "confusion_matrix": {
+            "tn": 0,
+            "fp": 1680,
+            "fn": 0,
+            "tp": 14530
+          },
+          "precision_breached": 0.8964,
+          "recall_breached": 1.0,
+          "f1_breached": 0.9453,
+          "ontime_precision": 0.0,
+          "ontime_recall": 0.0,
+          "accuracy": 0.8964
+        },
+        "LightGBM": {
+          "threshold": 0.5,
+          "flagged_orders": 16209,
+          "flagged_pct": 99.99,
+          "confusion_matrix": {
+            "tn": 0,
+            "fp": 1680,
+            "fn": 1,
+            "tp": 14529
+          },
+          "precision_breached": 0.8964,
+          "recall_breached": 0.9999,
+          "f1_breached": 0.9453,
+          "ontime_precision": 0.0,
+          "ontime_recall": 0.0,
+          "accuracy": 0.8963
+        }
+      }
+    },
+    {
+      "id": "cand_prevalence_89",
+      "name": "Base-Rate Centered Policy",
+      "threshold": 0.8922,
+      "operational_intent": "Aligns threshold with the empirical validation breach base rate (89.22%). Separates above-average from below-average risk.",
+      "operational_tradeoff": "Flags ~60-65% of orders. Recalls ~68-70% of breaches while capturing ~40-42% of on-time orders.",
+      "validation_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.8922,
+          "flagged_orders": 7763,
+          "flagged_pct": 59.34,
+          "confusion_matrix": {
+            "tn": 769,
+            "fp": 641,
+            "fn": 4550,
+            "tp": 7122
+          },
+          "precision_breached": 0.9174,
+          "recall_breached": 0.6102,
+          "f1_breached": 0.7329,
+          "ontime_precision": 0.1446,
+          "ontime_recall": 0.5454,
+          "accuracy": 0.6032
+        },
+        "LightGBM": {
+          "threshold": 0.8922,
+          "flagged_orders": 7237,
+          "flagged_pct": 55.32,
+          "confusion_matrix": {
+            "tn": 790,
+            "fp": 620,
+            "fn": 5055,
+            "tp": 6617
+          },
+          "precision_breached": 0.9143,
+          "recall_breached": 0.5669,
+          "f1_breached": 0.6999,
+          "ontime_precision": 0.1352,
+          "ontime_recall": 0.5603,
+          "accuracy": 0.5662
+        }
+      },
+      "test_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.8922,
+          "flagged_orders": 9658,
+          "flagged_pct": 59.58,
+          "confusion_matrix": {
+            "tn": 903,
+            "fp": 777,
+            "fn": 5649,
+            "tp": 8881
+          },
+          "precision_breached": 0.9195,
+          "recall_breached": 0.6112,
+          "f1_breached": 0.7343,
+          "ontime_precision": 0.1378,
+          "ontime_recall": 0.5375,
+          "accuracy": 0.6036
+        },
+        "LightGBM": {
+          "threshold": 0.8922,
+          "flagged_orders": 8975,
+          "flagged_pct": 55.37,
+          "confusion_matrix": {
+            "tn": 965,
+            "fp": 715,
+            "fn": 6270,
+            "tp": 8260
+          },
+          "precision_breached": 0.9203,
+          "recall_breached": 0.5685,
+          "f1_breached": 0.7028,
+          "ontime_precision": 0.1334,
+          "ontime_recall": 0.5744,
+          "accuracy": 0.5691
+        }
+      }
+    },
+    {
+      "id": "cand_ontime_filter_86",
+      "name": "On-Time Fast-Track / Low-Risk Filter",
+      "threshold": 0.86,
+      "operational_intent": "Prioritizes identifying genuinely on-time orders (P(breach) < 0.86) to route to expedited or low-touch workflows.",
+      "operational_tradeoff": "Requires high breach recall (>85%) while achieving meaningful on-time recall (~22-25%). High breach flagging rate (~85%).",
+      "validation_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.86,
+          "flagged_orders": 10574,
+          "flagged_pct": 80.83,
+          "confusion_matrix": {
+            "tn": 399,
+            "fp": 1011,
+            "fn": 2109,
+            "tp": 9563
+          },
+          "precision_breached": 0.9044,
+          "recall_breached": 0.8193,
+          "f1_breached": 0.8598,
+          "ontime_precision": 0.1591,
+          "ontime_recall": 0.283,
+          "accuracy": 0.7615
+        },
+        "LightGBM": {
+          "threshold": 0.86,
+          "flagged_orders": 10116,
+          "flagged_pct": 77.33,
+          "confusion_matrix": {
+            "tn": 423,
+            "fp": 987,
+            "fn": 2543,
+            "tp": 9129
+          },
+          "precision_breached": 0.9024,
+          "recall_breached": 0.7821,
+          "f1_breached": 0.838,
+          "ontime_precision": 0.1426,
+          "ontime_recall": 0.3,
+          "accuracy": 0.7302
+        }
+      },
+      "test_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.86,
+          "flagged_orders": 13125,
+          "flagged_pct": 80.97,
+          "confusion_matrix": {
+            "tn": 492,
+            "fp": 1188,
+            "fn": 2593,
+            "tp": 11937
+          },
+          "precision_breached": 0.9095,
+          "recall_breached": 0.8215,
+          "f1_breached": 0.8633,
+          "ontime_precision": 0.1595,
+          "ontime_recall": 0.2929,
+          "accuracy": 0.7667
+        },
+        "LightGBM": {
+          "threshold": 0.86,
+          "flagged_orders": 12565,
+          "flagged_pct": 77.51,
+          "confusion_matrix": {
+            "tn": 509,
+            "fp": 1171,
+            "fn": 3136,
+            "tp": 11394
+          },
+          "precision_breached": 0.9068,
+          "recall_breached": 0.7842,
+          "f1_breached": 0.841,
+          "ontime_precision": 0.1396,
+          "ontime_recall": 0.303,
+          "accuracy": 0.7343
+        }
+      }
+    },
+    {
+      "id": "cand_escalation_93",
+      "name": "Targeted High-Risk Escalation Alert",
+      "threshold": 0.93,
+      "operational_intent": "Actionable intervention tier. Flags only high-confidence breaches so dark store supervisors and dispatchers are not alert-fatigued.",
+      "operational_tradeoff": "Flags ~23-28% of highest-risk volume with ~95% breach precision. Trades off breach recall (~26-30%) for high actionability.",
+      "validation_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.93,
+          "flagged_orders": 3284,
+          "flagged_pct": 25.1,
+          "confusion_matrix": {
+            "tn": 1200,
+            "fp": 210,
+            "fn": 8598,
+            "tp": 3074
+          },
+          "precision_breached": 0.9361,
+          "recall_breached": 0.2634,
+          "f1_breached": 0.4111,
+          "ontime_precision": 0.1225,
+          "ontime_recall": 0.8511,
+          "accuracy": 0.3267
+        },
+        "LightGBM": {
+          "threshold": 0.93,
+          "flagged_orders": 3786,
+          "flagged_pct": 28.94,
+          "confusion_matrix": {
+            "tn": 1183,
+            "fp": 227,
+            "fn": 8113,
+            "tp": 3559
+          },
+          "precision_breached": 0.94,
+          "recall_breached": 0.3049,
+          "f1_breached": 0.4605,
+          "ontime_precision": 0.1273,
+          "ontime_recall": 0.839,
+          "accuracy": 0.3625
+        }
+      },
+      "test_metrics": {
+        "LogisticRegression": {
+          "threshold": 0.93,
+          "flagged_orders": 4012,
+          "flagged_pct": 24.75,
+          "confusion_matrix": {
+            "tn": 1453,
+            "fp": 227,
+            "fn": 10745,
+            "tp": 3785
+          },
+          "precision_breached": 0.9434,
+          "recall_breached": 0.2605,
+          "f1_breached": 0.4083,
+          "ontime_precision": 0.1191,
+          "ontime_recall": 0.8649,
+          "accuracy": 0.3231
+        },
+        "LightGBM": {
+          "threshold": 0.93,
+          "flagged_orders": 4644,
+          "flagged_pct": 28.65,
+          "confusion_matrix": {
+            "tn": 1405,
+            "fp": 275,
+            "fn": 10161,
+            "tp": 4369
+          },
+          "precision_breached": 0.9408,
+          "recall_breached": 0.3007,
+          "f1_breached": 0.4557,
+          "ontime_precision": 0.1215,
+          "ontime_recall": 0.8363,
+          "accuracy": 0.3562
+        }
+      }
+    }
+  ],
+  "validation_threshold_grid_sample": {
+    "LogisticRegression": [
+      {
+        "threshold": 0.5,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.52,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.54,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.56,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.58,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.6,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.62,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.64,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.66,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.68,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.7,
+        "flagged_orders": 13081,
+        "flagged_pct": 99.99,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 1,
+          "tp": 11671
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 0.9999,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8921
+      },
+      {
+        "threshold": 0.72,
+        "flagged_orders": 13078,
+        "flagged_pct": 99.97,
+        "confusion_matrix": {
+          "tn": 1,
+          "fp": 1409,
+          "fn": 3,
+          "tp": 11669
+        },
+        "precision_breached": 0.8923,
+        "recall_breached": 0.9997,
+        "f1_breached": 0.9429,
+        "ontime_precision": 0.25,
+        "ontime_recall": 0.0007,
+        "accuracy": 0.8921
+      },
+      {
+        "threshold": 0.74,
+        "flagged_orders": 13065,
+        "flagged_pct": 99.87,
+        "confusion_matrix": {
+          "tn": 2,
+          "fp": 1408,
+          "fn": 15,
+          "tp": 11657
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 0.9987,
+        "f1_breached": 0.9425,
+        "ontime_precision": 0.1176,
+        "ontime_recall": 0.0014,
+        "accuracy": 0.8912
+      },
+      {
+        "threshold": 0.76,
+        "flagged_orders": 13027,
+        "flagged_pct": 99.58,
+        "confusion_matrix": {
+          "tn": 11,
+          "fp": 1399,
+          "fn": 44,
+          "tp": 11628
+        },
+        "precision_breached": 0.8926,
+        "recall_breached": 0.9962,
+        "f1_breached": 0.9416,
+        "ontime_precision": 0.2,
+        "ontime_recall": 0.0078,
+        "accuracy": 0.8897
+      },
+      {
+        "threshold": 0.78,
+        "flagged_orders": 12933,
+        "flagged_pct": 98.86,
+        "confusion_matrix": {
+          "tn": 29,
+          "fp": 1381,
+          "fn": 120,
+          "tp": 11552
+        },
+        "precision_breached": 0.8932,
+        "recall_breached": 0.9897,
+        "f1_breached": 0.939,
+        "ontime_precision": 0.1946,
+        "ontime_recall": 0.0206,
+        "accuracy": 0.8853
+      },
+      {
+        "threshold": 0.8,
+        "flagged_orders": 12754,
+        "flagged_pct": 97.49,
+        "confusion_matrix": {
+          "tn": 48,
+          "fp": 1362,
+          "fn": 280,
+          "tp": 11392
+        },
+        "precision_breached": 0.8932,
+        "recall_breached": 0.976,
+        "f1_breached": 0.9328,
+        "ontime_precision": 0.1463,
+        "ontime_recall": 0.034,
+        "accuracy": 0.8745
+      },
+      {
+        "threshold": 0.82,
+        "flagged_orders": 12360,
+        "flagged_pct": 94.48,
+        "confusion_matrix": {
+          "tn": 119,
+          "fp": 1291,
+          "fn": 603,
+          "tp": 11069
+        },
+        "precision_breached": 0.8956,
+        "recall_breached": 0.9483,
+        "f1_breached": 0.9212,
+        "ontime_precision": 0.1648,
+        "ontime_recall": 0.0844,
+        "accuracy": 0.8552
+      },
+      {
+        "threshold": 0.84,
+        "flagged_orders": 11755,
+        "flagged_pct": 89.86,
+        "confusion_matrix": {
+          "tn": 218,
+          "fp": 1192,
+          "fn": 1109,
+          "tp": 10563
+        },
+        "precision_breached": 0.8986,
+        "recall_breached": 0.905,
+        "f1_breached": 0.9018,
+        "ontime_precision": 0.1643,
+        "ontime_recall": 0.1546,
+        "accuracy": 0.8241
+      },
+      {
+        "threshold": 0.86,
+        "flagged_orders": 10574,
+        "flagged_pct": 80.83,
+        "confusion_matrix": {
+          "tn": 399,
+          "fp": 1011,
+          "fn": 2109,
+          "tp": 9563
+        },
+        "precision_breached": 0.9044,
+        "recall_breached": 0.8193,
+        "f1_breached": 0.8598,
+        "ontime_precision": 0.1591,
+        "ontime_recall": 0.283,
+        "accuracy": 0.7615
+      },
+      {
+        "threshold": 0.88,
+        "flagged_orders": 9053,
+        "flagged_pct": 69.2,
+        "confusion_matrix": {
+          "tn": 589,
+          "fp": 821,
+          "fn": 3440,
+          "tp": 8232
+        },
+        "precision_breached": 0.9093,
+        "recall_breached": 0.7053,
+        "f1_breached": 0.7944,
+        "ontime_precision": 0.1462,
+        "ontime_recall": 0.4177,
+        "accuracy": 0.6743
+      },
+      {
+        "threshold": 0.9,
+        "flagged_orders": 6844,
+        "flagged_pct": 52.32,
+        "confusion_matrix": {
+          "tn": 871,
+          "fp": 539,
+          "fn": 5367,
+          "tp": 6305
+        },
+        "precision_breached": 0.9212,
+        "recall_breached": 0.5402,
+        "f1_breached": 0.681,
+        "ontime_precision": 0.1396,
+        "ontime_recall": 0.6177,
+        "accuracy": 0.5485
+      },
+      {
+        "threshold": 0.92,
+        "flagged_orders": 4455,
+        "flagged_pct": 34.05,
+        "confusion_matrix": {
+          "tn": 1109,
+          "fp": 301,
+          "fn": 7518,
+          "tp": 4154
+        },
+        "precision_breached": 0.9324,
+        "recall_breached": 0.3559,
+        "f1_breached": 0.5152,
+        "ontime_precision": 0.1285,
+        "ontime_recall": 0.7865,
+        "accuracy": 0.4023
+      },
+      {
+        "threshold": 0.94,
+        "flagged_orders": 2198,
+        "flagged_pct": 16.8,
+        "confusion_matrix": {
+          "tn": 1297,
+          "fp": 113,
+          "fn": 9587,
+          "tp": 2085
+        },
+        "precision_breached": 0.9486,
+        "recall_breached": 0.1786,
+        "f1_breached": 0.3006,
+        "ontime_precision": 0.1192,
+        "ontime_recall": 0.9199,
+        "accuracy": 0.2585
+      },
+      {
+        "threshold": 0.96,
+        "flagged_orders": 585,
+        "flagged_pct": 4.47,
+        "confusion_matrix": {
+          "tn": 1390,
+          "fp": 20,
+          "fn": 11107,
+          "tp": 565
+        },
+        "precision_breached": 0.9658,
+        "recall_breached": 0.0484,
+        "f1_breached": 0.0922,
+        "ontime_precision": 0.1112,
+        "ontime_recall": 0.9858,
+        "accuracy": 0.1494
+      },
+      {
+        "threshold": 0.98,
+        "flagged_orders": 34,
+        "flagged_pct": 0.26,
+        "confusion_matrix": {
+          "tn": 1408,
+          "fp": 2,
+          "fn": 11640,
+          "tp": 32
+        },
+        "precision_breached": 0.9412,
+        "recall_breached": 0.0027,
+        "f1_breached": 0.0055,
+        "ontime_precision": 0.1079,
+        "ontime_recall": 0.9986,
+        "accuracy": 0.1101
+      }
+    ],
+    "LightGBM": [
+      {
+        "threshold": 0.5,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.52,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.54,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.56,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.58,
+        "flagged_orders": 13082,
+        "flagged_pct": 100.0,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 0,
+          "tp": 11672
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 1.0,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8922
+      },
+      {
+        "threshold": 0.6,
+        "flagged_orders": 13081,
+        "flagged_pct": 99.99,
+        "confusion_matrix": {
+          "tn": 0,
+          "fp": 1410,
+          "fn": 1,
+          "tp": 11671
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 0.9999,
+        "f1_breached": 0.943,
+        "ontime_precision": 0.0,
+        "ontime_recall": 0.0,
+        "accuracy": 0.8921
+      },
+      {
+        "threshold": 0.62,
+        "flagged_orders": 13076,
+        "flagged_pct": 99.95,
+        "confusion_matrix": {
+          "tn": 1,
+          "fp": 1409,
+          "fn": 5,
+          "tp": 11667
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 0.9996,
+        "f1_breached": 0.9429,
+        "ontime_precision": 0.1667,
+        "ontime_recall": 0.0007,
+        "accuracy": 0.8919
+      },
+      {
+        "threshold": 0.64,
+        "flagged_orders": 13071,
+        "flagged_pct": 99.92,
+        "confusion_matrix": {
+          "tn": 2,
+          "fp": 1408,
+          "fn": 9,
+          "tp": 11663
+        },
+        "precision_breached": 0.8923,
+        "recall_breached": 0.9992,
+        "f1_breached": 0.9427,
+        "ontime_precision": 0.1818,
+        "ontime_recall": 0.0014,
+        "accuracy": 0.8917
+      },
+      {
+        "threshold": 0.66,
+        "flagged_orders": 13063,
+        "flagged_pct": 99.85,
+        "confusion_matrix": {
+          "tn": 2,
+          "fp": 1408,
+          "fn": 17,
+          "tp": 11655
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 0.9985,
+        "f1_breached": 0.9424,
+        "ontime_precision": 0.1053,
+        "ontime_recall": 0.0014,
+        "accuracy": 0.8911
+      },
+      {
+        "threshold": 0.68,
+        "flagged_orders": 13054,
+        "flagged_pct": 99.79,
+        "confusion_matrix": {
+          "tn": 2,
+          "fp": 1408,
+          "fn": 26,
+          "tp": 11646
+        },
+        "precision_breached": 0.8921,
+        "recall_breached": 0.9978,
+        "f1_breached": 0.942,
+        "ontime_precision": 0.0714,
+        "ontime_recall": 0.0014,
+        "accuracy": 0.8904
+      },
+      {
+        "threshold": 0.7,
+        "flagged_orders": 13044,
+        "flagged_pct": 99.71,
+        "confusion_matrix": {
+          "tn": 2,
+          "fp": 1408,
+          "fn": 36,
+          "tp": 11636
+        },
+        "precision_breached": 0.8921,
+        "recall_breached": 0.9969,
+        "f1_breached": 0.9416,
+        "ontime_precision": 0.0526,
+        "ontime_recall": 0.0014,
+        "accuracy": 0.8896
+      },
+      {
+        "threshold": 0.72,
+        "flagged_orders": 13028,
+        "flagged_pct": 99.59,
+        "confusion_matrix": {
+          "tn": 6,
+          "fp": 1404,
+          "fn": 48,
+          "tp": 11624
+        },
+        "precision_breached": 0.8922,
+        "recall_breached": 0.9959,
+        "f1_breached": 0.9412,
+        "ontime_precision": 0.1111,
+        "ontime_recall": 0.0043,
+        "accuracy": 0.889
+      },
+      {
+        "threshold": 0.74,
+        "flagged_orders": 13001,
+        "flagged_pct": 99.38,
+        "confusion_matrix": {
+          "tn": 10,
+          "fp": 1400,
+          "fn": 71,
+          "tp": 11601
+        },
+        "precision_breached": 0.8923,
+        "recall_breached": 0.9939,
+        "f1_breached": 0.9404,
+        "ontime_precision": 0.1235,
+        "ontime_recall": 0.0071,
+        "accuracy": 0.8876
+      },
+      {
+        "threshold": 0.76,
+        "flagged_orders": 12941,
+        "flagged_pct": 98.92,
+        "confusion_matrix": {
+          "tn": 22,
+          "fp": 1388,
+          "fn": 119,
+          "tp": 11553
+        },
+        "precision_breached": 0.8927,
+        "recall_breached": 0.9898,
+        "f1_breached": 0.9388,
+        "ontime_precision": 0.156,
+        "ontime_recall": 0.0156,
+        "accuracy": 0.8848
+      },
+      {
+        "threshold": 0.78,
+        "flagged_orders": 12819,
+        "flagged_pct": 97.99,
+        "confusion_matrix": {
+          "tn": 38,
+          "fp": 1372,
+          "fn": 225,
+          "tp": 11447
+        },
+        "precision_breached": 0.893,
+        "recall_breached": 0.9807,
+        "f1_breached": 0.9348,
+        "ontime_precision": 0.1445,
+        "ontime_recall": 0.027,
+        "accuracy": 0.8779
+      },
+      {
+        "threshold": 0.8,
+        "flagged_orders": 12617,
+        "flagged_pct": 96.45,
+        "confusion_matrix": {
+          "tn": 69,
+          "fp": 1341,
+          "fn": 396,
+          "tp": 11276
+        },
+        "precision_breached": 0.8937,
+        "recall_breached": 0.9661,
+        "f1_breached": 0.9285,
+        "ontime_precision": 0.1484,
+        "ontime_recall": 0.0489,
+        "accuracy": 0.8672
+      },
+      {
+        "threshold": 0.82,
+        "flagged_orders": 12180,
+        "flagged_pct": 93.11,
+        "confusion_matrix": {
+          "tn": 142,
+          "fp": 1268,
+          "fn": 760,
+          "tp": 10912
+        },
+        "precision_breached": 0.8959,
+        "recall_breached": 0.9349,
+        "f1_breached": 0.915,
+        "ontime_precision": 0.1574,
+        "ontime_recall": 0.1007,
+        "accuracy": 0.845
+      },
+      {
+        "threshold": 0.84,
+        "flagged_orders": 11391,
+        "flagged_pct": 87.07,
+        "confusion_matrix": {
+          "tn": 257,
+          "fp": 1153,
+          "fn": 1434,
+          "tp": 10238
+        },
+        "precision_breached": 0.8988,
+        "recall_breached": 0.8771,
+        "f1_breached": 0.8878,
+        "ontime_precision": 0.152,
+        "ontime_recall": 0.1823,
+        "accuracy": 0.8022
+      },
+      {
+        "threshold": 0.86,
+        "flagged_orders": 10116,
+        "flagged_pct": 77.33,
+        "confusion_matrix": {
+          "tn": 423,
+          "fp": 987,
+          "fn": 2543,
+          "tp": 9129
+        },
+        "precision_breached": 0.9024,
+        "recall_breached": 0.7821,
+        "f1_breached": 0.838,
+        "ontime_precision": 0.1426,
+        "ontime_recall": 0.3,
+        "accuracy": 0.7302
+      },
+      {
+        "threshold": 0.88,
+        "flagged_orders": 8379,
+        "flagged_pct": 64.05,
+        "confusion_matrix": {
+          "tn": 644,
+          "fp": 766,
+          "fn": 4059,
+          "tp": 7613
+        },
+        "precision_breached": 0.9086,
+        "recall_breached": 0.6522,
+        "f1_breached": 0.7594,
+        "ontime_precision": 0.1369,
+        "ontime_recall": 0.4567,
+        "accuracy": 0.6312
+      },
+      {
+        "threshold": 0.9,
+        "flagged_orders": 6472,
+        "flagged_pct": 49.47,
+        "confusion_matrix": {
+          "tn": 885,
+          "fp": 525,
+          "fn": 5725,
+          "tp": 5947
+        },
+        "precision_breached": 0.9189,
+        "recall_breached": 0.5095,
+        "f1_breached": 0.6555,
+        "ontime_precision": 0.1339,
+        "ontime_recall": 0.6277,
+        "accuracy": 0.5222
+      },
+      {
+        "threshold": 0.92,
+        "flagged_orders": 4613,
+        "flagged_pct": 35.26,
+        "confusion_matrix": {
+          "tn": 1092,
+          "fp": 318,
+          "fn": 7377,
+          "tp": 4295
+        },
+        "precision_breached": 0.9311,
+        "recall_breached": 0.368,
+        "f1_breached": 0.5275,
+        "ontime_precision": 0.1289,
+        "ontime_recall": 0.7745,
+        "accuracy": 0.4118
+      },
+      {
+        "threshold": 0.94,
+        "flagged_orders": 3024,
+        "flagged_pct": 23.12,
+        "confusion_matrix": {
+          "tn": 1242,
+          "fp": 168,
+          "fn": 8816,
+          "tp": 2856
+        },
+        "precision_breached": 0.9444,
+        "recall_breached": 0.2447,
+        "f1_breached": 0.3887,
+        "ontime_precision": 0.1235,
+        "ontime_recall": 0.8809,
+        "accuracy": 0.3133
+      },
+      {
+        "threshold": 0.96,
+        "flagged_orders": 1664,
+        "flagged_pct": 12.72,
+        "confusion_matrix": {
+          "tn": 1349,
+          "fp": 61,
+          "fn": 10069,
+          "tp": 1603
+        },
+        "precision_breached": 0.9633,
+        "recall_breached": 0.1373,
+        "f1_breached": 0.2404,
+        "ontime_precision": 0.1181,
+        "ontime_recall": 0.9567,
+        "accuracy": 0.2257
+      },
+      {
+        "threshold": 0.98,
+        "flagged_orders": 776,
+        "flagged_pct": 5.93,
+        "confusion_matrix": {
+          "tn": 1384,
+          "fp": 26,
+          "fn": 10922,
+          "tp": 750
+        },
+        "precision_breached": 0.9665,
+        "recall_breached": 0.0643,
+        "f1_breached": 0.1205,
+        "ontime_precision": 0.1125,
+        "ontime_recall": 0.9816,
+        "accuracy": 0.1631
+      }
+    ]
+  }
+}

@@ -1,0 +1,1829 @@
+{
+  "classification": {
+    "dummy_classifier": {
+      "model_name": "DummyClassifier (prior baseline)",
+      "train_time_sec": 0.0063,
+      "num_input_features": 135,
+      "validation": {
+        "pr_auc": 0.8922,
+        "roc_auc": 0.5,
+        "precision": 0.8922,
+        "recall_breached_class1": 1.0,
+        "recall_ontime_class0": 0.0,
+        "f1_breached": 0.943,
+        "accuracy": 0.8922,
+        "brier_score": 0.0962,
+        "confusion_matrix": [
+          [
+            0,
+            1410
+          ],
+          [
+            0,
+            11672
+          ]
+        ],
+        "prob_distribution": {
+          "mean": 0.897780125298942,
+          "std": 1.1102230246251565e-16,
+          "min": 0.8977801252989421,
+          "p25": 0.8977801252989421,
+          "median": 0.8977801252989421,
+          "p75": 0.8977801252989421,
+          "max": 0.8977801252989421
+        }
+      },
+      "test": {
+        "pr_auc": 0.8964,
+        "roc_auc": 0.5,
+        "precision": 0.8964,
+        "recall_breached_class1": 1.0,
+        "recall_ontime_class0": 0.0,
+        "f1_breached": 0.9453,
+        "accuracy": 0.8964,
+        "brier_score": 0.0929,
+        "confusion_matrix": [
+          [
+            0,
+            1680
+          ],
+          [
+            0,
+            14530
+          ]
+        ],
+        "prob_distribution": {
+          "mean": 0.897780125298942,
+          "std": 1.1102230246251565e-16,
+          "min": 0.8977801252989421,
+          "p25": 0.8977801252989421,
+          "median": 0.8977801252989421,
+          "p75": 0.8977801252989421,
+          "max": 0.8977801252989421
+        }
+      }
+    },
+    "logistic_regression": {
+      "model_name": "LogisticRegression",
+      "train_time_sec": 0.8426,
+      "num_input_features": 135,
+      "validation": {
+        "pr_auc": 0.9254,
+        "roc_auc": 0.6066,
+        "precision": 0.8922,
+        "recall_breached_class1": 1.0,
+        "recall_ontime_class0": 0.0,
+        "f1_breached": 0.943,
+        "accuracy": 0.8922,
+        "brier_score": 0.0951,
+        "confusion_matrix": [
+          [
+            0,
+            1410
+          ],
+          [
+            0,
+            11672
+          ]
+        ],
+        "prob_distribution": {
+          "mean": 0.8977040382151169,
+          "std": 0.04341932058420857,
+          "min": 0.69490750954136,
+          "p25": 0.8714778817978328,
+          "median": 0.9026455045695836,
+          "p75": 0.9300868204608679,
+          "max": 0.9895189487881042
+        }
+      },
+      "test": {
+        "pr_auc": 0.9289,
+        "roc_auc": 0.6107,
+        "precision": 0.8964,
+        "recall_breached_class1": 1.0,
+        "recall_ontime_class0": 0.0,
+        "f1_breached": 0.9453,
+        "accuracy": 0.8964,
+        "brier_score": 0.0917,
+        "confusion_matrix": [
+          [
+            0,
+            1680
+          ],
+          [
+            0,
+            14530
+          ]
+        ],
+        "prob_distribution": {
+          "mean": 0.8974991048752639,
+          "std": 0.04321287538203728,
+          "min": 0.7121838643991857,
+          "p25": 0.8703713397439798,
+          "median": 0.9031988050620867,
+          "p75": 0.9297004787797085,
+          "max": 0.9916719821667227
+        }
+      }
+    },
+    "lightgbm_classifier": {
+      "model_name": "LightGBMClassifier",
+      "train_time_sec": 0.6865,
+      "num_input_features": 7,
+      "validation": {
+        "pr_auc": 0.9252,
+        "roc_auc": 0.5971,
+        "precision": 0.8922,
+        "recall_breached_class1": 1.0,
+        "recall_ontime_class0": 0.0,
+        "f1_breached": 0.943,
+        "accuracy": 0.8922,
+        "brier_score": 0.0957,
+        "confusion_matrix": [
+          [
+            0,
+            1410
+          ],
+          [
+            0,
+            11672
+          ]
+        ],
+        "prob_distribution": {
+          "mean": 0.8981074639801769,
+          "std": 0.05338724684346269,
+          "min": 0.5892673157863674,
+          "p25": 0.8637849287645107,
+          "median": 0.8993771354182237,
+          "p75": 0.9368617511973913,
+          "max": 0.9990501987267529
+        }
+      },
+      "test": {
+        "pr_auc": 0.9288,
+        "roc_auc": 0.6008,
+        "precision": 0.8964,
+        "recall_breached_class1": 0.9999,
+        "recall_ontime_class0": 0.0,
+        "f1_breached": 0.9453,
+        "accuracy": 0.8963,
+        "brier_score": 0.0923,
+        "confusion_matrix": [
+          [
+            0,
+            1680
+          ],
+          [
+            1,
+            14529
+          ]
+        ],
+        "prob_distribution": {
+          "mean": 0.8979874845783834,
+          "std": 0.05268078479812809,
+          "min": 0.3401328278667342,
+          "p25": 0.8638780066471745,
+          "median": 0.8993727152723745,
+          "p75": 0.9358366232662294,
+          "max": 0.999168945488382
+        }
+      }
+    }
+  },
+  "regression": {
+    "dummy_regressor": {
+      "model_name": "DummyRegressor (mean baseline)",
+      "train_time_sec": 0.0008,
+      "num_input_features": 135,
+      "validation": {
+        "mae": 4.0471,
+        "rmse": 5.0163,
+        "r2": -0.0,
+        "pred_mean": 6.437,
+        "pred_std": 0.0,
+        "actual_mean": 6.4076,
+        "actual_std": 5.0162
+      },
+      "test": {
+        "mae": 3.9905,
+        "rmse": 4.9812,
+        "r2": -0.0,
+        "pred_mean": 6.437,
+        "pred_std": 0.0,
+        "actual_mean": 6.4124,
+        "actual_std": 4.9811
+      }
+    },
+    "ridge_regression": {
+      "model_name": "Ridge",
+      "train_time_sec": 0.1981,
+      "num_input_features": 135,
+      "validation": {
+        "mae": 3.8931,
+        "rmse": 4.8473,
+        "r2": 0.0662,
+        "pred_mean": 6.4459,
+        "pred_std": 1.3381,
+        "actual_mean": 6.4076,
+        "actual_std": 5.0162
+      },
+      "test": {
+        "mae": 3.8559,
+        "rmse": 4.8241,
+        "r2": 0.0621,
+        "pred_mean": 6.4393,
+        "pred_std": 1.3252,
+        "actual_mean": 6.4124,
+        "actual_std": 4.9811
+      }
+    },
+    "lightgbm_regressor": {
+      "model_name": "LightGBMRegressor",
+      "train_time_sec": 0.5706,
+      "num_input_features": 7,
+      "validation": {
+        "mae": 3.8561,
+        "rmse": 4.8086,
+        "r2": 0.0811,
+        "pred_mean": 6.4362,
+        "pred_std": 1.6375,
+        "actual_mean": 6.4076,
+        "actual_std": 5.0162
+      },
+      "test": {
+        "mae": 3.806,
+        "rmse": 4.7603,
+        "r2": 0.0867,
+        "pred_mean": 6.4172,
+        "pred_std": 1.6081,
+        "actual_mean": 6.4124,
+        "actual_std": 4.9811
+      }
+    }
+  },
+  "diagnostics": {
+    "logistic_regression_coefficients": [
+      {
+        "feature": "num__item_count",
+        "coefficient": 0.4465658903794256,
+        "odds_ratio": 1.5629356665873793,
+        "abs_coefficient": 0.4465658903794256
+      },
+      {
+        "feature": "cat__store_id_ST012",
+        "coefficient": 0.4379845709230648,
+        "odds_ratio": 1.5495809986306188,
+        "abs_coefficient": 0.4379845709230648
+      },
+      {
+        "feature": "cat__store_id_ST098",
+        "coefficient": 0.34941977951499625,
+        "odds_ratio": 1.4182444153544356,
+        "abs_coefficient": 0.34941977951499625
+      },
+      {
+        "feature": "cat__store_id_ST080",
+        "coefficient": 0.30565181279089926,
+        "odds_ratio": 1.3575095567860536,
+        "abs_coefficient": 0.30565181279089926
+      },
+      {
+        "feature": "cat__day_of_week_Wednesday",
+        "coefficient": 0.2987315148821709,
+        "odds_ratio": 1.3481476173065676,
+        "abs_coefficient": 0.2987315148821709
+      },
+      {
+        "feature": "bin__is_peak_rush_hour",
+        "coefficient": 0.2937094577063241,
+        "odds_ratio": 1.3413941153217246,
+        "abs_coefficient": 0.2937094577063241
+      },
+      {
+        "feature": "cat__store_id_ST070",
+        "coefficient": -0.2907260680090566,
+        "odds_ratio": 0.7477204745249088,
+        "abs_coefficient": 0.2907260680090566
+      },
+      {
+        "feature": "cat__store_id_ST084",
+        "coefficient": 0.29033138979623835,
+        "odds_ratio": 1.3368704398492197,
+        "abs_coefficient": 0.29033138979623835
+      },
+      {
+        "feature": "cat__day_of_week_Thursday",
+        "coefficient": 0.2820263999526028,
+        "odds_ratio": 1.3258137209441712,
+        "abs_coefficient": 0.2820263999526028
+      },
+      {
+        "feature": "cat__store_id_ST029",
+        "coefficient": -0.28160087875059303,
+        "odds_ratio": 0.7545747912735067,
+        "abs_coefficient": 0.28160087875059303
+      },
+      {
+        "feature": "cat__store_id_ST050",
+        "coefficient": -0.2786292828967865,
+        "odds_ratio": 0.7568204174889396,
+        "abs_coefficient": 0.2786292828967865
+      },
+      {
+        "feature": "cat__store_id_ST081",
+        "coefficient": -0.27187447766787837,
+        "odds_ratio": 0.7619498968155104,
+        "abs_coefficient": 0.27187447766787837
+      },
+      {
+        "feature": "cat__day_of_week_Saturday",
+        "coefficient": 0.26548706468605415,
+        "odds_ratio": 1.304065985610258,
+        "abs_coefficient": 0.26548706468605415
+      },
+      {
+        "feature": "cat__day_of_week_Monday",
+        "coefficient": 0.263737127329442,
+        "odds_ratio": 1.3017859473704396,
+        "abs_coefficient": 0.263737127329442
+      },
+      {
+        "feature": "cat__store_id_ST035",
+        "coefficient": -0.2523897367458366,
+        "odds_ratio": 0.7769418762560348,
+        "abs_coefficient": 0.2523897367458366
+      },
+      {
+        "feature": "cat__store_id_ST007",
+        "coefficient": 0.24922884729144942,
+        "odds_ratio": 1.2830356187015648,
+        "abs_coefficient": 0.24922884729144942
+      },
+      {
+        "feature": "cat__day_of_week_Friday",
+        "coefficient": 0.24674058448721325,
+        "odds_ratio": 1.2798470575292733,
+        "abs_coefficient": 0.24674058448721325
+      },
+      {
+        "feature": "cat__store_id_ST020",
+        "coefficient": 0.24552847808459813,
+        "odds_ratio": 1.2782966865136085,
+        "abs_coefficient": 0.24552847808459813
+      },
+      {
+        "feature": "cat__store_id_ST039",
+        "coefficient": 0.24008606065437194,
+        "odds_ratio": 1.271358559562999,
+        "abs_coefficient": 0.24008606065437194
+      },
+      {
+        "feature": "cat__day_of_week_Sunday",
+        "coefficient": 0.23486419139433812,
+        "odds_ratio": 1.2647369949011669,
+        "abs_coefficient": 0.23486419139433812
+      },
+      {
+        "feature": "cat__store_id_ST013",
+        "coefficient": -0.23460591820054907,
+        "odds_ratio": 0.7908824606078256,
+        "abs_coefficient": 0.23460591820054907
+      },
+      {
+        "feature": "cat__store_id_ST006",
+        "coefficient": 0.23371315510878202,
+        "odds_ratio": 1.263282074222231,
+        "abs_coefficient": 0.23371315510878202
+      },
+      {
+        "feature": "cat__store_id_ST042",
+        "coefficient": 0.22793624503113843,
+        "odds_ratio": 1.2560052463042821,
+        "abs_coefficient": 0.22793624503113843
+      },
+      {
+        "feature": "cat__store_id_ST082",
+        "coefficient": -0.22329510686149762,
+        "odds_ratio": 0.7998787647493392,
+        "abs_coefficient": 0.22329510686149762
+      },
+      {
+        "feature": "cat__store_id_ST063",
+        "coefficient": -0.22285421759692658,
+        "odds_ratio": 0.8002315004626562,
+        "abs_coefficient": 0.22285421759692658
+      },
+      {
+        "feature": "cat__store_id_ST058",
+        "coefficient": -0.22264840971272157,
+        "odds_ratio": 0.8003962113634603,
+        "abs_coefficient": 0.22264840971272157
+      },
+      {
+        "feature": "cat__day_of_week_Tuesday",
+        "coefficient": 0.21401983102218697,
+        "odds_ratio": 1.2386472181903585,
+        "abs_coefficient": 0.21401983102218697
+      },
+      {
+        "feature": "cat__store_id_ST022",
+        "coefficient": -0.21131684467053571,
+        "odds_ratio": 0.8095175349263845,
+        "abs_coefficient": 0.21131684467053571
+      },
+      {
+        "feature": "cat__store_id_ST092",
+        "coefficient": -0.2077664006952684,
+        "odds_ratio": 0.8123967898732535,
+        "abs_coefficient": 0.2077664006952684
+      },
+      {
+        "feature": "cat__store_id_ST079",
+        "coefficient": 0.2073686285455989,
+        "odds_ratio": 1.2304360620468935,
+        "abs_coefficient": 0.2073686285455989
+      },
+      {
+        "feature": "cat__store_id_ST071",
+        "coefficient": -0.2055548313340047,
+        "odds_ratio": 0.8141954499205424,
+        "abs_coefficient": 0.2055548313340047
+      },
+      {
+        "feature": "cat__store_id_ST076",
+        "coefficient": 0.20412931110163507,
+        "odds_ratio": 1.2264567376744961,
+        "abs_coefficient": 0.20412931110163507
+      },
+      {
+        "feature": "cat__store_id_ST019",
+        "coefficient": 0.19953740620134108,
+        "odds_ratio": 1.2208378754842648,
+        "abs_coefficient": 0.19953740620134108
+      },
+      {
+        "feature": "cat__store_id_ST053",
+        "coefficient": 0.19856374633861734,
+        "odds_ratio": 1.2196497731436553,
+        "abs_coefficient": 0.19856374633861734
+      },
+      {
+        "feature": "cat__store_id_ST054",
+        "coefficient": -0.1968611627740879,
+        "odds_ratio": 0.8213046530570414,
+        "abs_coefficient": 0.1968611627740879
+      },
+      {
+        "feature": "cat__store_id_ST045",
+        "coefficient": 0.19647273307713647,
+        "odds_ratio": 1.217102133795742,
+        "abs_coefficient": 0.19647273307713647
+      },
+      {
+        "feature": "cat__store_id_ST097",
+        "coefficient": -0.19630095720806123,
+        "odds_ratio": 0.8217648813942895,
+        "abs_coefficient": 0.19630095720806123
+      },
+      {
+        "feature": "cat__store_id_ST024",
+        "coefficient": 0.19562728193627385,
+        "odds_ratio": 1.2160735682703936,
+        "abs_coefficient": 0.19562728193627385
+      },
+      {
+        "feature": "cat__store_id_ST043",
+        "coefficient": -0.19108277123465225,
+        "odds_ratio": 0.8260642109667572,
+        "abs_coefficient": 0.19108277123465225
+      },
+      {
+        "feature": "cat__store_id_ST030",
+        "coefficient": 0.1855829295417474,
+        "odds_ratio": 1.2039200361722842,
+        "abs_coefficient": 0.1855829295417474
+      },
+      {
+        "feature": "cat__store_id_ST096",
+        "coefficient": -0.18483045572608536,
+        "odds_ratio": 0.8312452047703085,
+        "abs_coefficient": 0.18483045572608536
+      },
+      {
+        "feature": "cat__order_hour_21",
+        "coefficient": 0.17961211491442478,
+        "odds_ratio": 1.196753070414393,
+        "abs_coefficient": 0.17961211491442478
+      },
+      {
+        "feature": "cat__store_id_ST032",
+        "coefficient": 0.17792551758310896,
+        "odds_ratio": 1.1947363310712549,
+        "abs_coefficient": 0.17792551758310896
+      },
+      {
+        "feature": "cat__order_hour_1",
+        "coefficient": 0.16575532137332008,
+        "odds_ratio": 1.180284276054226,
+        "abs_coefficient": 0.16575532137332008
+      },
+      {
+        "feature": "cat__store_id_ST066",
+        "coefficient": -0.1573850944451116,
+        "odds_ratio": 0.8543749803996222,
+        "abs_coefficient": 0.1573850944451116
+      },
+      {
+        "feature": "cat__store_id_ST049",
+        "coefficient": -0.15644423022289505,
+        "odds_ratio": 0.8551792095269164,
+        "abs_coefficient": 0.15644423022289505
+      },
+      {
+        "feature": "cat__order_hour_15",
+        "coefficient": 0.15465038748937046,
+        "odds_ratio": 1.1672498046262496,
+        "abs_coefficient": 0.15465038748937046
+      },
+      {
+        "feature": "cat__store_id_ST009",
+        "coefficient": 0.15021871089764788,
+        "odds_ratio": 1.1620883763283092,
+        "abs_coefficient": 0.15021871089764788
+      },
+      {
+        "feature": "cat__store_id_ST052",
+        "coefficient": 0.14651215360054398,
+        "odds_ratio": 1.1577890020379933,
+        "abs_coefficient": 0.14651215360054398
+      },
+      {
+        "feature": "cat__store_id_ST056",
+        "coefficient": 0.1456325638343719,
+        "odds_ratio": 1.156771070427157,
+        "abs_coefficient": 0.1456325638343719
+      },
+      {
+        "feature": "cat__store_id_ST055",
+        "coefficient": 0.14326812499002065,
+        "odds_ratio": 1.1540391869326758,
+        "abs_coefficient": 0.14326812499002065
+      },
+      {
+        "feature": "cat__store_id_ST023",
+        "coefficient": 0.14214359543769578,
+        "odds_ratio": 1.1527421651687617,
+        "abs_coefficient": 0.14214359543769578
+      },
+      {
+        "feature": "cat__store_id_ST077",
+        "coefficient": 0.13205284259972044,
+        "odds_ratio": 1.1411686199905973,
+        "abs_coefficient": 0.13205284259972044
+      },
+      {
+        "feature": "cat__order_hour_6",
+        "coefficient": 0.13067618782579135,
+        "odds_ratio": 1.1395987056250212,
+        "abs_coefficient": 0.13067618782579135
+      },
+      {
+        "feature": "cat__store_id_ST078",
+        "coefficient": 0.12954094329620267,
+        "odds_ratio": 1.1383057164968162,
+        "abs_coefficient": 0.12954094329620267
+      },
+      {
+        "feature": "cat__order_hour_13",
+        "coefficient": 0.1289387900524783,
+        "odds_ratio": 1.1376204883441596,
+        "abs_coefficient": 0.1289387900524783
+      },
+      {
+        "feature": "cat__store_id_ST037",
+        "coefficient": 0.12410235917104727,
+        "odds_ratio": 1.132131749135837,
+        "abs_coefficient": 0.12410235917104727
+      },
+      {
+        "feature": "cat__store_id_ST017",
+        "coefficient": 0.11537508400759096,
+        "odds_ratio": 1.1222943132838528,
+        "abs_coefficient": 0.11537508400759096
+      },
+      {
+        "feature": "cat__store_id_ST008",
+        "coefficient": 0.11211243723928409,
+        "odds_ratio": 1.1186386302136588,
+        "abs_coefficient": 0.11211243723928409
+      },
+      {
+        "feature": "cat__store_id_ST044",
+        "coefficient": -0.11060151384005318,
+        "odds_ratio": 0.895295440698126,
+        "abs_coefficient": 0.11060151384005318
+      },
+      {
+        "feature": "cat__store_id_ST062",
+        "coefficient": -0.10947810749738636,
+        "odds_ratio": 0.8963017864365223,
+        "abs_coefficient": 0.10947810749738636
+      },
+      {
+        "feature": "cat__store_id_ST048",
+        "coefficient": -0.1046074192869638,
+        "odds_ratio": 0.9006780420172213,
+        "abs_coefficient": 0.1046074192869638
+      },
+      {
+        "feature": "cat__order_hour_22",
+        "coefficient": 0.10362362111124106,
+        "odds_ratio": 1.1091829033131282,
+        "abs_coefficient": 0.10362362111124106
+      },
+      {
+        "feature": "cat__store_id_ST038",
+        "coefficient": 0.10352903237054016,
+        "odds_ratio": 1.1090779920608869,
+        "abs_coefficient": 0.10352903237054016
+      },
+      {
+        "feature": "cat__order_hour_2",
+        "coefficient": 0.1016168487317091,
+        "odds_ratio": 1.1069592576205327,
+        "abs_coefficient": 0.1016168487317091
+      },
+      {
+        "feature": "cat__store_id_ST011",
+        "coefficient": -0.09824130051933408,
+        "odds_ratio": 0.9064301552957111,
+        "abs_coefficient": 0.09824130051933408
+      },
+      {
+        "feature": "cat__store_id_ST073",
+        "coefficient": 0.09616372619401266,
+        "odds_ratio": 1.1009393018404772,
+        "abs_coefficient": 0.09616372619401266
+      },
+      {
+        "feature": "cat__order_hour_8",
+        "coefficient": 0.09259957892242901,
+        "odds_ratio": 1.0970223764275937,
+        "abs_coefficient": 0.09259957892242901
+      },
+      {
+        "feature": "cat__store_id_ST047",
+        "coefficient": -0.09095063659585059,
+        "odds_ratio": 0.9130627816739387,
+        "abs_coefficient": 0.09095063659585059
+      },
+      {
+        "feature": "cat__store_id_ST090",
+        "coefficient": 0.08658734988557591,
+        "odds_ratio": 1.0904466139448001,
+        "abs_coefficient": 0.08658734988557591
+      },
+      {
+        "feature": "cat__order_hour_19",
+        "coefficient": 0.08493121376956288,
+        "odds_ratio": 1.088642180530966,
+        "abs_coefficient": 0.08493121376956288
+      },
+      {
+        "feature": "cat__store_id_ST051",
+        "coefficient": 0.08376975864987182,
+        "odds_ratio": 1.0873785054898557,
+        "abs_coefficient": 0.08376975864987182
+      },
+      {
+        "feature": "cat__store_id_ST093",
+        "coefficient": 0.08350181451459336,
+        "odds_ratio": 1.0870871878266544,
+        "abs_coefficient": 0.08350181451459336
+      },
+      {
+        "feature": "cat__store_id_ST033",
+        "coefficient": -0.0831412039515692,
+        "odds_ratio": 0.9202211991761106,
+        "abs_coefficient": 0.0831412039515692
+      },
+      {
+        "feature": "cat__order_hour_4",
+        "coefficient": 0.0827326747825899,
+        "odds_ratio": 1.0862513873432282,
+        "abs_coefficient": 0.0827326747825899
+      },
+      {
+        "feature": "cat__order_hour_11",
+        "coefficient": 0.08135321898152428,
+        "odds_ratio": 1.0847539846034404,
+        "abs_coefficient": 0.08135321898152428
+      },
+      {
+        "feature": "cat__store_id_ST060",
+        "coefficient": -0.07905753323034474,
+        "odds_ratio": 0.9239867629725562,
+        "abs_coefficient": 0.07905753323034474
+      },
+      {
+        "feature": "cat__store_id_ST046",
+        "coefficient": 0.07878001432566985,
+        "odds_ratio": 1.081966278806775,
+        "abs_coefficient": 0.07878001432566985
+      },
+      {
+        "feature": "cat__store_id_ST085",
+        "coefficient": -0.07858616500831435,
+        "odds_ratio": 0.9244224036357145,
+        "abs_coefficient": 0.07858616500831435
+      },
+      {
+        "feature": "cat__store_id_ST001",
+        "coefficient": 0.07722972703844183,
+        "odds_ratio": 1.080290219761732,
+        "abs_coefficient": 0.07722972703844183
+      },
+      {
+        "feature": "cat__store_id_ST088",
+        "coefficient": -0.07555649031082777,
+        "odds_ratio": 0.9272273496933156,
+        "abs_coefficient": 0.07555649031082777
+      },
+      {
+        "feature": "cat__order_hour_3",
+        "coefficient": 0.0752542151517075,
+        "odds_ratio": 1.07815820019984,
+        "abs_coefficient": 0.0752542151517075
+      },
+      {
+        "feature": "cat__store_id_ST069",
+        "coefficient": 0.07262162115634961,
+        "odds_ratio": 1.0753235802348207,
+        "abs_coefficient": 0.07262162115634961
+      },
+      {
+        "feature": "cat__store_id_ST041",
+        "coefficient": -0.0695400985705111,
+        "odds_ratio": 0.9328227277766812,
+        "abs_coefficient": 0.0695400985705111
+      },
+      {
+        "feature": "cat__store_id_ST100",
+        "coefficient": 0.06778430665358447,
+        "odds_ratio": 1.0701344627003457,
+        "abs_coefficient": 0.06778430665358447
+      },
+      {
+        "feature": "num__promised_duration_minutes",
+        "coefficient": 0.06773513642397472,
+        "odds_ratio": 1.0700818452367185,
+        "abs_coefficient": 0.06773513642397472
+      },
+      {
+        "feature": "cat__store_id_ST094",
+        "coefficient": 0.06599545169022364,
+        "odds_ratio": 1.0682218585510215,
+        "abs_coefficient": 0.06599545169022364
+      },
+      {
+        "feature": "cat__order_hour_10",
+        "coefficient": 0.06440294484341678,
+        "odds_ratio": 1.0665220617556224,
+        "abs_coefficient": 0.06440294484341678
+      },
+      {
+        "feature": "cat__order_hour_0",
+        "coefficient": 0.06344507346867836,
+        "odds_ratio": 1.0655009599223213,
+        "abs_coefficient": 0.06344507346867836
+      },
+      {
+        "feature": "cat__order_hour_14",
+        "coefficient": 0.057278150510839,
+        "odds_ratio": 1.0589503170066477,
+        "abs_coefficient": 0.057278150510839
+      },
+      {
+        "feature": "cat__store_id_ST004",
+        "coefficient": 0.05709601578028014,
+        "odds_ratio": 1.0587574629392293,
+        "abs_coefficient": 0.05709601578028014
+      },
+      {
+        "feature": "cat__store_id_ST002",
+        "coefficient": -0.05689549000746615,
+        "odds_ratio": 0.9446927940444282,
+        "abs_coefficient": 0.05689549000746615
+      },
+      {
+        "feature": "cat__order_hour_23",
+        "coefficient": 0.05547696680986069,
+        "odds_ratio": 1.0570446696811624,
+        "abs_coefficient": 0.05547696680986069
+      },
+      {
+        "feature": "cat__store_id_ST064",
+        "coefficient": 0.05485617906958614,
+        "odds_ratio": 1.0563886729477339,
+        "abs_coefficient": 0.05485617906958614
+      },
+      {
+        "feature": "cat__store_id_ST014",
+        "coefficient": 0.05332661220865418,
+        "odds_ratio": 1.0547740909616654,
+        "abs_coefficient": 0.05332661220865418
+      },
+      {
+        "feature": "cat__store_id_ST099",
+        "coefficient": -0.052262296386666,
+        "odds_ratio": 0.9490798939651295,
+        "abs_coefficient": 0.052262296386666
+      },
+      {
+        "feature": "num__order_value",
+        "coefficient": -0.05029284666346209,
+        "odds_ratio": 0.9509509009219029,
+        "abs_coefficient": 0.05029284666346209
+      },
+      {
+        "feature": "cat__store_id_ST034",
+        "coefficient": -0.04746176180078667,
+        "odds_ratio": 0.9536469381770443,
+        "abs_coefficient": 0.04746176180078667
+      },
+      {
+        "feature": "cat__order_hour_12",
+        "coefficient": 0.04739431161697859,
+        "odds_ratio": 1.0485353772564279,
+        "abs_coefficient": 0.04739431161697859
+      },
+      {
+        "feature": "cat__store_id_ST010",
+        "coefficient": 0.04664494493523006,
+        "odds_ratio": 1.0477499341092953,
+        "abs_coefficient": 0.04664494493523006
+      },
+      {
+        "feature": "cat__store_id_ST061",
+        "coefficient": -0.04404614739048653,
+        "odds_ratio": 0.9569097975640336,
+        "abs_coefficient": 0.04404614739048653
+      },
+      {
+        "feature": "cat__store_id_ST040",
+        "coefficient": 0.04347707308870541,
+        "odds_ratio": 1.0444360483448905,
+        "abs_coefficient": 0.04347707308870541
+      },
+      {
+        "feature": "cat__order_hour_7",
+        "coefficient": 0.042086173202664855,
+        "odds_ratio": 1.0429843521803237,
+        "abs_coefficient": 0.042086173202664855
+      },
+      {
+        "feature": "cat__store_id_ST028",
+        "coefficient": 0.040945659899065276,
+        "odds_ratio": 1.041795492735092,
+        "abs_coefficient": 0.040945659899065276
+      },
+      {
+        "feature": "cat__store_id_ST025",
+        "coefficient": 0.04031535078372566,
+        "odds_ratio": 1.0411390464434753,
+        "abs_coefficient": 0.04031535078372566
+      },
+      {
+        "feature": "cat__store_id_ST089",
+        "coefficient": -0.039412181419026776,
+        "odds_ratio": 0.9613543750607049,
+        "abs_coefficient": 0.039412181419026776
+      },
+      {
+        "feature": "cat__order_hour_17",
+        "coefficient": 0.03855525213835031,
+        "odds_ratio": 1.039308150769349,
+        "abs_coefficient": 0.03855525213835031
+      },
+      {
+        "feature": "cat__order_hour_5",
+        "coefficient": 0.03801454008213629,
+        "odds_ratio": 1.038746336225743,
+        "abs_coefficient": 0.03801454008213629
+      },
+      {
+        "feature": "cat__store_id_ST065",
+        "coefficient": 0.03746708665686397,
+        "odds_ratio": 1.0381778266164523,
+        "abs_coefficient": 0.03746708665686397
+      },
+      {
+        "feature": "cat__store_id_ST072",
+        "coefficient": 0.036866913553851695,
+        "odds_ratio": 1.0375549271512237,
+        "abs_coefficient": 0.036866913553851695
+      },
+      {
+        "feature": "cat__store_id_ST086",
+        "coefficient": 0.03618875758859943,
+        "odds_ratio": 1.0368515416176038,
+        "abs_coefficient": 0.03618875758859943
+      },
+      {
+        "feature": "cat__store_id_ST083",
+        "coefficient": 0.036117571652011654,
+        "odds_ratio": 1.0367777349965392,
+        "abs_coefficient": 0.036117571652011654
+      },
+      {
+        "feature": "cat__order_hour_9",
+        "coefficient": 0.03579967978559724,
+        "odds_ratio": 1.0364482041676646,
+        "abs_coefficient": 0.03579967978559724
+      },
+      {
+        "feature": "cat__store_id_ST036",
+        "coefficient": 0.03486781180307562,
+        "odds_ratio": 1.0354828211452831,
+        "abs_coefficient": 0.03486781180307562
+      },
+      {
+        "feature": "cat__store_id_ST067",
+        "coefficient": 0.033527299962572185,
+        "odds_ratio": 1.0340956741141318,
+        "abs_coefficient": 0.033527299962572185
+      },
+      {
+        "feature": "cat__store_id_ST027",
+        "coefficient": 0.03291453011319885,
+        "odds_ratio": 1.0334622055687015,
+        "abs_coefficient": 0.03291453011319885
+      },
+      {
+        "feature": "cat__store_id_ST087",
+        "coefficient": -0.032620898335447256,
+        "odds_ratio": 0.967905424602666,
+        "abs_coefficient": 0.032620898335447256
+      },
+      {
+        "feature": "cat__store_id_ST068",
+        "coefficient": -0.03225757227246207,
+        "odds_ratio": 0.9682571537622452,
+        "abs_coefficient": 0.03225757227246207
+      },
+      {
+        "feature": "cat__store_id_ST021",
+        "coefficient": 0.029913955229994314,
+        "odds_ratio": 1.0303658725446214,
+        "abs_coefficient": 0.029913955229994314
+      },
+      {
+        "feature": "cat__store_id_ST018",
+        "coefficient": 0.02646781628407773,
+        "odds_ratio": 1.0268211998080925,
+        "abs_coefficient": 0.02646781628407773
+      },
+      {
+        "feature": "cat__store_id_ST016",
+        "coefficient": -0.022566581801622576,
+        "odds_ratio": 0.9776861389216295,
+        "abs_coefficient": 0.022566581801622576
+      },
+      {
+        "feature": "cat__store_id_ST031",
+        "coefficient": 0.02244572008638812,
+        "odds_ratio": 1.0226995206161944,
+        "abs_coefficient": 0.02244572008638812
+      },
+      {
+        "feature": "cat__store_id_ST005",
+        "coefficient": 0.016263199481203368,
+        "odds_ratio": 1.01639616514765,
+        "abs_coefficient": 0.016263199481203368
+      },
+      {
+        "feature": "cat__store_id_ST095",
+        "coefficient": 0.014638258337365559,
+        "odds_ratio": 1.0147459223372957,
+        "abs_coefficient": 0.014638258337365559
+      },
+      {
+        "feature": "cat__store_id_ST074",
+        "coefficient": 0.014516675471806073,
+        "odds_ratio": 1.0146225541201257,
+        "abs_coefficient": 0.014516675471806073
+      },
+      {
+        "feature": "cat__order_hour_20",
+        "coefficient": -0.012779165419197724,
+        "odds_ratio": 0.9873021414022494,
+        "abs_coefficient": 0.012779165419197724
+      },
+      {
+        "feature": "cat__store_id_ST059",
+        "coefficient": 0.011903100268661634,
+        "odds_ratio": 1.0119742240844938,
+        "abs_coefficient": 0.011903100268661634
+      },
+      {
+        "feature": "cat__store_id_ST057",
+        "coefficient": 0.01052700023475157,
+        "odds_ratio": 1.010582604044211,
+        "abs_coefficient": 0.01052700023475157
+      },
+      {
+        "feature": "cat__order_hour_16",
+        "coefficient": -0.009201428694644772,
+        "odds_ratio": 0.9908407749066952,
+        "abs_coefficient": 0.009201428694644772
+      },
+      {
+        "feature": "cat__store_id_ST091",
+        "coefficient": -0.007932500232101694,
+        "odds_ratio": 0.9920988790210679,
+        "abs_coefficient": 0.007932500232101694
+      },
+      {
+        "feature": "cat__store_id_ST075",
+        "coefficient": -0.006789403234424544,
+        "odds_ratio": 0.9932335926914125,
+        "abs_coefficient": 0.006789403234424544
+      },
+      {
+        "feature": "cat__store_id_ST015",
+        "coefficient": -0.006779716972799469,
+        "odds_ratio": 0.9932432134584407,
+        "abs_coefficient": 0.006779716972799469
+      },
+      {
+        "feature": "cat__store_id_ST003",
+        "coefficient": 0.004968692288417803,
+        "odds_ratio": 1.0049810567097994,
+        "abs_coefficient": 0.004968692288417803
+      },
+      {
+        "feature": "cat__order_hour_18",
+        "coefficient": 0.003390042303198257,
+        "odds_ratio": 1.0033957949953933,
+        "abs_coefficient": 0.003390042303198257
+      },
+      {
+        "feature": "cat__store_id_ST026",
+        "coefficient": 0.0022928413189507077,
+        "odds_ratio": 1.0022954718897172,
+        "abs_coefficient": 0.0022928413189507077
+      }
+    ],
+    "ridge_coefficients": [
+      {
+        "feature": "cat__store_id_ST012",
+        "coefficient": 1.1769319992455192,
+        "abs_coefficient": 1.1769319992455192
+      },
+      {
+        "feature": "num__item_count",
+        "coefficient": 1.167371678724463,
+        "abs_coefficient": 1.167371678724463
+      },
+      {
+        "feature": "cat__store_id_ST001",
+        "coefficient": 1.0614339074704942,
+        "abs_coefficient": 1.0614339074704942
+      },
+      {
+        "feature": "bin__is_peak_rush_hour",
+        "coefficient": 1.0198081651518913,
+        "abs_coefficient": 1.0198081651518913
+      },
+      {
+        "feature": "cat__store_id_ST019",
+        "coefficient": 1.0192967199243113,
+        "abs_coefficient": 1.0192967199243113
+      },
+      {
+        "feature": "cat__store_id_ST053",
+        "coefficient": 1.0014321752234192,
+        "abs_coefficient": 1.0014321752234192
+      },
+      {
+        "feature": "cat__store_id_ST073",
+        "coefficient": 0.9386697662060915,
+        "abs_coefficient": 0.9386697662060915
+      },
+      {
+        "feature": "cat__store_id_ST046",
+        "coefficient": 0.9354675903434342,
+        "abs_coefficient": 0.9354675903434342
+      },
+      {
+        "feature": "cat__store_id_ST064",
+        "coefficient": 0.9023024903354112,
+        "abs_coefficient": 0.9023024903354112
+      },
+      {
+        "feature": "cat__store_id_ST014",
+        "coefficient": 0.8832575510759072,
+        "abs_coefficient": 0.8832575510759072
+      },
+      {
+        "feature": "cat__store_id_ST023",
+        "coefficient": 0.8689021233627706,
+        "abs_coefficient": 0.8689021233627706
+      },
+      {
+        "feature": "cat__store_id_ST100",
+        "coefficient": 0.8468079593255798,
+        "abs_coefficient": 0.8468079593255798
+      },
+      {
+        "feature": "cat__store_id_ST056",
+        "coefficient": 0.8322256239881073,
+        "abs_coefficient": 0.8322256239881073
+      },
+      {
+        "feature": "cat__store_id_ST021",
+        "coefficient": 0.8077645272966096,
+        "abs_coefficient": 0.8077645272966096
+      },
+      {
+        "feature": "cat__store_id_ST045",
+        "coefficient": 0.7994759950928501,
+        "abs_coefficient": 0.7994759950928501
+      },
+      {
+        "feature": "cat__store_id_ST083",
+        "coefficient": 0.7790151194902597,
+        "abs_coefficient": 0.7790151194902597
+      },
+      {
+        "feature": "cat__store_id_ST006",
+        "coefficient": 0.7660289961714771,
+        "abs_coefficient": 0.7660289961714771
+      },
+      {
+        "feature": "cat__store_id_ST003",
+        "coefficient": 0.7222681082763535,
+        "abs_coefficient": 0.7222681082763535
+      },
+      {
+        "feature": "cat__store_id_ST007",
+        "coefficient": 0.7150602992147407,
+        "abs_coefficient": 0.7150602992147407
+      },
+      {
+        "feature": "cat__store_id_ST050",
+        "coefficient": -0.7033003917257766,
+        "abs_coefficient": 0.7033003917257766
+      },
+      {
+        "feature": "cat__store_id_ST024",
+        "coefficient": 0.7019767784619976,
+        "abs_coefficient": 0.7019767784619976
+      },
+      {
+        "feature": "cat__store_id_ST008",
+        "coefficient": 0.6423957894517692,
+        "abs_coefficient": 0.6423957894517692
+      },
+      {
+        "feature": "cat__store_id_ST080",
+        "coefficient": 0.6331410537969306,
+        "abs_coefficient": 0.6331410537969306
+      },
+      {
+        "feature": "cat__store_id_ST032",
+        "coefficient": 0.6255929586567897,
+        "abs_coefficient": 0.6255929586567897
+      },
+      {
+        "feature": "cat__store_id_ST035",
+        "coefficient": -0.5758640749944393,
+        "abs_coefficient": 0.5758640749944393
+      },
+      {
+        "feature": "cat__store_id_ST070",
+        "coefficient": -0.5673128731914041,
+        "abs_coefficient": 0.5673128731914041
+      },
+      {
+        "feature": "cat__store_id_ST058",
+        "coefficient": -0.567303024752338,
+        "abs_coefficient": 0.567303024752338
+      },
+      {
+        "feature": "cat__store_id_ST062",
+        "coefficient": -0.5636685665268707,
+        "abs_coefficient": 0.5636685665268707
+      },
+      {
+        "feature": "cat__store_id_ST025",
+        "coefficient": 0.5549250757855007,
+        "abs_coefficient": 0.5549250757855007
+      },
+      {
+        "feature": "cat__store_id_ST022",
+        "coefficient": -0.5309899805713882,
+        "abs_coefficient": 0.5309899805713882
+      },
+      {
+        "feature": "cat__store_id_ST011",
+        "coefficient": -0.5220748951189124,
+        "abs_coefficient": 0.5220748951189124
+      },
+      {
+        "feature": "cat__store_id_ST096",
+        "coefficient": -0.5184141488246515,
+        "abs_coefficient": 0.5184141488246515
+      },
+      {
+        "feature": "cat__store_id_ST093",
+        "coefficient": -0.5179863766658539,
+        "abs_coefficient": 0.5179863766658539
+      },
+      {
+        "feature": "cat__store_id_ST033",
+        "coefficient": -0.5089757466161874,
+        "abs_coefficient": 0.5089757466161874
+      },
+      {
+        "feature": "cat__store_id_ST043",
+        "coefficient": -0.5065909764908184,
+        "abs_coefficient": 0.5065909764908184
+      },
+      {
+        "feature": "cat__store_id_ST081",
+        "coefficient": -0.49337116312952867,
+        "abs_coefficient": 0.49337116312952867
+      },
+      {
+        "feature": "cat__store_id_ST015",
+        "coefficient": -0.47926101892635353,
+        "abs_coefficient": 0.47926101892635353
+      },
+      {
+        "feature": "cat__store_id_ST091",
+        "coefficient": -0.46180674878867944,
+        "abs_coefficient": 0.46180674878867944
+      },
+      {
+        "feature": "cat__store_id_ST027",
+        "coefficient": -0.4505822896595036,
+        "abs_coefficient": 0.4505822896595036
+      },
+      {
+        "feature": "cat__store_id_ST029",
+        "coefficient": -0.42161390631013423,
+        "abs_coefficient": 0.42161390631013423
+      },
+      {
+        "feature": "cat__store_id_ST060",
+        "coefficient": -0.41786355599422387,
+        "abs_coefficient": 0.41786355599422387
+      },
+      {
+        "feature": "cat__store_id_ST086",
+        "coefficient": -0.39834933223004837,
+        "abs_coefficient": 0.39834933223004837
+      },
+      {
+        "feature": "cat__store_id_ST097",
+        "coefficient": -0.3903734493922184,
+        "abs_coefficient": 0.3903734493922184
+      },
+      {
+        "feature": "cat__store_id_ST063",
+        "coefficient": -0.389163182944534,
+        "abs_coefficient": 0.389163182944534
+      },
+      {
+        "feature": "cat__store_id_ST034",
+        "coefficient": -0.3848773597463199,
+        "abs_coefficient": 0.3848773597463199
+      },
+      {
+        "feature": "cat__store_id_ST041",
+        "coefficient": -0.384871233919024,
+        "abs_coefficient": 0.384871233919024
+      },
+      {
+        "feature": "cat__store_id_ST044",
+        "coefficient": -0.36467241422296326,
+        "abs_coefficient": 0.36467241422296326
+      },
+      {
+        "feature": "cat__store_id_ST042",
+        "coefficient": 0.34566335637704426,
+        "abs_coefficient": 0.34566335637704426
+      },
+      {
+        "feature": "cat__store_id_ST078",
+        "coefficient": -0.34229468444257416,
+        "abs_coefficient": 0.34229468444257416
+      },
+      {
+        "feature": "cat__store_id_ST018",
+        "coefficient": -0.33632721244054326,
+        "abs_coefficient": 0.33632721244054326
+      },
+      {
+        "feature": "cat__store_id_ST099",
+        "coefficient": -0.3159073076517427,
+        "abs_coefficient": 0.3159073076517427
+      },
+      {
+        "feature": "cat__store_id_ST092",
+        "coefficient": -0.3105990372718164,
+        "abs_coefficient": 0.3105990372718164
+      },
+      {
+        "feature": "cat__store_id_ST065",
+        "coefficient": -0.30421509079133385,
+        "abs_coefficient": 0.30421509079133385
+      },
+      {
+        "feature": "cat__store_id_ST028",
+        "coefficient": -0.3026848763545051,
+        "abs_coefficient": 0.3026848763545051
+      },
+      {
+        "feature": "cat__store_id_ST082",
+        "coefficient": -0.3024524155053182,
+        "abs_coefficient": 0.3024524155053182
+      },
+      {
+        "feature": "cat__store_id_ST002",
+        "coefficient": -0.3016867897510587,
+        "abs_coefficient": 0.3016867897510587
+      },
+      {
+        "feature": "cat__store_id_ST013",
+        "coefficient": -0.2944550287313208,
+        "abs_coefficient": 0.2944550287313208
+      },
+      {
+        "feature": "cat__store_id_ST038",
+        "coefficient": -0.27835493971670355,
+        "abs_coefficient": 0.27835493971670355
+      },
+      {
+        "feature": "cat__store_id_ST066",
+        "coefficient": -0.27668499970050486,
+        "abs_coefficient": 0.27668499970050486
+      },
+      {
+        "feature": "cat__store_id_ST069",
+        "coefficient": -0.2640104334434539,
+        "abs_coefficient": 0.2640104334434539
+      },
+      {
+        "feature": "cat__store_id_ST089",
+        "coefficient": -0.26048042341552297,
+        "abs_coefficient": 0.26048042341552297
+      },
+      {
+        "feature": "cat__store_id_ST059",
+        "coefficient": -0.2519562587822306,
+        "abs_coefficient": 0.2519562587822306
+      },
+      {
+        "feature": "cat__order_hour_19",
+        "coefficient": 0.2508658174366806,
+        "abs_coefficient": 0.2508658174366806
+      },
+      {
+        "feature": "cat__store_id_ST077",
+        "coefficient": -0.24392984673542634,
+        "abs_coefficient": 0.24392984673542634
+      },
+      {
+        "feature": "cat__order_hour_16",
+        "coefficient": -0.24344788482422267,
+        "abs_coefficient": 0.24344788482422267
+      },
+      {
+        "feature": "cat__store_id_ST017",
+        "coefficient": -0.24299397545129037,
+        "abs_coefficient": 0.24299397545129037
+      },
+      {
+        "feature": "cat__store_id_ST088",
+        "coefficient": -0.2405747368098363,
+        "abs_coefficient": 0.2405747368098363
+      },
+      {
+        "feature": "cat__order_hour_9",
+        "coefficient": -0.23932714053404175,
+        "abs_coefficient": 0.23932714053404175
+      },
+      {
+        "feature": "cat__order_hour_21",
+        "coefficient": 0.23770374307218334,
+        "abs_coefficient": 0.23770374307218334
+      },
+      {
+        "feature": "cat__store_id_ST037",
+        "coefficient": -0.23291820941257077,
+        "abs_coefficient": 0.23291820941257077
+      },
+      {
+        "feature": "cat__store_id_ST030",
+        "coefficient": -0.22438236782109527,
+        "abs_coefficient": 0.22438236782109527
+      },
+      {
+        "feature": "cat__store_id_ST040",
+        "coefficient": 0.2208222436543001,
+        "abs_coefficient": 0.2208222436543001
+      },
+      {
+        "feature": "cat__order_hour_18",
+        "coefficient": 0.22048274198246834,
+        "abs_coefficient": 0.22048274198246834
+      },
+      {
+        "feature": "cat__store_id_ST031",
+        "coefficient": -0.21553000299247405,
+        "abs_coefficient": 0.21553000299247405
+      },
+      {
+        "feature": "cat__store_id_ST047",
+        "coefficient": -0.2082121106695957,
+        "abs_coefficient": 0.2082121106695957
+      },
+      {
+        "feature": "cat__store_id_ST095",
+        "coefficient": -0.20805294044104047,
+        "abs_coefficient": 0.20805294044104047
+      },
+      {
+        "feature": "cat__store_id_ST005",
+        "coefficient": -0.20784079361296826,
+        "abs_coefficient": 0.20784079361296826
+      },
+      {
+        "feature": "cat__order_hour_20",
+        "coefficient": 0.19489426462084686,
+        "abs_coefficient": 0.19489426462084686
+      },
+      {
+        "feature": "cat__store_id_ST016",
+        "coefficient": -0.19121174341996056,
+        "abs_coefficient": 0.19121174341996056
+      },
+      {
+        "feature": "cat__store_id_ST051",
+        "coefficient": -0.18936033779499403,
+        "abs_coefficient": 0.18936033779499403
+      },
+      {
+        "feature": "cat__order_hour_15",
+        "coefficient": -0.17773361980701757,
+        "abs_coefficient": 0.17773361980701757
+      },
+      {
+        "feature": "cat__store_id_ST010",
+        "coefficient": -0.1708195508750483,
+        "abs_coefficient": 0.1708195508750483
+      },
+      {
+        "feature": "cat__store_id_ST090",
+        "coefficient": -0.17052058378968235,
+        "abs_coefficient": 0.17052058378968235
+      },
+      {
+        "feature": "cat__order_hour_12",
+        "coefficient": -0.16649087120023787,
+        "abs_coefficient": 0.16649087120023787
+      },
+      {
+        "feature": "cat__store_id_ST039",
+        "coefficient": 0.1660211158903594,
+        "abs_coefficient": 0.1660211158903594
+      },
+      {
+        "feature": "cat__order_hour_3",
+        "coefficient": 0.16591694704681292,
+        "abs_coefficient": 0.16591694704681292
+      },
+      {
+        "feature": "cat__store_id_ST055",
+        "coefficient": 0.16271589718335266,
+        "abs_coefficient": 0.16271589718335266
+      },
+      {
+        "feature": "cat__store_id_ST087",
+        "coefficient": -0.15803259770924574,
+        "abs_coefficient": 0.15803259770924574
+      },
+      {
+        "feature": "cat__store_id_ST085",
+        "coefficient": -0.1492699165939481,
+        "abs_coefficient": 0.1492699165939481
+      },
+      {
+        "feature": "cat__store_id_ST054",
+        "coefficient": -0.13978488705846717,
+        "abs_coefficient": 0.13978488705846717
+      },
+      {
+        "feature": "cat__order_hour_7",
+        "coefficient": -0.12639095888616925,
+        "abs_coefficient": 0.12639095888616925
+      },
+      {
+        "feature": "cat__store_id_ST071",
+        "coefficient": -0.12598806587305872,
+        "abs_coefficient": 0.12598806587305872
+      },
+      {
+        "feature": "cat__store_id_ST098",
+        "coefficient": -0.12053058916182559,
+        "abs_coefficient": 0.12053058916182559
+      },
+      {
+        "feature": "cat__order_hour_17",
+        "coefficient": 0.11586159737011191,
+        "abs_coefficient": 0.11586159737011191
+      },
+      {
+        "feature": "cat__store_id_ST094",
+        "coefficient": 0.11064094143647293,
+        "abs_coefficient": 0.11064094143647293
+      },
+      {
+        "feature": "cat__store_id_ST036",
+        "coefficient": -0.10958384996336305,
+        "abs_coefficient": 0.10958384996336305
+      },
+      {
+        "feature": "cat__store_id_ST067",
+        "coefficient": -0.1081712103076992,
+        "abs_coefficient": 0.1081712103076992
+      },
+      {
+        "feature": "cat__store_id_ST074",
+        "coefficient": -0.10530598313095357,
+        "abs_coefficient": 0.10530598313095357
+      },
+      {
+        "feature": "cat__order_hour_0",
+        "coefficient": -0.10513564956127418,
+        "abs_coefficient": 0.10513564956127418
+      },
+      {
+        "feature": "cat__store_id_ST049",
+        "coefficient": -0.0991340617012969,
+        "abs_coefficient": 0.0991340617012969
+      },
+      {
+        "feature": "cat__store_id_ST020",
+        "coefficient": -0.09552074663778978,
+        "abs_coefficient": 0.09552074663778978
+      },
+      {
+        "feature": "cat__store_id_ST084",
+        "coefficient": 0.09471931560106882,
+        "abs_coefficient": 0.09471931560106882
+      },
+      {
+        "feature": "cat__order_hour_14",
+        "coefficient": 0.09094104224578801,
+        "abs_coefficient": 0.09094104224578801
+      },
+      {
+        "feature": "cat__store_id_ST026",
+        "coefficient": -0.08129484261184468,
+        "abs_coefficient": 0.08129484261184468
+      },
+      {
+        "feature": "cat__store_id_ST009",
+        "coefficient": 0.0735150715480387,
+        "abs_coefficient": 0.0735150715480387
+      },
+      {
+        "feature": "cat__store_id_ST057",
+        "coefficient": -0.06802871152567921,
+        "abs_coefficient": 0.06802871152567921
+      },
+      {
+        "feature": "cat__store_id_ST061",
+        "coefficient": -0.06550085047997259,
+        "abs_coefficient": 0.06550085047997259
+      },
+      {
+        "feature": "cat__store_id_ST075",
+        "coefficient": 0.062173745430764274,
+        "abs_coefficient": 0.062173745430764274
+      },
+      {
+        "feature": "cat__store_id_ST079",
+        "coefficient": 0.05749964828071507,
+        "abs_coefficient": 0.05749964828071507
+      },
+      {
+        "feature": "cat__store_id_ST068",
+        "coefficient": 0.05641972559901217,
+        "abs_coefficient": 0.05641972559901217
+      },
+      {
+        "feature": "cat__store_id_ST048",
+        "coefficient": -0.05591209664506657,
+        "abs_coefficient": 0.05591209664506657
+      },
+      {
+        "feature": "num__order_value",
+        "coefficient": -0.054663474206607825,
+        "abs_coefficient": 0.054663474206607825
+      },
+      {
+        "feature": "cat__store_id_ST052",
+        "coefficient": -0.04730540602462461,
+        "abs_coefficient": 0.04730540602462461
+      },
+      {
+        "feature": "cat__order_hour_8",
+        "coefficient": -0.04514082784546651,
+        "abs_coefficient": 0.04514082784546651
+      },
+      {
+        "feature": "cat__store_id_ST072",
+        "coefficient": 0.04055637020053653,
+        "abs_coefficient": 0.04055637020053653
+      },
+      {
+        "feature": "cat__order_hour_23",
+        "coefficient": -0.039774636523698295,
+        "abs_coefficient": 0.039774636523698295
+      },
+      {
+        "feature": "cat__day_of_week_Wednesday",
+        "coefficient": 0.035323050522058516,
+        "abs_coefficient": 0.035323050522058516
+      },
+      {
+        "feature": "cat__store_id_ST004",
+        "coefficient": -0.03468592811083176,
+        "abs_coefficient": 0.03468592811083176
+      },
+      {
+        "feature": "cat__order_hour_6",
+        "coefficient": -0.03379800006476825,
+        "abs_coefficient": 0.03379800006476825
+      },
+      {
+        "feature": "cat__store_id_ST076",
+        "coefficient": -0.0333268872600495,
+        "abs_coefficient": 0.0333268872600495
+      },
+      {
+        "feature": "cat__order_hour_5",
+        "coefficient": -0.031633231310743366,
+        "abs_coefficient": 0.031633231310743366
+      },
+      {
+        "feature": "cat__order_hour_2",
+        "coefficient": -0.030582838119364766,
+        "abs_coefficient": 0.030582838119364766
+      },
+      {
+        "feature": "cat__order_hour_10",
+        "coefficient": -0.022425984753777835,
+        "abs_coefficient": 0.022425984753777835
+      },
+      {
+        "feature": "cat__day_of_week_Saturday",
+        "coefficient": -0.021959953271304254,
+        "abs_coefficient": 0.021959953271304254
+      },
+      {
+        "feature": "cat__day_of_week_Sunday",
+        "coefficient": -0.021466311576948033,
+        "abs_coefficient": 0.021466311576948033
+      },
+      {
+        "feature": "cat__order_hour_4",
+        "coefficient": 0.021113405069646228,
+        "abs_coefficient": 0.021113405069646228
+      },
+      {
+        "feature": "cat__order_hour_11",
+        "coefficient": -0.019559625479543114,
+        "abs_coefficient": 0.019559625479543114
+      },
+      {
+        "feature": "cat__order_hour_1",
+        "coefficient": -0.018761613182203925,
+        "abs_coefficient": 0.018761613182203925
+      },
+      {
+        "feature": "cat__day_of_week_Thursday",
+        "coefficient": 0.01858118275558946,
+        "abs_coefficient": 0.01858118275558946
+      },
+      {
+        "feature": "cat__day_of_week_Friday",
+        "coefficient": -0.01788788129031005,
+        "abs_coefficient": 0.01788788129031005
+      },
+      {
+        "feature": "cat__day_of_week_Tuesday",
+        "coefficient": 0.01741512678188269,
+        "abs_coefficient": 0.01741512678188269
+      },
+      {
+        "feature": "cat__order_hour_13",
+        "coefficient": 0.01477319381659941,
+        "abs_coefficient": 0.01477319381659941
+      },
+      {
+        "feature": "cat__order_hour_22",
+        "coefficient": -0.012349870541481421,
+        "abs_coefficient": 0.012349870541481421
+      },
+      {
+        "feature": "cat__day_of_week_Monday",
+        "coefficient": -0.010005213913970322,
+        "abs_coefficient": 0.010005213913970322
+      },
+      {
+        "feature": "num__promised_duration_minutes",
+        "coefficient": 0.005541051097960422,
+        "abs_coefficient": 0.005541051097960422
+      }
+    ],
+    "lgbm_classifier_importance": [
+      {
+        "feature": "store_id",
+        "importance_split": 848,
+        "importance_gain": 11868.203288793564
+      },
+      {
+        "feature": "item_count",
+        "importance_split": 255,
+        "importance_gain": 6706.623517811298
+      },
+      {
+        "feature": "order_hour",
+        "importance_split": 436,
+        "importance_gain": 4063.0258071422577
+      },
+      {
+        "feature": "order_value",
+        "importance_split": 714,
+        "importance_gain": 4011.1311897039413
+      },
+      {
+        "feature": "promised_duration_minutes",
+        "importance_split": 633,
+        "importance_gain": 3670.6598095297813
+      },
+      {
+        "feature": "is_peak_rush_hour",
+        "importance_split": 40,
+        "importance_gain": 661.0910254716873
+      },
+      {
+        "feature": "day_of_week",
+        "importance_split": 74,
+        "importance_gain": 458.9578469991684
+      }
+    ],
+    "lgbm_regressor_importance": [
+      {
+        "feature": "store_id",
+        "importance_split": 1008,
+        "importance_gain": 654795.4496231079
+      },
+      {
+        "feature": "item_count",
+        "importance_split": 268,
+        "importance_gain": 476072.29895210266
+      },
+      {
+        "feature": "order_hour",
+        "importance_split": 564,
+        "importance_gain": 132538.51736354828
+      },
+      {
+        "feature": "is_peak_rush_hour",
+        "importance_split": 51,
+        "importance_gain": 107582.89189338684
+      },
+      {
+        "feature": "order_value",
+        "importance_split": 501,
+        "importance_gain": 71871.61060905457
+      },
+      {
+        "feature": "promised_duration_minutes",
+        "importance_split": 426,
+        "importance_gain": 63389.59759235382
+      },
+      {
+        "feature": "day_of_week",
+        "importance_split": 182,
+        "importance_gain": 30451.78446674347
+      }
+    ]
+  }
+}
