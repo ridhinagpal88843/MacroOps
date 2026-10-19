@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MacroOps AI — Animated Operations Command Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/command_centre.css">
+</head>
+<body class="command-centre-body">
+  <!-- Atmospheric Background Gradients & Animated Mesh -->
+  <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow-2" aria-hidden="true"></div>
+  <div class="ambient-grid-overlay" aria-hidden="true"></div>
+
+  <!-- Primary Application Wrapper -->
+  <div class="app-layout">
+    
+    <!-- Top Navigation & Command Bar -->
+    <header class="top-header glass-card">
+      <div class="brand-container">
+        <div class="brand-logo-glow">
+          <div class="logo-core"></div>
+          <div class="logo-ring"></div>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">MacroOps <span class="cyan-accent">AI</span></div>
+          <div class="brand-subtitle">
+            <span class="status-pulse-dot" id="live-dot"></span>
+            <span id="system-status-text">OPERATIONS COMMAND CENTRE // SYNTHETIC BASELINE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist" aria-label="Dashboard views">
+        <button class="nav-tab active" data-tab="tab-overview" role="tab" aria-selected="true" id="tab-btn-overview">
+          <span class="tab-icon">📊</span>
+          <span class="tab-label">Executive Overview</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-orders" role="tab" aria-selected="false" id="tab-btn-orders">
+          <span class="tab-icon">⚡</span>
+          <span class="tab-label">Order & Exception Explorer</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-governance" role="tab" aria-selected="false" id="tab-btn-governance">
+          <span class="tab-icon">🛡️</span>
+          <span class="tab-label">Model Governance & Lineage</span>
+        </button>
+      </nav>
+
+      <!-- Quick Telemetry & Utility Controls -->
+      <div class="header-utilities">
+        <div class="status-chip chip-ready" id="chip-db" title="Read-only SQLite canonical layer">
+          <span class="chip-dot"></span>
+          <span class="chip-text">SQLITE: RO</span>
+        </div>
+        <div class="status-chip chip-cyan" id="chip-models" title="LightGBM Classifiers A, B1, B2 loaded">
+          <span class="chip-dot"></span>
+          <span class="chip-text">MODELS: ACTIVE</span>
+        </div>
+        <button class="motion-toggle-btn" id="btn-reduced-motion" title="Toggle Dashboard Animations" aria-label="Toggle Dashboard Animations">
+          <span class="motion-icon" id="motion-icon">🌀</span>
+          <span class="motion-label" id="motion-label">MOTION: ON</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Synthetic Data Warning Banner -->
+    <aside class="disclaimer-banner glass-card" role="note">
+      <div class="disclaimer-badge">PROTOTYPE GOVERNANCE</div>
+      <div class="disclaimer-text">
+        All operational records, timeline events, and model inferences represent an analytical prototype on <strong>200,000 synthetic operational records</strong> (September 2026). This system is not connected to a live physical production environment.
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT CONTAINERS -->
+    <main class="main-container">
+      
+      <!-- ================================================================= -->
+      <!-- TAB 1: EXECUTIVE OVERVIEW                                         -->
+      <!-- ================================================================= -->
+      <section class="tab-panel active" id="tab-overview" role="tabpanel" aria-labelledby="tab-btn-overview">
+        
+        <!-- Network Headline Summary -->
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Fulfillment Intelligence & Macro KPIs</h1>
+            <p class="panel-desc">Real-time macro performance indicators across 100 quick-commerce dark stores (September 1–30, 2026).</p>
+          </div>
+          <div class="cohort-badge">
+            <span class="badge-label">POPULATION</span>
+            <span class="badge-value">100,000 GROSS ORDERS</span>
+          </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- CIRCULAR ORDER LIFECYCLE & UNBOXING ENGINE                    -->
+        <!-- Animated Ordering Journey: Placed -> Packing -> Dispatch -> Unboxing! -->
+        <!-- ============================================================= -->
+        <div class="order-journey-hero glass-card reveal-item revealed" id="central-order-journey-hero">
+          
+          <!-- Left: Circular Order Journey Stage (320x320) -->
+          <div class="journey-stage-wrapper">
+            <div class="circular-order-pipeline" id="order-pipeline" role="img" aria-label="Circular order lifecycle animation: placed, packing, dispatch, and unboxing">
+              
+              <!-- Ambient Halo Glow -->
+              <div class="pipeline-ambient-halo"></div>
+
+              <!-- Circular Conduit Track with Flowing Energy -->
+              <svg class="pipeline-track-svg" viewBox="0 0 300 300">
+                <defs>
+                  <linearGradient id="trackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" />
+                    <stop offset="33%" stop-color="#818cf8" />
+                    <stop offset="66%" stop-color="#f59e0b" />
+                    <stop offset="100%" stop-color="#10b981" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Base Circular Track -->
+                <circle cx="150" cy="150" r="115" class="track-base" />
+
+                <!-- Flowing Animated Conduit Line -->
+                <circle cx="150" cy="150" r="115" class="track-flow" stroke="url(#trackGrad)" />
+
+                <!-- Circulating Order Parcel Carrier (Moves continuously in circular orbit) -->
+                <g class="traveling-order-carrier" id="traveling-order-carrier">
+                  <circle cx="150" cy="35" r="14" class="carrier-glow" />
+                  <circle cx="150" cy="35" r="9" class="carrier-core" />
+                  <text x="150" y="39" text-anchor="middle" class="carrier-icon">📦</text>
+                </g>
+              </svg>
+
+              <!-- 4 Stations Positioned Around the Circular Path -->
+              <!-- Station 1: Top (0 deg / 12 o'clock) -> ORDER PLACED -->
+              <div class="station-node station-placed" id="node-st-1" title="Station 1: Customer Order Placed">
+                <div class="station-badge">
+                  <span class="station-icon">🛒</span>
+                  <span class="station-tag">T0</span>
+                </div>
+                <div class="station-label">PLACED</div>
+              </div>
+
+              <!-- Station 2: Right (90 deg / 3 o'clock) -> PACKING & PICKING -->
+              <div class="station-node station-packing" id="node-st-2" title="Station 2: Dark Store Warehouse Packing">
+                <div class="station-badge">
+                  <span class="station-icon">📦</span>
+                  <span class="station-tag">T1</span>
+                </div>
+                <div class="station-label">PACKING</div>
+              </div>
+
+              <!-- Station 3: Bottom (180 deg / 6 o'clock) -> DISPATCH IN-TRANSIT -->
+              <div class="station-node station-dispatch" id="node-st-3" title="Station 3: Courier Dispatch & Transit">
+                <div class="station-badge">
+                  <span class="station-icon">🛵</span>
+                  <span class="station-tag">T2</span>
+                </div>
+                <div class="station-label">DISPATCH</div>
+              </div>
+
+              <!-- Station 4: Left (270 deg / 9 o'clock) -> DELIVERED & UNBOXING -->
+              <div class="station-node station-unboxing" id="node-st-4" title="Station 4: Customer Delivery & Unboxing">
+                <div class="station-badge">
+                  <span class="station-icon">🎁</span>
+                  <span class="station-tag">T3</span>
+                </div>
+                <div class="station-label">UNBOXING</div>
+              </div>
+
+              <!-- Central Order Fulfillment Core (Isometric Animated Box & State Hub) -->
+              <div class="central-order-hub">
+                <div class="hub-box-wrapper">
+                  <!-- Animated 3D Isometric Order Box -->
+                  <div class="iso-box" id="animated-iso-box">
+                    <div class="box-body">
+                      <div class="box-barcode">
+                        <span class="barcode-stripes"></span>
+                        <span class="barcode-txt">ORD-LIVE</span>
+                      </div>
+                    </div>
+                    <!-- Top folding lid flaps -->
+                    <div class="box-lid lid-l"></div>
+                    <div class="box-lid lid-r"></div>
+                    <!-- Cyan sealing tape -->
+                    <div class="box-tape"></div>
+                    <!-- Unboxing celebratory sparkles and checkmark -->
+                    <div class="unbox-burst">
+                      <span class="sparkle sp-1">✨</span>
+                      <span class="sparkle sp-2">✨</span>
+                      <span class="unbox-check">✓</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Dynamic Synchronized Stage Readout -->
+                <div class="active-stage-indicator" id="stage-indicator">
+                  <span class="stage-dot" id="stage-dot"></span>
+                  <span class="stage-text" id="stage-text">1. ORDER PLACED (T0)</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: Autonomous Order Lifecycle Telemetry -->
+          <div class="journey-hero-content">
+            <div class="hero-header-row">
+              <div class="hero-status-tag">
+                <span class="status-pulse-dot dot-cyan"></span>
+                <span>ORDER-TO-DOORSTEP INTELLIGENCE LOOP</span>
+              </div>
+              <div class="live-clock-chip" id="core-live-clock">
+                <span class="chip-label">CYCLE RATE:</span>
+                <span class="chip-value">12s LOOP (60 FPS)</span>
+              </div>
+            </div>
+
+            <h2 class="journey-hero-title">Continuous Order Fulfillment & Unboxing Journey</h2>
+            <p class="journey-hero-desc">
+              Real-time operational visualization tracking customer transactions: from <strong>instant checkout</strong> &rarr; <strong>dark store item picking & box packing</strong> &rarr; <strong>in-transit courier dispatch</strong> &rarr; <strong>doorstep drop-off & unboxing</strong>.
+            </p>
+
+            <!-- 4 Interactive Step Benchmark Pills -->
+            <div class="lifecycle-steps-grid">
+              <div class="step-pill" id="step-pill-1">
+                <div class="step-num">01</div>
+                <div class="step-body">
+                  <div class="step-name">Order Placed</div>
+                  <div class="step-metric">&lt; 1 sec instant ticket</div>
+                </div>
+              </div>
+              <div class="step-pill" id="step-pill-2">
+                <div class="step-num">02</div>
+                <div class="step-body">
+                  <div class="step-name">Packed in Store</div>
+                  <div class="step-metric">5.00m avg pick & pack</div>
+                </div>
+              </div>
+              <div class="step-pill" id="step-pill-3">
+                <div class="step-num">03</div>
+                <div class="step-body">
+                  <div class="step-name">Dispatched</div>
+                  <div class="step-metric">18.95m effective transit</div>
+                </div>
+              </div>
+              <div class="step-pill" id="step-pill-4">
+                <div class="step-num">04</div>
+                <div class="step-body">
+                  <div class="step-name">Doorstep Unboxed</div>
+                  <div class="step-metric">&gt; 94% on-time precision</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Primary KPI Metric Cards Grid -->
+        <div class="kpi-grid" id="kpi-cards-container">
+          
+          <!-- Gross Order Volume -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 1;">
+            <div class="kpi-header">
+              <span class="kpi-label">Gross Order Volume</span>
+              <span class="kpi-badge badge-blue">ALL ORDERS</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-gross-orders" data-val="100000">0</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Total transactions initiated across 100 stores</span>
+              <span class="kpi-source">Source: <code>v_all_orders</code></span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <!-- Completed Orders -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 2;">
+            <div class="kpi-header">
+              <span class="kpi-label">Completed Deliveries</span>
+              <span class="kpi-badge badge-emerald">97.45% FULFILLED</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-completed-orders" data-val="97449">0</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Orders reaching customer drop-off</span>
+              <span class="kpi-source">Denominator: 100,000 Gross Orders</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <!-- SLA Breach Rate (Critical) -->
+          <article class="kpi-card glass-card kpi-card-critical reveal-item revealed" style="--index: 3;">
+            <div class="kpi-header">
+              <span class="kpi-label">SLA Breach Rate</span>
+              <span class="kpi-badge badge-crimson">87,392 LATE</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-breach-rate" data-val="89.68" data-suffix="%">0.00%</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Orders exceeding promised customer deadline</span>
+              <span class="kpi-source">Denominator: 97,449 Completed Orders</span>
+            </div>
+            <div class="card-glow-edge glow-crimson"></div>
+          </article>
+
+          <!-- On-Time Delivery Rate -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 4;">
+            <div class="kpi-header">
+              <span class="kpi-label">On-Time Delivery Rate</span>
+              <span class="kpi-badge badge-cyan">10,057 ON-TIME</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-otd-rate" data-val="10.32" data-suffix="%">0.00%</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Delivered strictly on or before promised time</span>
+              <span class="kpi-source">Denominator: 97,449 Completed Orders</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <!-- Average Delivery Delay -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 5;">
+            <div class="kpi-header">
+              <span class="kpi-label">Avg Delivery Delay</span>
+              <span class="kpi-badge badge-amber">LATENCY DEFICIT</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-avg-delay" data-val="6.43" data-suffix="m">0.00m</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Mean delay beyond promised customer time</span>
+              <span class="kpi-source">Source: <code>v_completed_orders</code></span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <!-- Average Pick Duration -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 6;">
+            <div class="kpi-header">
+              <span class="kpi-label">Avg Pick Duration</span>
+              <span class="kpi-badge badge-indigo">T1 MILESTONE</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-pick-dur" data-val="5.00" data-suffix="m">0.00m</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Warehouse pick execution time per order</span>
+              <span class="kpi-source">Denominator: 25,000 Picked Orders</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <!-- Avg Transit Time (Effective) -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 7;">
+            <div class="kpi-header">
+              <span class="kpi-label">Effective Transit Duration</span>
+              <span class="kpi-badge badge-indigo">T2 MILESTONE</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-transit-dur" data-val="18.95" data-suffix="m">0.00m</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Effective courier transit: drop-off minus dispatch</span>
+              <span class="kpi-source">Source: <code>v_full_lifecycle_orders</code></span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <!-- Network Inventory Accuracy -->
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 8;">
+            <div class="kpi-header">
+              <span class="kpi-label">Inventory Accuracy</span>
+              <span class="kpi-badge badge-emerald">40,000 SKUS</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number" id="kpi-inv-acc" data-val="89.42" data-suffix="%">0.00%</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">System stock vs physical stock variance</span>
+              <span class="kpi-source">Denominator: 40,000 SKU Audit Pairs</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+        </div>
+
+        <!-- Visual Analytics Grid: Funnel & Latency Waves -->
+        <div class="analytics-grid">
+          
+          <!-- Fulfillment Funnel & Status Breakdown -->
+          <div class="chart-card glass-card reveal-item" style="--index: 9;">
+            <div class="card-title-bar">
+              <h2 class="card-title">Order Lifecycle Outcome Distribution</h2>
+              <span class="card-tag">STATUS SEGMENTATION</span>
+            </div>
+            <p class="card-subtitle">Exact breakdown of 100,000 customer orders across delivery completion and terminal exceptions.</p>
+
+            <!-- Multi-segment animated proportional bar -->
+            <div class="funnel-bar-container">
+              <div class="funnel-segment seg-late" style="--pct: 87.39%;" title="Delivered Late: 87,392 (87.39%)"></div>
+              <div class="funnel-segment seg-ontime" style="--pct: 10.06%;" title="Delivered On-Time: 10,057 (10.06%)"></div>
+              <div class="funnel-segment seg-cancelled" style="--pct: 1.80%;" title="Cancelled: 1,795 (1.79%)"></div>
+              <div class="funnel-segment seg-failed" style="--pct: 0.76%;" title="Failed: 756 (0.76%)"></div>
+            </div>
+
+            <div class="funnel-legend">
+              <div class="legend-item"><span class="legend-dot dot-crimson"></span><span>Delivered Late (87,392 / 87.39%)</span></div>
+              <div class="legend-item"><span class="legend-dot dot-emerald"></span><span>Delivered On-Time (10,057 / 10.06%)</span></div>
+              <div class="legend-item"><span class="legend-dot dot-amber"></span><span>Cancelled (1,795 / 1.79%)</span></div>
+              <div class="legend-item"><span class="legend-dot dot-purple"></span><span>Failed Drop-off (756 / 0.76%)</span></div>
+            </div>
+          </div>
+
+          <!-- Hourly Order Demand & Breach Rate Chart -->
+          <div class="chart-card glass-card reveal-item" style="--index: 10;">
+            <div class="card-title-bar">
+              <h2 class="card-title">24-Hour Diurnal Latency & Volume Wave</h2>
+              <span class="card-tag">PEAK RUSH HOURS (12-13h, 19-21h)</span>
+            </div>
+            <p class="card-subtitle">Synthesized diurnal demand curve showing SLA breach pressure during mealtime peaks.</p>
+
+            <div class="svg-chart-container" id="hourly-chart-box">
+              <svg class="animated-svg-chart" viewBox="0 0 500 160" preserveAspectRatio="none" id="svg-hourly">
+                <defs>
+                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+                  </linearGradient>
+                  <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="50%" stop-color="#818cf8"/>
+                    <stop offset="100%" stop-color="#ef4444"/>
+                  </linearGradient>
+                </defs>
+                <!-- Grid Lines -->
+                <line x1="0" y1="40" x2="500" y2="40" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
+                <line x1="0" y1="80" x2="500" y2="80" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
+                <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
+                <!-- Area -->
+                <path class="chart-area-path" d="M 0,140 Q 60,130 120,90 T 240,60 T 360,40 T 450,75 L 500,100 L 500,160 L 0,160 Z" fill="url(#areaGradient)"/>
+                <!-- Line -->
+                <path class="chart-stroke-path" d="M 0,140 Q 60,130 120,90 T 240,60 T 360,40 T 450,75 L 500,100" fill="none" stroke="url(#lineGradient)" stroke-width="3"/>
+                <!-- Continuous Radar Scan Line -->
+                <line x1="0" y1="0" x2="0" y2="160" stroke="#00f2fe" stroke-width="1.5" class="chart-scan-line" opacity="0.6"/>
+                <!-- Peak Pulse 1: Lunch Rush (12:00) -->
+                <circle cx="240" cy="60" r="4.5" fill="#38bdf8" class="chart-peak-dot"/>
+                <circle cx="240" cy="60" r="8" fill="none" stroke="#38bdf8" stroke-width="1.5" class="chart-peak-ring"/>
+                <!-- Peak Pulse 2: Dinner Rush (20:00) -->
+                <circle cx="360" cy="40" r="4.5" fill="#ef4444" class="chart-peak-dot dot-crimson"/>
+                <circle cx="360" cy="40" r="8" fill="none" stroke="#ef4444" stroke-width="1.5" class="chart-peak-ring ring-crimson"/>
+              </svg>
+              <div class="chart-x-labels">
+                <span>00:00</span><span>04:00</span><span>08:00</span><span>12:00 (Lunch)</span><span>16:00</span><span>20:00 (Dinner)</span><span>23:00</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Store Operational Leaderboard Table -->
+        <div class="leaderboard-card glass-card reveal-item" style="--index: 11;">
+          <div class="card-title-bar">
+            <div>
+              <h2 class="card-title">Dark Store Network Operations Leaderboard</h2>
+              <p class="card-subtitle">Real-time ranking of 100 fulfillment dark stores derived from SQLite view <code>v_store_ops_summary</code>.</p>
+            </div>
+            <div class="leaderboard-controls">
+              <label for="store-sort-select" class="visually-hidden">Sort stores by</label>
+              <select id="store-sort-select" class="styled-select" aria-label="Sort stores by">
+                <option value="total_orders">Sort by Volume (Desc)</option>
+                <option value="sla_breach_rate_pct">Sort by Breach Rate (Desc)</option>
+                <option value="on_time_delivery_rate_pct">Sort by On-Time % (Desc)</option>
+                <option value="avg_delivery_delay_min">Sort by Avg Delay (Desc)</option>
+                <option value="avg_inventory_accuracy">Sort by Inv Accuracy (Desc)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="store-leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Store ID</th>
+                  <th>Total Orders</th>
+                  <th>On-Time</th>
+                  <th>Late</th>
+                  <th>Exceptions</th>
+                  <th>Breach Rate</th>
+                  <th>Avg Delay</th>
+                  <th>Inv Accuracy</th>
+                  <th>Active SKUs</th>
+                  <th>Task Rate</th>
+                </tr>
+              </thead>
+              <tbody id="store-table-body">
+                <!-- Dynamically populated from /api/stores -->
+                <tr><td colspan="10" class="table-loading">Loading store network telemetry...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 2: ORDER & EXCEPTION EXPLORER                                -->
+      <!-- ================================================================= -->
+      <section class="tab-panel" id="tab-orders" role="tabpanel" aria-labelledby="tab-btn-orders">
+        
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Order Lifecycle & Exception Explorer</h1>
+            <p class="panel-desc">Multi-stage predictive risk monitoring tracking orders from checkout through fulfillment checkpoints.</p>
+          </div>
+          <div class="cohort-badge">
+            <span class="badge-label">STAGE B COVERAGE</span>
+            <span class="badge-value">25.01% WITH PICKING TELEMETRY</span>
+          </div>
+        </div>
+
+        <!-- Animated Order Lifecycle Flow Graphic -->
+        <div class="lifecycle-banner glass-card">
+          <div class="lifecycle-header">
+            <span class="lifecycle-title">MULTI-STAGE RISK GOVERNANCE PIPELINE</span>
+            <span class="lifecycle-badge">CHECKPOINT SEQUENCING</span>
+          </div>
+          <div class="lifecycle-flow">
+            
+            <div class="flow-node node-active" id="node-t0">
+              <div class="node-icon">🛒</div>
+              <div class="node-content">
+                <div class="node-step">T0: CHECKOUT</div>
+                <div class="node-desc">orders.order_time</div>
+                <div class="node-model">Stage A LightGBM (&tau;=0.93)</div>
+              </div>
+            </div>
+
+            <div class="flow-connector">
+              <svg class="connector-svg" viewBox="0 0 100 20">
+                <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(56, 189, 248, 0.2)" stroke-width="2"/>
+                <line x1="0" y1="10" x2="100" y2="10" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4" class="animated-dash"/>
+                <!-- Traveling photon particle T0 -> T1 -->
+                <circle cx="0" cy="10" r="3.5" fill="#00f2fe" class="connector-photon">
+                  <animate attributeName="cx" from="0" to="100" dur="1.8s" repeatCount="indefinite" />
+                </circle>
+              </svg>
+            </div>
+
+            <div class="flow-node" id="node-t1">
+              <div class="node-icon">📦</div>
+              <div class="node-content">
+                <div class="node-step">T1: POST-PICKING</div>
+                <div class="node-desc">picking.pick_end</div>
+                <div class="node-model">Stage B1 LightGBM (&tau;=0.93)</div>
+              </div>
+            </div>
+
+            <div class="flow-connector">
+              <svg class="connector-svg" viewBox="0 0 100 20">
+                <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(129, 140, 248, 0.2)" stroke-width="2"/>
+                <line x1="0" y1="10" x2="100" y2="10" stroke="#818cf8" stroke-width="2" stroke-dasharray="4 4" class="animated-dash"/>
+                <!-- Traveling photon particle T1 -> T2 -->
+                <circle cx="0" cy="10" r="3.5" fill="#a5b4fc" class="connector-photon">
+                  <animate attributeName="cx" from="0" to="100" dur="1.8s" begin="0.6s" repeatCount="indefinite" />
+                </circle>
+              </svg>
+            </div>
+
+            <div class="flow-node" id="node-t2">
+              <div class="node-icon">🛵</div>
+              <div class="node-content">
+                <div class="node-step">T2: DISPATCH PROXY</div>
+                <div class="node-desc">max(pick_end, pickup_time)</div>
+                <div class="node-model">Stage B2 Hybrid Overdue</div>
+              </div>
+            </div>
+
+            <div class="flow-connector">
+              <svg class="connector-svg" viewBox="0 0 100 20">
+                <line x1="0" y1="10" x2="100" y2="10" stroke="rgba(16, 185, 129, 0.2)" stroke-width="2"/>
+                <line x1="0" y1="10" x2="100" y2="10" stroke="#10b981" stroke-width="2" stroke-dasharray="4 4" class="animated-dash"/>
+                <!-- Traveling photon particle T2 -> T3 -->
+                <circle cx="0" cy="10" r="3.5" fill="#34d399" class="connector-photon">
+                  <animate attributeName="cx" from="0" to="100" dur="1.8s" begin="1.2s" repeatCount="indefinite" />
+                </circle>
+              </svg>
+            </div>
+
+            <div class="flow-node" id="node-t3">
+              <div class="node-icon">🏁</div>
+              <div class="node-content">
+                <div class="node-step">T3: DROP-OFF</div>
+                <div class="node-desc">orders.actual_delivery_time</div>
+                <div class="node-model">Ground-Truth SLA Outcome</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Order Explorer Search and Multi-Filter Controls -->
+        <div class="filters-card glass-card">
+          <div class="filter-group">
+            <label for="filter-search" class="filter-label">Search Order ID</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🔍</span>
+              <input type="text" id="filter-search" class="styled-input" placeholder="e.g. ORD-091507...">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-store" class="filter-label">Store</label>
+            <select id="filter-store" class="styled-select">
+              <option value="">All 100 Stores</option>
+              <!-- Populated dynamically with store list -->
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-status" class="filter-label">Status</label>
+            <select id="filter-status" class="styled-select">
+              <option value="">All Statuses</option>
+              <option value="Delivered_Late">Delivered Late</option>
+              <option value="Delivered_On_Time">Delivered On-Time</option>
+              <option value="Cancelled">Cancelled</option>
+              <option value="Failed">Failed</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-telemetry" class="filter-label">Telemetry Coverage</label>
+            <select id="filter-telemetry" class="styled-select">
+              <option value="">All Cohorts (100k)</option>
+              <option value="true">Full Telemetry (25.01% - Stage B)</option>
+              <option value="false">Checkout Only (74.99% - Stage A)</option>
+            </select>
+          </div>
+
+          <div class="filter-actions">
+            <button class="btn btn-primary" id="btn-apply-filters">Filter Orders</button>
+            <button class="btn btn-secondary" id="btn-reset-filters">Reset</button>
+          </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="orders-table-card glass-card">
+          <div class="card-title-bar">
+            <div>
+              <h2 class="card-title" id="orders-count-label">Order Records (Loading...)</h2>
+              <span class="card-subtitle">Click any order row to inspect full chronological milestones and multi-stage risk scores.</span>
+            </div>
+            <div class="table-page-info" id="table-pagination-info">
+              Page 1 of 2000
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="orders-data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Store</th>
+                  <th>Order Time</th>
+                  <th>Items</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                  <th>SLA Delay</th>
+                  <th>Stage A Risk</th>
+                  <th>Telemetry</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body">
+                <tr><td colspan="10" class="table-loading">Querying read-only order stream...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="pagination-footer">
+            <button class="btn btn-sm btn-secondary" id="btn-prev-page" disabled>&larr; Previous Page</button>
+            <span class="page-current" id="page-display">Page 1</span>
+            <button class="btn btn-sm btn-secondary" id="btn-next-page">Next Page &rarr;</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 3: MODEL GOVERNANCE & LINEAGE                                 -->
+      <!-- ================================================================= -->
+      <section class="tab-panel" id="tab-governance" role="tabpanel" aria-labelledby="tab-btn-governance">
+        
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Model Governance & Predictive Lineage</h1>
+            <p class="panel-desc">Formal specification of frozen prototype models, operating decision thresholds, and holdout evaluation metrics.</p>
+          </div>
+          <div class="cohort-badge badge-cyan">
+            <span class="badge-label">GOVERNANCE</span>
+            <span class="badge-value">FROZEN PROTOTYPES</span>
+          </div>
+        </div>
+
+        <!-- AI Neural Intelligence Crystal / Floating Visual Hero -->
+        <div class="governance-hero glass-card">
+          <div class="crystal-visual-container" aria-hidden="true">
+            <div class="neural-crystal">
+              <div class="crystal-core"></div>
+              <div class="crystal-ring ring-1"></div>
+              <div class="crystal-ring ring-2"></div>
+              <div class="crystal-particles"></div>
+            </div>
+          </div>
+          <div class="governance-hero-content">
+            <div class="gov-badge">FROZEN DECISION POLICY</div>
+            <h2 class="gov-title">Targeted Operational Escalation Policy (&tau; = 0.9300)</h2>
+            <p class="gov-desc">
+              Under capacity-constrained human review budgets (~25–30% of total volume), the operating threshold was mathematically frozen at <strong>&tau; = 0.9300</strong> prior to test-set evaluation. This deliberately filters the high-confidence upper tail, ensuring that fewer than 6 out of 100 alerts are false alarms (<strong>&gt;94% precision</strong>).
+            </p>
+          </div>
+        </div>
+
+        <!-- Multi-Stage Model Comparison Cards -->
+        <div class="models-grid">
+          
+          <!-- Stage A Card -->
+          <div class="model-spec-card glass-card">
+            <div class="spec-header">
+              <span class="spec-checkpoint">CHECKPOINT T0</span>
+              <span class="spec-badge badge-blue">CHECKOUT</span>
+            </div>
+            <h3 class="spec-title">Stage A LightGBM Classifier</h3>
+            <p class="spec-desc">Evaluated at order checkout point (<code>orders.order_time</code>) prior to warehouse picking.</p>
+
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Input Features</span>
+              <span class="spec-metric-val">7 Compact Features</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Set Cohort</span>
+              <span class="spec-metric-val">N = 16,210 Orders</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Operating Threshold (&tau;)</span>
+              <span class="spec-metric-val cyan-accent">0.9300 (Frozen)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Precision</span>
+              <span class="spec-metric-val">94.08% (4,369 / 4,644)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Breach Recall</span>
+              <span class="spec-metric-val">30.07% (4,369 / 14,530)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">PR-AUC / Brier Score</span>
+              <span class="spec-metric-val">0.9288 / 0.0923</span>
+            </div>
+
+            <div class="spec-footer">
+              <code>model_artifacts/lightgbm_classifier.joblib</code>
+            </div>
+          </div>
+
+          <!-- Stage B1 Card -->
+          <div class="model-spec-card glass-card">
+            <div class="spec-header">
+              <span class="spec-checkpoint">CHECKPOINT T1</span>
+              <span class="spec-badge badge-indigo">POST-PICKING</span>
+            </div>
+            <h3 class="spec-title">Stage B1 LightGBM Classifier</h3>
+            <p class="spec-desc">Evaluated upon picking completion (<code>picking.pick_end</code>) incorporating warehouse pick deficits.</p>
+
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Input Features</span>
+              <span class="spec-metric-val">23 Dynamic Features</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Set Cohort</span>
+              <span class="spec-metric-val">N = 4,095 Orders</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Operating Threshold (&tau;)</span>
+              <span class="spec-metric-val cyan-accent">0.9300 (Frozen)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Precision</span>
+              <span class="spec-metric-val">91.24% (2,427 / 2,660)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Breach Recall</span>
+              <span class="spec-metric-val">65.92% (2,427 / 3,682)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">PR-AUC Lift vs Stage A</span>
+              <span class="spec-metric-val emerald-accent">+0.0084 (0.9372)</span>
+            </div>
+
+            <div class="spec-footer">
+              <code>model_artifacts/stage_b1_lightgbm.joblib</code>
+            </div>
+          </div>
+
+          <!-- Stage B2 Card -->
+          <div class="model-spec-card glass-card">
+            <div class="spec-header">
+              <span class="spec-checkpoint">CHECKPOINT T2</span>
+              <span class="spec-badge badge-emerald">DISPATCH PROXY</span>
+            </div>
+            <h3 class="spec-title">Stage B2 Hybrid Deterministic</h3>
+            <p class="spec-desc">Fulfillment synchronization proxy combining tree probabilities with deterministic overdue overrides.</p>
+
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Input Features</span>
+              <span class="spec-metric-val">27 In-Flight Features</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Deterministic Rule</span>
+              <span class="spec-metric-val crimson-accent">Remaining Budget &le; 0 &rarr; P=1.0</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Operating Threshold (&tau;)</span>
+              <span class="spec-metric-val cyan-accent">0.9300 (Frozen)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Precision</span>
+              <span class="spec-metric-val">90.98% (2,440 / 2,682)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">Test Breach Recall</span>
+              <span class="spec-metric-val">66.27% (2,440 / 3,682)</span>
+            </div>
+            <div class="spec-metric-row">
+              <span class="spec-metric-label">PR-AUC / ROC-AUC</span>
+              <span class="spec-metric-val emerald-accent">0.9634 / 0.6384</span>
+            </div>
+
+            <div class="spec-footer">
+              <code>model_artifacts/stage_b2_lightgbm.joblib</code>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Telemetry Limitation & Synthetic Data Callout -->
+        <div class="governance-callout glass-card">
+          <h3 class="callout-title">⚠️ Operational Scope & Telemetry Coverage Limitations</h3>
+          <p class="callout-desc">
+            Granular dark-store warehouse picking and last-mile delivery tracking is available for <strong>24,369 completed orders (25.01% of total volume)</strong> across the 100 dark stores. The remaining <strong>74,992 completed orders (74.99%)</strong> represent standard digital checkout volume without sensor events, and are intentionally governed strictly by Stage A checkout risk predictions.
+          </p>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer glass-card">
+      <div class="footer-left">
+        <span>MacroOps AI Operations Command Centre</span>
+        <span class="footer-separator">&bull;</span>
+        <span>Version 1.0.0 (MVP)</span>
+      </div>
+      <div class="footer-right">
+        <span>SQLite 3 (Read-Only)</span>
+        <span class="footer-separator">&bull;</span>
+        <span>LightGBM Classifiers (Frozen Policy)</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- ORDER INTELLIGENCE INSPECTOR MODAL / DRAWER                           -->
+  <!-- ===================================================================== -->
+  <div class="modal-backdrop" id="order-modal-backdrop" aria-hidden="true">
+    <div class="modal-drawer glass-card" id="order-drawer" role="dialog" aria-modal="true" aria-labelledby="modal-order-id">
+      
+      <!-- Drawer Header -->
+      <div class="drawer-header">
+        <div class="drawer-header-left">
+          <div class="drawer-order-tag">ORDER INTELLIGENCE DOSSIER</div>
+          <h2 class="drawer-title" id="modal-order-id">ORD-000000</h2>
+        </div>
+        <button class="drawer-close-btn" id="btn-close-modal" aria-label="Close Order Dossier">&times;</button>
+      </div>
+
+      <!-- Drawer Content -->
+      <div class="drawer-body" id="modal-content-body">
+        <div class="drawer-loading">Fetching order milestones and computing checkpoint predictions...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 3D OPERATIONS AI ASSISTANT (AVA) — FLOATING COPILOT INTERFACE           -->
+  <!-- ===================================================================== -->
+
+  <!-- Persistent Floating Trigger Button (Bottom-Right) -->
+  <button class="floating-assistant-trigger" id="btn-ai-assistant" aria-label="Open 3D Operations AI Assistant" title="Open Ava — 3D Operations AI Assistant">
+    <div class="assistant-trigger-avatar">
+      <span class="trigger-avatar-icon">👩‍💼</span>
+      <span class="trigger-status-dot"></span>
+    </div>
+    <div class="assistant-trigger-label">
+      <span class="trigger-name">AVA // AI COPILOT</span>
+      <span class="trigger-sub">3D Operations Assistant</span>
+    </div>
+  </button>
+
+  <!-- Floating 3D Assistant Window -->
+  <div class="floating-assistant-panel glass-card" id="assistant-panel" role="dialog" aria-labelledby="assistant-panel-title" aria-hidden="true">
+    
+    <!-- Panel Header & State Controls -->
+    <div class="assistant-panel-header">
+      <div class="assistant-header-title">
+        <span class="assistant-live-dot"></span>
+        <span id="assistant-panel-title">AVA // OPERATIONS AI</span>
+        <span class="assistant-state-badge" id="assistant-state-badge">IDLE</span>
+      </div>
+      <div class="assistant-header-actions">
+        <button class="assistant-action-btn" id="btn-voice-toggle" title="Toggle Spoken Responses" aria-label="Toggle Voice">
+          <span id="voice-icon">🔊</span> <span id="voice-label">VOICE: ON</span>
+        </button>
+        <button class="assistant-action-btn" id="btn-stop-speech" title="Stop Speaking" aria-label="Stop Speaking">
+          ⏹ Stop
+        </button>
+        <button class="assistant-action-btn icon-only" id="btn-minimize-assistant" title="Minimize Panel" aria-label="Minimize">
+          &minus;
+        </button>
+        <button class="assistant-action-btn icon-only" id="btn-close-assistant" title="Close Panel" aria-label="Close">
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- 3D Character Viewport Container -->
+    <div class="assistant-3d-container" id="assistant-3d-container">
+      <div class="avatar-loading-overlay" id="avatar-loading-overlay">
+        <div class="avatar-spinner"></div>
+        <span>INITIALIZING 3D SKELETAL RIG &amp; MORPH TARGETS...</span>
+      </div>
+      <!-- WebGL Canvas will be injected here by Three.js -->
+      <div class="avatar-viewport-overlay">
+        <div class="avatar-cam-badge">PORTRAIT // 60 FPS</div>
+        <div class="avatar-lip-sync-badge" id="avatar-lip-sync-badge">VISEME LIP-SYNC READY</div>
+      </div>
+    </div>
+
+    <!-- Conversation & Input Area -->
+    <div class="assistant-chat-container">
+      <div class="assistant-messages-scroll" id="assistant-messages">
+        <!-- Messages rendered dynamically -->
+      </div>
+
+      <!-- Quick Operational Suggestion Chips -->
+      <div class="assistant-chips-row" id="assistant-chips">
+        <button class="assistant-chip" data-query="What is our overall SLA breach rate?">📊 Overall SLA Breach Rate</button>
+        <button class="assistant-chip" data-query="Which stores have the highest breach rates?">🏪 Worst Performing Stores</button>
+        <button class="assistant-chip" data-query="How is dark store picking performing?">📦 Dark Store Picking Velocity</button>
+        <button class="assistant-chip" data-query="Explain Stage A vs Stage B model thresholds">🛡️ Model Threshold Policy</button>
+        <button class="assistant-chip" data-query="Audit ORD-000001">🔍 Audit Order ORD-000001</button>
+      </div>
+
+      <!-- Input Form -->
+      <form class="assistant-input-bar" id="assistant-input-form" onsubmit="return false;">
+        <input type="text" class="assistant-text-input" id="assistant-input" placeholder="Ask Ava about SLA, picking, stores, orders..." autocomplete="off" maxlength="1000" />
+        <button type="button" class="assistant-mic-btn" id="btn-assistant-mic" title="Voice Input (Microphone)" aria-label="Voice Input">
+          🎤
+        </button>
+        <button type="submit" class="assistant-send-btn" id="btn-assistant-send" aria-label="Send Query">
+          ➤
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Three.js 3D Engine & Loaders (Local self-contained assets) -->
+  <script src="/static/js/three.min.js"></script>
+  <script src="/static/js/GLTFLoader.js"></script>
+
+  <!-- Core JavaScript -->
+  <script src="/static/js/command_centre.js"></script>
+
+  <!-- 3D Operations Assistant Controller -->
+  <script src="/static/js/operations_assistant.js"></script>
+</body>
+</html>

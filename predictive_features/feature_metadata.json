@@ -1,0 +1,98 @@
+{
+  "pipeline_name": "MacroOps AI Stage A Feature Engineering (Revised)",
+  "created_at": "2026-09-28T22:33:26.247293",
+  "prediction_point": "ORDER CHECKOUT / ORDER CREATION (T0 = orders.order_time)",
+  "population": "status IN ('Delivered_On_Time', 'Delivered_Late')",
+  "total_rows": 97449,
+  "excluded_orders": {
+    "Cancelled": 1795,
+    "Failed": 756,
+    "Other": 0
+  },
+  "split_strategy": "Chronological Time-Series Partition (September 2026)",
+  "split_boundaries": {
+    "train": "2026-09-01 to 2026-09-21 (Days 1 to 21)",
+    "val": "2026-09-22 to 2026-09-25 (Days 22 to 25)",
+    "test": "2026-09-26 to 2026-09-30 (Days 26 to 30)"
+  },
+  "target_definitions": {
+    "sla_breached": {
+      "type": "binary classification",
+      "definition": "1 if actual_delivery_time > promised_time else 0",
+      "classes": {
+        "0": "SLA Met (On-Time)",
+        "1": "SLA Breached (Late)"
+      }
+    },
+    "delivery_delay_minutes": {
+      "type": "continuous regression",
+      "definition": "Realized delivery delay in minutes for completed orders: max(0.0, (actual_delivery_time - promised_time)/60)"
+    }
+  },
+  "approved_raw_features": [
+    {
+      "name": "item_count",
+      "type": "numerical_integer",
+      "description": "Total units in basket"
+    },
+    {
+      "name": "order_value",
+      "type": "numerical_float",
+      "description": "Gross order monetary value"
+    },
+    {
+      "name": "promised_duration_minutes",
+      "type": "numerical_float",
+      "description": "Promised delivery window at checkout (promised_time - order_time)"
+    },
+    {
+      "name": "order_hour",
+      "type": "categorical_integer",
+      "description": "Hour of order checkout (0-23)"
+    },
+    {
+      "name": "day_of_week",
+      "type": "categorical_string",
+      "description": "Day of week (Monday to Sunday)"
+    },
+    {
+      "name": "is_peak_rush_hour",
+      "type": "binary_flag",
+      "description": "1 if order_hour in 17-21, else 0"
+    },
+    {
+      "name": "store_id",
+      "type": "categorical_string",
+      "description": "Dark store identifier (ST001-ST100)"
+    }
+  ],
+  "target_encoding_status": "NONE. No target encoding is applied in the feature matrix or the baseline model pipeline.",
+  "model_preprocessing_specification": {
+    "baseline_1_logistic_regression": {
+      "categorical_pipeline": {
+        "columns": [
+          "store_id",
+          "order_hour",
+          "day_of_week"
+        ],
+        "transformer": "OneHotEncoder(handle_unknown='ignore', sparse_output=False)"
+      },
+      "continuous_pipeline": {
+        "columns": [
+          "item_count",
+          "order_value",
+          "promised_duration_minutes"
+        ],
+        "transformer": "StandardScaler()"
+      },
+      "passthrough_pipeline": {
+        "columns": [
+          "is_peak_rush_hour"
+        ],
+        "transformer": "passthrough"
+      },
+      "fitting_rule": "Fit strictly on Train partition (split == 'train'). Transform Val and Test partitions unchanged without re-fitting."
+    }
+  },
+  "synthetic_data_disclaimer": "All model performance is prototype performance on synthetic data and must not be interpreted as real-world operational performance."
+}

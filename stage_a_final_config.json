@@ -1,0 +1,64 @@
+{
+  "stage": "Stage A (Order Checkout / Creation Point T0)",
+  "governance_status": "FROZEN_FOR_FINAL_EVALUATION",
+  "policy_name": "Targeted Operational Escalation Policy (Candidate 4)",
+  "frozen_at": "2026-09-28T23:15:00Z",
+  "prediction_point_t0": "orders.order_time",
+  "prediction_target": {
+    "name": "sla_breached",
+    "type": "binary_classification",
+    "classes": {
+      "0": "On-Time / SLA Met",
+      "1": "Late / SLA Breached"
+    }
+  },
+  "frozen_decision_threshold": 0.9300,
+  "selected_model": "LightGBMClassifier",
+  "baseline_reference_model": "LogisticRegression",
+  "approved_stage_a_features": [
+    {
+      "name": "item_count",
+      "type": "numerical_integer",
+      "preprocessing": "passthrough"
+    },
+    {
+      "name": "order_value",
+      "type": "numerical_float",
+      "preprocessing": "passthrough"
+    },
+    {
+      "name": "promised_duration_minutes",
+      "type": "numerical_float",
+      "preprocessing": "passthrough"
+    },
+    {
+      "name": "order_hour",
+      "type": "categorical_integer",
+      "preprocessing": "OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1)"
+    },
+    {
+      "name": "day_of_week",
+      "type": "categorical_string",
+      "preprocessing": "OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1)"
+    },
+    {
+      "name": "is_peak_rush_hour",
+      "type": "binary_flag",
+      "preprocessing": "passthrough"
+    },
+    {
+      "name": "store_id",
+      "type": "categorical_string",
+      "preprocessing": "OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1)"
+    }
+  ],
+  "model_artifact_path": "model_artifacts/lightgbm_classifier.joblib",
+  "preprocessor_artifact_path": "model_artifacts/lgb_ordinal_encoder.joblib",
+  "intended_operational_interpretation": "Targeted risk-alerting layer designed to surface high-confidence SLA breach risks for supervisor/dispatcher operational escalation under capacity-constrained human review budgets.",
+  "policy_selection_rationale": {
+    "assumption": "Human operational review capacity is finite; not all predicted breaches can receive manual handling. Alert volume must be constrained to ~25-30% of total volume with high precision.",
+    "threshold_selection": "0.9300 is selected because it filters the high-confidence upper quartile tail. It is NOT claimed to be mathematically optimal.",
+    "model_selection": "LightGBMClassifier is selected because it captures +15.8% more breaches (+485 orders on validation) than Logistic Regression at equal precision (~94%) within the operational alert budget, while operating on a clean 7-feature pipeline without one-hot expansion."
+  },
+  "synthetic_data_disclaimer": "All models, thresholds, and performance metrics represent prototype evaluations on synthetic quick-commerce operational data. This model is not production-ready."
+}

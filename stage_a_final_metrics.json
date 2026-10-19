@@ -1,0 +1,64 @@
+{
+  "evaluation_name": "Stage A Final Holdout Evaluation",
+  "evaluation_timestamp": "2026-09-28T23:15:30Z",
+  "partition": "Final Holdout Test Set (September 26–30, 2026)",
+  "total_test_orders": 16210,
+  "test_class_distribution": {
+    "actual_breached": 14530,
+    "actual_breached_pct": 89.64,
+    "actual_ontime": 1680,
+    "actual_ontime_pct": 10.36
+  },
+  "frozen_policy": {
+    "threshold": 0.9300,
+    "policy_name": "Targeted Operational Escalation Policy",
+    "status": "FROZEN_BEFORE_TEST_EVALUATION"
+  },
+  "selected_model": {
+    "model_name": "LightGBMClassifier",
+    "features_count": 7,
+    "metrics": {
+      "pr_auc": 0.9288,
+      "roc_auc": 0.6008,
+      "brier_score": 0.0923,
+      "precision": 0.9408,
+      "recall": 0.3007,
+      "f1_score": 0.4557,
+      "ontime_recall": 0.8363,
+      "ontime_precision": 0.1215,
+      "accuracy": 0.3562,
+      "flagged_orders": 4644,
+      "flagged_pct": 28.65,
+      "confusion_matrix": {
+        "true_negatives": 1405,
+        "false_positives": 275,
+        "false_negatives": 10161,
+        "true_positives": 4369
+      }
+    }
+  },
+  "reference_baseline_model": {
+    "model_name": "LogisticRegression",
+    "features_count": 135,
+    "metrics": {
+      "pr_auc": 0.9289,
+      "roc_auc": 0.6107,
+      "brier_score": 0.0917,
+      "precision": 0.9434,
+      "recall": 0.2605,
+      "f1_score": 0.4083,
+      "ontime_recall": 0.8649,
+      "ontime_precision": 0.1191,
+      "accuracy": 0.3231,
+      "flagged_orders": 4012,
+      "flagged_pct": 24.75,
+      "confusion_matrix": {
+        "true_negatives": 1453,
+        "false_positives": 227,
+        "false_negatives": 10745,
+        "true_positives": 3785
+      }
+    }
+  },
+  "synthetic_data_disclaimer": "All performance figures represent prototype metrics on synthetic quick-commerce operational datasets. No claim of production readiness is made."
+}

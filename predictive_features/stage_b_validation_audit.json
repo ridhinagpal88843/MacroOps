@@ -1,0 +1,96 @@
+{
+  "audit_name": "MacroOps AI Stage B Feature Validation & Integrity Audit",
+  "execution_timestamp": "2026-10-13T23:55:00.031631",
+  "source_data_integrity": {
+    "sqlite_db_exists": true,
+    "view_name": "v_full_lifecycle_orders",
+    "total_view_rows": 25000,
+    "distinct_view_order_ids": 25000,
+    "one_row_per_order_preserved": true,
+    "source_csvs_unmodified": true,
+    "stage_a_artifacts_unmodified": true
+  },
+  "cohort_audit": {
+    "total_orders_in_view": 25000,
+    "completed_cohort_verified": 24369,
+    "cancelled_orders_excluded": 445,
+    "failed_orders_excluded": 186,
+    "coverage_against_total_orders_csv": "24369/97,449 (25.01%)"
+  },
+  "temporal_consistency_audit": {
+    "b1_assigned_before_pickend_count": 23400,
+    "b1_unassigned_at_pickend_count": 969,
+    "b1_negative_remaining_budget_count": 29,
+    "b2_pickup_before_pickend_count": 15094,
+    "b2_negative_remaining_budget_count": 271,
+    "b2_speed_unfeasible_count": 1869,
+    "synthetic_cross_table_anomalies": {
+      "orders_delivery_time_before_pickend": 25,
+      "orders_delivery_time_before_dispatch": 146
+    }
+  },
+  "leakage_audit": {
+    "actual_delivery_time_in_feature_matrix": false,
+    "delivery_csv_delivery_time_in_feature_matrix": false,
+    "delivery_delay_minutes_in_feature_matrix": false,
+    "stage_a_predicted_risk_in_feature_matrix": false,
+    "all_features_timestamp_verified": true
+  },
+  "file_immutability_log": {
+    "stage_a_final_config.json": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\stage_a_final_config.json",
+      "status": "UNTOUCHED",
+      "bytes": 2859
+    },
+    "stage_a_final_metrics.json": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\stage_a_final_metrics.json",
+      "status": "UNTOUCHED",
+      "bytes": 1881
+    },
+    "STAGE_A_FINAL_EVALUATION.md": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\STAGE_A_FINAL_EVALUATION.md",
+      "status": "UNTOUCHED",
+      "bytes": 15355
+    },
+    "stage_a_features.csv": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\predictive_features\\stage_a_features.csv",
+      "status": "UNTOUCHED",
+      "bytes": 8619863
+    },
+    "feature_metadata.json": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\predictive_features\\feature_metadata.json",
+      "status": "UNTOUCHED",
+      "bytes": 3297
+    },
+    "validation_audit.json": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\predictive_features\\validation_audit.json",
+      "status": "UNTOUCHED",
+      "bytes": 2143
+    },
+    "orders.csv": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\orders.csv",
+      "status": "UNTOUCHED",
+      "bytes": 12736693
+    },
+    "inventory.csv": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\inventory.csv",
+      "status": "UNTOUCHED",
+      "bytes": 1253132
+    },
+    "picking.csv": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\picking.csv",
+      "status": "UNTOUCHED",
+      "bytes": 1994296
+    },
+    "delivery.csv": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\delivery.csv",
+      "status": "UNTOUCHED",
+      "bytes": 2979929
+    },
+    "workforce.csv": {
+      "path": "c:\\Users\\HP\\Desktop\\MacroOps\\workforce.csv",
+      "status": "UNTOUCHED",
+      "bytes": 393929
+    }
+  }
+}

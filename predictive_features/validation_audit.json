@@ -1,0 +1,97 @@
+{
+  "total_rows": 97449,
+  "duplicate_order_ids": 0,
+  "missing_values_by_column": {},
+  "split_counts": {
+    "train": 68157,
+    "val": 13082,
+    "test": 16210
+  },
+  "split_shares_pct": {
+    "train": 69.94,
+    "val": 13.42,
+    "test": 16.63
+  },
+  "split_date_ranges": {
+    "train": {
+      "min": "2026-09-01",
+      "max": "2026-09-21"
+    },
+    "val": {
+      "min": "2026-09-22",
+      "max": "2026-09-25"
+    },
+    "test": {
+      "min": "2026-09-26",
+      "max": "2026-09-30"
+    }
+  },
+  "target_classification_distribution": {
+    "train": {
+      "breached_1": 61190,
+      "met_0": 6967,
+      "breach_rate_pct": 89.78
+    },
+    "val": {
+      "breached_1": 11672,
+      "met_0": 1410,
+      "breach_rate_pct": 89.22
+    },
+    "test": {
+      "breached_1": 14530,
+      "met_0": 1680,
+      "breach_rate_pct": 89.64
+    }
+  },
+  "target_regression_distribution": {
+    "train": {
+      "mean_delay_min": 6.44,
+      "min_delay_min": 0.0,
+      "max_delay_min": 36.4
+    },
+    "val": {
+      "mean_delay_min": 6.41,
+      "min_delay_min": 0.0,
+      "max_delay_min": 29.1
+    },
+    "test": {
+      "mean_delay_min": 6.41,
+      "min_delay_min": 0.0,
+      "max_delay_min": 32.9
+    }
+  },
+  "feature_statistics": {
+    "item_count": {
+      "min": 1,
+      "max": 17,
+      "mean": 5.0
+    },
+    "order_value": {
+      "min": 80.0,
+      "max": 2744.18,
+      "mean": 574.64
+    },
+    "promised_duration_minutes": {
+      "min": 20.0,
+      "max": 54.27,
+      "mean": 29.65
+    },
+    "order_hour": {
+      "min": 0,
+      "max": 23,
+      "mean": 11.46
+    },
+    "is_peak_rush_hour_count": 20363,
+    "is_peak_rush_hour_pct": 20.9
+  },
+  "unseen_stores_audit": {
+    "train_unique_stores": 100,
+    "val_unique_stores": 100,
+    "test_unique_stores": 100,
+    "unseen_in_val_count": 0,
+    "unseen_in_test_count": 0
+  },
+  "target_leakage_verification": {
+    "status": "PASSED. Zero features are derived from target labels. store_target_encoded was removed. Preprocessing uses OneHotEncoder and StandardScaler."
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "pipeline_name": "MacroOps AI Stage B Model Training & Evaluation",
+  "timestamp": "2026-10-14T00:06:02",
+  "test_cohort_size": 4095,
+  "test_base_rate_breaches_pct": 89.91,
+  "stage_a_identical_cohort_benchmark": {
+    "tau_0_9300_frozen": {
+      "threshold": 0.93,
+      "total_orders": 4095,
+      "flagged_orders": 1763,
+      "alert_rate_pct": 43.05,
+      "tp": 1626,
+      "fp": 137,
+      "tn": 276,
+      "fn": 2056,
+      "precision_pct": 92.23,
+      "recall_pct": 44.16,
+      "f1": 0.5972,
+      "ontime_recall_pct": 66.83,
+      "ontime_precision_pct": 11.84,
+      "pr_auc": 0.9224,
+      "roc_auc": 0.568,
+      "brier_score": 0.0914,
+      "accuracy_pct": 46.45
+    },
+    "tau_0_5000_default": {
+      "threshold": 0.5,
+      "total_orders": 4095,
+      "flagged_orders": 4095,
+      "alert_rate_pct": 100.0,
+      "tp": 3682,
+      "fp": 413,
+      "tn": 0,
+      "fn": 0,
+      "precision_pct": 89.91,
+      "recall_pct": 100.0,
+      "f1": 0.9469,
+      "ontime_recall_pct": 0.0,
+      "ontime_precision_pct": 0.0,
+      "pr_auc": 0.9224,
+      "roc_auc": 0.568,
+      "brier_score": 0.0914,
+      "accuracy_pct": 89.91
+    }
+  },
+  "checkpoint_b1_post_picking": {
+    "validation_pr_auc": {
+      "dummy": 0.8927,
+      "logistic_regression": 0.9169,
+      "lightgbm": 0.9189
+    },
+    "test_evaluation": {
+      "tau_0_9300_frozen": {
+        "threshold": 0.93,
+        "total_orders": 4095,
+        "flagged_orders": 2660,
+        "alert_rate_pct": 64.96,
+        "tp": 2427,
+        "fp": 233,
+        "tn": 180,
+        "fn": 1255,
+        "precision_pct": 91.24,
+        "recall_pct": 65.92,
+        "f1": 0.7654,
+        "ontime_recall_pct": 43.58,
+        "ontime_precision_pct": 12.54,
+        "pr_auc": 0.9202,
+        "roc_auc": 0.5684,
+        "brier_score": 0.0974,
+        "accuracy_pct": 63.66
+      },
+      "tau_selected_val": {
+        "threshold": 0.93,
+        "total_orders": 4095,
+        "flagged_orders": 2660,
+        "alert_rate_pct": 64.96,
+        "tp": 2427,
+        "fp": 233,
+        "tn": 180,
+        "fn": 1255,
+        "precision_pct": 91.24,
+        "recall_pct": 65.92,
+        "f1": 0.7654,
+        "ontime_recall_pct": 43.58,
+        "ontime_precision_pct": 12.54,
+        "pr_auc": 0.9202,
+        "roc_auc": 0.5684,
+        "brier_score": 0.0974,
+        "accuracy_pct": 63.66
+      },
+      "logistic_regression_tau_0_9300": {
+        "threshold": 0.93,
+        "total_orders": 4095,
+        "flagged_orders": 1857,
+        "alert_rate_pct": 45.35,
+        "tp": 1719,
+        "fp": 138,
+        "tn": 275,
+        "fn": 1963,
+        "precision_pct": 92.57,
+        "recall_pct": 46.69,
+        "f1": 0.6207,
+        "ontime_recall_pct": 66.59,
+        "ontime_precision_pct": 12.29,
+        "pr_auc": 0.9246,
+        "roc_auc": 0.5873,
+        "brier_score": 0.0942,
+        "accuracy_pct": 48.69
+      }
+    }
+  },
+  "checkpoint_b2_post_dispatch_proxy": {
+    "validation_pr_auc": {
+      "dummy": 0.8927,
+      "logistic_regression": 0.9157,
+      "lightgbm_pure": 0.9175,
+      "lightgbm_hybrid": 0.9165
+    },
+    "test_evaluation": {
+      "tau_0_9300_frozen": {
+        "threshold": 0.93,
+        "total_orders": 4095,
+        "flagged_orders": 2682,
+        "alert_rate_pct": 65.49,
+        "tp": 2440,
+        "fp": 242,
+        "tn": 171,
+        "fn": 1242,
+        "precision_pct": 90.98,
+        "recall_pct": 66.27,
+        "f1": 0.7668,
+        "ontime_recall_pct": 41.4,
+        "ontime_precision_pct": 12.1,
+        "pr_auc": 0.9174,
+        "roc_auc": 0.5663,
+        "brier_score": 0.0985,
+        "accuracy_pct": 63.76
+      },
+      "tau_selected_val": {
+        "threshold": 0.93,
+        "total_orders": 4095,
+        "flagged_orders": 2682,
+        "alert_rate_pct": 65.49,
+        "tp": 2440,
+        "fp": 242,
+        "tn": 171,
+        "fn": 1242,
+        "precision_pct": 90.98,
+        "recall_pct": 66.27,
+        "f1": 0.7668,
+        "ontime_recall_pct": 41.4,
+        "ontime_precision_pct": 12.1,
+        "pr_auc": 0.9174,
+        "roc_auc": 0.5663,
+        "brier_score": 0.0985,
+        "accuracy_pct": 63.76
+      },
+      "logistic_regression_tau_0_9300": {
+        "threshold": 0.93,
+        "total_orders": 4095,
+        "flagged_orders": 1888,
+        "alert_rate_pct": 46.11,
+        "tp": 1742,
+        "fp": 146,
+        "tn": 267,
+        "fn": 1940,
+        "precision_pct": 92.27,
+        "recall_pct": 47.31,
+        "f1": 0.6255,
+        "ontime_recall_pct": 64.65,
+        "ontime_precision_pct": 12.1,
+        "pr_auc": 0.9246,
+        "roc_auc": 0.5835,
+        "brier_score": 0.0953,
+        "accuracy_pct": 49.06
+      },
+      "deterministic_breach_count": 46,
+      "deterministic_actual_breaches": 40
+    }
+  },
+  "incremental_lift_over_stage_a": {
+    "b1_vs_stage_a": {
+      "delta_pr_auc": -0.0022,
+      "delta_roc_auc": 0.0004,
+      "delta_breach_recall_pct": 21.76,
+      "delta_tp_breaches_captured": 801,
+      "delta_precision_pct": -0.99
+    },
+    "b2_vs_stage_a": {
+      "delta_pr_auc": -0.005,
+      "delta_roc_auc": -0.0017,
+      "delta_breach_recall_pct": 22.11,
+      "delta_tp_breaches_captured": 814,
+      "delta_precision_pct": -1.25
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "stage": "Stage B (Dynamic In-Fulfillment SLA Risk Tracking)",
+  "governance_status": "EVALUATED_PROTOTYPE_FROZEN",
+  "cohort_definition": "orders.status IN ('Delivered_On_Time', 'Delivered_Late') WITH full picking and delivery telemetry (N = 24,369)",
+  "split_dates": {
+    "train": "2026-09-01 to 2026-09-21 (N = 17,031)",
+    "val": "2026-09-22 to 2026-09-25 (N = 3,243)",
+    "test": "2026-09-26 to 2026-09-30 (N = 4,095)"
+  },
+  "target_definition": {
+    "name": "sla_breached",
+    "type": "binary classification",
+    "ground_truth_rule": "1 if actual_delivery_time > promised_time else 0 (canonical from orders.csv)"
+  },
+  "checkpoints": {
+    "B1_PICK_END": {
+      "checkpoint_event": "picking.pick_end",
+      "features": [
+        "item_count",
+        "order_value",
+        "promised_duration_minutes",
+        "time_to_pick_start_min",
+        "pick_duration_minutes",
+        "elapsed_time_to_b1_min",
+        "items_picked",
+        "items_missing",
+        "picking_speed_items_per_min",
+        "remaining_sla_budget_b1_min",
+        "budget_consumed_ratio_b1",
+        "pick_budget_deficit_min",
+        "assignment_delay_to_b1_min",
+        "time_from_assignment_to_b1_min",
+        "is_peak_rush_hour",
+        "has_picking_exception",
+        "is_past_promise_at_b1",
+        "is_courier_assigned_by_b1",
+        "store_id",
+        "order_hour",
+        "day_of_week",
+        "picker_id",
+        "rider_id_at_b1"
+      ],
+      "primary_model": "LightGBMClassifier",
+      "linear_reference": "LogisticRegression",
+      "operating_threshold": 0.93,
+      "model_artifact": "model_artifacts/stage_b1_lightgbm.joblib",
+      "preprocessor_artifact": "model_artifacts/stage_b1_ordinal_encoder.joblib",
+      "linear_reference_model_artifact": "model_artifacts/stage_b1_logistic.joblib",
+      "linear_reference_preprocessor_artifact": "model_artifacts/stage_b1_linear_preprocessor.joblib"
+    },
+    "B2_DISPATCH_PROXY": {
+      "checkpoint_event": "max(picking.pick_end, delivery.pickup_time)",
+      "features": [
+        "item_count",
+        "order_value",
+        "promised_duration_minutes",
+        "time_to_pick_start_min",
+        "pick_duration_minutes",
+        "items_picked",
+        "items_missing",
+        "picking_speed_items_per_min",
+        "distance_km",
+        "assignment_delay_min",
+        "elapsed_time_to_dispatch_min",
+        "remaining_sla_budget_b2_min",
+        "budget_consumed_ratio_b2",
+        "transit_budget_deficit_min",
+        "courier_wait_at_store_min",
+        "order_staging_dwell_min",
+        "required_speed_kmh",
+        "is_peak_rush_hour",
+        "has_picking_exception",
+        "is_past_promise_at_b2",
+        "rider_arrived_before_pick_end",
+        "is_speed_unfeasible",
+        "store_id",
+        "order_hour",
+        "day_of_week",
+        "picker_id",
+        "rider_id"
+      ],
+      "primary_model": "LightGBMClassifier (Hybrid Deterministic)",
+      "deterministic_rule": "Orders with remaining_sla_budget_b2_min <= 0 are classified deterministically as P(breach) = 1.0",
+      "linear_reference": "LogisticRegression",
+      "operating_threshold": 0.93,
+      "model_artifact": "model_artifacts/stage_b2_lightgbm.joblib",
+      "preprocessor_artifact": "model_artifacts/stage_b2_ordinal_encoder.joblib",
+      "linear_reference_model_artifact": "model_artifacts/stage_b2_logistic.joblib",
+      "linear_reference_preprocessor_artifact": "model_artifacts/stage_b2_linear_preprocessor.joblib"
+    }
+  },
+  "telemetry_limitations": "Applicable exclusively to orders with dark store picking and delivery records (25.01% of total orders). 74.99% of orders lack granular fulfillment events and remain governed by Stage A checkout predictions."
+}
