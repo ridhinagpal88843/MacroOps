@@ -561,5 +561,7 @@ def assistant_chat() -> Response:
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("MACROOPS_PORT", 5000))
-    logger.info(f"Starting MacroOps Operations Platform on http://127.0.0.1:{port} (debug=False)...")
-    app.run(host="127.0.0.1", port=port, debug=False)
+    host = os.environ.get("MACROOPS_HOST", "0.0.0.0")
+    logger.info(f"Starting MacroOps Operations Platform on http://{host}:{port} (debug=False)...")
+    app.run(host=host, port=port, debug=False, threaded=True)
+
