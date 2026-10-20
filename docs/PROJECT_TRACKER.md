@@ -20,6 +20,7 @@
 | **M4** | **Animated Command Centre Dashboard** | Week 5 | Completed | `VERIFIED` | `app.py`, `templates/index.html`, `static/css/command_centre.css`, `static/js/command_centre.js` |
 | **M5** | **Embodied 3D AI Operations Assistant ("Ava")** | Week 6 | Completed | `VERIFIED` | Procedural Three.js avatar, dual animation state, viseme lip-sync, `services/assistant_service.py` |
 | **M6** | **Full-System Integration QA, Release & Push** | Week 7 | Completed | `VERIFIED` | 22/22 integration tests passing, `qa_evidence/`, `docs/QA_REPORT.md`, GitHub push |
+| **M7** | **Phase 03 Part 01: Business Problem Discovery & AI Solutions** | Week 8 | October 25, 2026 | `APPROVED` | `docs/PHASE_03_PART_01_BUSINESS_PROBLEM_DISCOVERY.md` (Doorstep access, quality disputes, closed-loop AI) |
 
 ---
 

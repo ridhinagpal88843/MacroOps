@@ -217,6 +217,7 @@ Full audit logs, test execution matrices, and defect remediation histories are r
 | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Production WSGI configuration, environment variables, Nginx reverse proxy, and monitoring |
 | [`docs/RESEARCH_PAPER_OUTLINE.md`](docs/RESEARCH_PAPER_OUTLINE.md) | Academic research paper structure on SLA risk mitigation and embodied dispatch copilots |
 | [`docs/PROJECT_TRACKER.md`](docs/PROJECT_TRACKER.md) | Milestone execution log, verification gates checklist, and roadmap |
+| [`docs/PHASE_03_PART_01_BUSINESS_PROBLEM_DISCOVERY.md`](docs/PHASE_03_PART_01_BUSINESS_PROBLEM_DISCOVERY.md) | Phase 03 Part 01: Real-world business discovery, doorstep access, dispute AI, and ROI framework |
 | [`docs/KPI_DEFINITIONS.md`](docs/KPI_DEFINITIONS.md) | Mathematical definitions and benchmarks for all 15+ operational KPIs |
 | [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | Relational entity schemas and column attributes for orders, inventory, and delivery |
 
