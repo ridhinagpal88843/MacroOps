@@ -21,16 +21,19 @@
 | **M5** | **Embodied 3D AI Operations Assistant ("Ava")** | Week 6 | Completed | `VERIFIED` | Procedural Three.js avatar, dual animation state, viseme lip-sync, `services/assistant_service.py` |
 | **M6** | **Full-System Integration QA, Release & Push** | Week 7 | Completed | `VERIFIED` | 22/22 integration tests passing, `qa_evidence/`, `docs/QA_REPORT.md`, GitHub push |
 | **M7** | **Phase 03 Part 01: Business Problem Discovery & AI Solutions** | Week 8 | October 25, 2026 | `APPROVED` | `docs/PHASE_03_PART_01_BUSINESS_PROBLEM_DISCOVERY.md` (Doorstep access, quality disputes, closed-loop AI) |
+| **M8** | **Phase 03 Part 02: Supervisor Scenario Prototyping & Views** | Week 9 | October 2026 | `VERIFIED` | 41/41 tests passing, `services/delivery_access_service.py`, `services/complaint_service.py`, `docs/SUPERVISOR_SCENARIO_COVERAGE.md`, 3 Command Centre views |
 
 ---
 
 ## Deliverables & Artifact Inventory
 
 ### 1. Backend Core & REST Microservices
-- [x] `app.py`: Flask application exposing 7 validated endpoints (`/api/kpis`, `/api/orders`, `/api/orders/<id>`, `/api/stores`, `/api/model/stage-a`, `/api/predict/stage-a`, `/api/assistant/chat`).
+- [x] `app.py`: Flask application exposing 7 validated baseline endpoints and 5 Phase 3 prototype endpoints (`/api/prototypes/delivery-access/scenarios`, `/api/prototypes/delivery-access/evaluate`, `/api/prototypes/disputes/scenarios`, `/api/prototypes/disputes/evaluate`, `/api/prototypes/disputes/batch-investigations`).
 - [x] `services/data_service.py`: SQLite connection pool manager using context managers with strict read-only URI enforcement (`mode=ro`) and connection close guarantees.
 - [x] `services/inference_service.py`: Lightweight inference runtime executing Stage A LightGBM predictions with frozen threshold $\tau = 0.9300$ and Stage B telemetry fallbacks.
-- [x] `services/assistant_service.py`: Conversational intent parser with operational context memory, multi-turn dialogue, and store performance ranking queries.
+- [x] `services/assistant_service.py`: Conversational intent parser supporting operational queries, order audits, and Phase 3 supervisor scenario intelligence.
+- [x] `services/delivery_access_service.py`: Physical access governance, walk-up weight cap (15.0kg), vicinity briefs, and ground handoff escalations.
+- [x] `services/complaint_service.py`: 5-tier fair compensation policy engine, cold-chain latency correlator, anti-bias safeguards, and supplier batch anomaly clustering.
 
 ### 2. Frontend & Embodied Conversational Experience
 - [x] `templates/index.html`: Responsive, semantic single-page dashboard with orbital visual, store leaderboard, order table, and persistent floating assistant.

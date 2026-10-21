@@ -2752,3 +2752,376 @@ body.reduced-motion .chart-stroke-path {
   transform: translateY(-1px);
 }
 
+/* ==========================================================================
+   Phase 03 Part 02: Supervisor Scenario Console Views
+   - Access & Safety Monitor
+   - Quality Dispute Inspector & Supplier Batch Leaderboard
+   - Fair Adjudication Console
+   ========================================================================== */
+
+.scenario-console-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (max-width: 1024px) {
+  .scenario-console-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.console-form-group {
+  margin-bottom: 16px;
+}
+
+.form-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.form-select,
+.form-input {
+  width: 100%;
+  background: rgba(10, 16, 30, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-select:focus,
+.form-input:focus {
+  border-color: var(--cyan-primary);
+  box-shadow: 0 0 14px rgba(0, 242, 254, 0.25);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.form-select option {
+  background: #0f172a;
+  color: #fff;
+}
+
+.console-action-row {
+  margin-top: 20px;
+}
+
+.primary-action-btn {
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.2) 0%, rgba(56, 189, 248, 0.1) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.primary-action-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.35) 0%, rgba(56, 189, 248, 0.2) 100%);
+  border-color: var(--cyan-primary);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Decision Hero Display */
+.decision-hero-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.decision-hero-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--cyan-primary);
+}
+
+.decision-main-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  margin-bottom: 8px;
+}
+
+.decision-main-badge.tier-safe {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #34d399;
+}
+
+.decision-main-badge.tier-brief {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #38bdf8;
+}
+
+.decision-main-badge.tier-handoff {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.45);
+  color: #fbbf24;
+}
+
+.decision-main-badge.tier-refund {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #34d399;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+}
+
+.decision-main-badge.tier-replacement {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+}
+
+.decision-main-badge.tier-partial {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+}
+
+.decision-main-badge.tier-evidence {
+  background: rgba(129, 140, 248, 0.2);
+  border-color: rgba(129, 140, 248, 0.5);
+  color: #a5b4fc;
+}
+
+.decision-main-badge.tier-review {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #f87171;
+}
+
+.decision-sub-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* 4-Quadrant Status Matrix */
+.metric-status-matrix {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+  .metric-status-matrix {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.matrix-tile {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.tile-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.tile-value {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Directive Callout Box */
+.protocol-directive-box {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.directive-header {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--cyan-primary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.directive-body {
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  line-height: 1.48;
+  margin: 0;
+}
+
+.customer-note-box {
+  background: rgba(129, 140, 248, 0.08);
+  border-color: rgba(129, 140, 248, 0.25);
+}
+
+.customer-note-box .directive-header {
+  color: #a5b4fc;
+}
+
+.customer-note-box .directive-body {
+  font-style: italic;
+  color: #e2e8f0;
+}
+
+/* Fairness Checklist Box */
+.fairness-checklist-box {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #d1fae5;
+}
+
+.checklist-item .check-icon {
+  color: #10b981;
+  font-weight: 900;
+}
+
+/* Truth in Engineering Note */
+.truth-engineering-footer {
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Thermal Exposure Meter */
+.thermal-exposure-meter {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.meter-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #ef4444 100%);
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+/* Defect Evidence Preview */
+.defect-evidence-preview {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.evidence-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tag-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+}
+
+.defect-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.defect-details-grid div strong {
+  color: #fff;
+}
+

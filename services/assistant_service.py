@@ -31,9 +31,17 @@ SYNTHETIC_DATA_DISCLAIMER = (
 class AssistantService:
     """Grounded operational dialogue engine for MacroOps Command Centre."""
 
-    def __init__(self, data_service: DataService, inference_service: Optional[InferenceService] = None):
+    def __init__(
+        self,
+        data_service: DataService,
+        inference_service: Optional[InferenceService] = None,
+        delivery_access_service: Optional[Any] = None,
+        complaint_service: Optional[Any] = None
+    ):
         self.data_service = data_service
         self.inference_service = inference_service
+        self.delivery_access_service = delivery_access_service
+        self.complaint_service = complaint_service
 
     def process_query(self, message: str) -> Dict[str, Any]:
         """
@@ -67,27 +75,39 @@ class AssistantService:
         if any(k in lower_msg for k in ["worst store", "best store", "worst breach", "highest breach", "lowest breach", "store rank", "ranking", "stores performing", "worst performing", "best performing"]) or ("store" in lower_msg and any(w in lower_msg for w in ["worst", "best", "rank", "ranking", "top", "bottom", "breach"])):
             return self._handle_store_ranking(lower_msg)
 
-        # 4. Picking & Dark Store Operations
+        # 4. Delivery Location, Doorstep Access & Courier Safety (Phase 3 Scenario 1)
+        if any(k in lower_msg for k in ["access notes", "doorstep", "courier safety", "rider safety", "bulky item", "staircase", "elevator", "gate code", "walkup", "ground floor", "building access", "vicinity"]):
+            return self._handle_delivery_access(lower_msg)
+
+        # 5. Supplier Batch Quality Investigation (Phase 3 Scenario 2)
+        if any(k in lower_msg for k in ["batch investigation", "supplier defect", "defective batch", "quarantine batch", "supplier batch", "batch quality"]):
+            return self._handle_batch_investigations()
+
+        # 6. Quality Complaints & Fair Dispute Adjudication (Phase 3 Scenario 2 & 3)
+        if any(k in lower_msg for k in ["complaint", "dispute", "quality dispute", "bruised fruit", "spoiled milk", "refund recommendation", "fair compensation", "curdled", "damaged product", "compensation policy"]):
+            return self._handle_complaint_inquiry(lower_msg)
+
+        # 7. Picking & Dark Store Operations
         if any(k in lower_msg for k in ["picking", "picker", "pick duration", "pick speed", "dark store", "missing items"]):
             return self._handle_picking_performance()
 
-        # 5. Last-Mile & Courier Transit
+        # 8. Last-Mile & Courier Transit
         if any(k in lower_msg for k in ["transit", "courier", "rider", "last-mile", "last mile", "delivery distance", "assignment delay", "dispatch"]):
             return self._handle_transit_performance()
 
-        # 6. Inventory & Stockouts
+        # 9. Inventory & Stockouts
         if any(k in lower_msg for k in ["inventory", "stockout", "accuracy", "sku", "shelf", "audit"]):
             return self._handle_inventory_performance()
 
-        # 7. Model Governance & Predictive Risk Checkpoints
+        # 10. Model Governance & Predictive Risk Checkpoints
         if any(k in lower_msg for k in ["model", "stage a", "stage b", "threshold", "precision", "recall", "lightgbm", "checkpoint", "prediction"]):
             return self._handle_model_governance()
 
-        # 8. Root-Cause Analysis (Why are breaches so high?)
+        # 11. Root-Cause Analysis (Why are breaches so high?)
         if any(k in lower_msg for k in ["why", "root cause", "deficit", "systemic", "cause", "reason"]):
             return self._handle_root_cause()
 
-        # 9. Global KPIs & SLA Performance (default or explicit)
+        # 12. Global KPIs & SLA Performance (default or explicit)
         if any(k in lower_msg for k in ["kpi", "sla", "breach", "on-time", "otd", "volume", "overall", "performance", "summary", "delay"]):
             return self._handle_global_kpis()
 
@@ -101,6 +121,7 @@ class AssistantService:
             ),
             intent="GUIDANCE"
         )
+
 
     # -------------------------------------------------------------------------
     # Intent Handlers
@@ -404,6 +425,60 @@ class AssistantService:
         )
 
         return self._build_response(reply, "ROOT_CAUSE_ANALYSIS", evidence, recommendation, evidence["denominator"])
+
+    def _handle_delivery_access(self, query: str) -> Dict[str, Any]:
+        """Provide grounded advice on doorstep access, building barriers, and courier safety."""
+        reply = (
+            "Doorstep Access & Courier Safety Policy: MacroOps strictly enforces ergonomic safety limits. "
+            "Delivery partners are NEVER assumed or required to carry solitary loads exceeding 15kg up staircases "
+            "without elevator access. When access is blocked by gates or physical hazards, the system triggers pre-arrival briefs "
+            "or customer ground-floor coordination rather than forcing an unsafe doorstep climb."
+        )
+        evidence = {
+            "max_unassisted_walkup_weight": "15.0 kg",
+            "max_walkup_floors": "2 floors without elevator",
+            "safety_action_tiers": "SAFE_DOORSTEP_PROCEED, PRE_ARRIVAL_ACCESS_BRIEF, GROUND_FLOOR_HANDOFF, UNSAFE_PHYSICAL_TASK_ESCALATION",
+            "grounding": "Supervised Delivery Location & Doorstep Access Framework",
+            "denominator": "25 Calibrated Access Scenarios"
+        }
+        recommendation = "Policy: Protect courier ergonomics and safety first; authorize ground-floor handover whenever vertical access is hazardous."
+        return self._build_response(reply, "DELIVERY_ACCESS_INTELLIGENCE", evidence, recommendation, evidence["denominator"])
+
+    def _handle_complaint_inquiry(self, query: str) -> Dict[str, Any]:
+        """Explain transparent 5-tier fair complaint resolution and anti-bias policy."""
+        reply = (
+            "Quality Dispute & Fair Compensation Policy: MacroOps employs a transparent 5-tier adjudication engine: "
+            "1) Immediate Refund for spoiled chilled perishables with transit delays; "
+            "2) Priority Replacement for damaged household staples; "
+            "3) Partial Credit (35%) for cosmetic packaging blemishes with sealed food intact; "
+            "4) Request Evidence for high-value claims without photos; "
+            "5) Human Review for complex disputes. Under our fairness charter, customer claim frequency alone NEVER triggers an automatic denial."
+        )
+        evidence = {
+            "policy_actions": "IMMEDIATE_REFUND, PRIORITY_REPLACEMENT, PARTIAL_COMPENSATION, REQUEST_EVIDENCE, HUMAN_REVIEW",
+            "fairness_invariants": "Zero automated rejections, no guilt by frequency, margin decoupling",
+            "grounding": "Supervised Fair Adjudication Policy Engine",
+            "denominator": "20 Calibrated Quality Dispute Scenarios"
+        }
+        recommendation = "Advisory Guidance: Verify cold-chain telemetry and attached photo evidence; ensure genuine customer complaints are never denied to protect shift margins."
+        return self._build_response(reply, "COMPLAINT_ADJUDICATION_POLICY", evidence, recommendation, evidence["denominator"])
+
+    def _handle_batch_investigations(self) -> Dict[str, Any]:
+        """Report emerging supplier batch defect clusters requiring investigation."""
+        reply = (
+            "Supplier Quality Investigation: MacroOps clusters quality complaints by Supplier ID and Batch ID. "
+            "When recurring defect patterns are detected (such as spoiled milk batches or damaged packaging runs), "
+            "the system issues an advisory 'RECOMMEND_SUPPLIER_BATCH_INVESTIGATION'. This alerts warehouse operators to quarantine physical stock "
+            "and engage suppliers constructively, rather than repeatedly absorbing customer dispute costs."
+        )
+        evidence = {
+            "investigation_trigger": ">= 2 complaints or > 4.0% defect rate on batch ID",
+            "cluster_monitoring": "Active across dairy, fruit, produce, and ambient categories",
+            "governance_rule": "Framed as investigation recommendation, not proven legal fault",
+            "denominator": "Supplier Defect Intelligence Views"
+        }
+        recommendation = "Action: Warehouse supervisors should sample remaining batch inventory and inspect supplier cold-chain logs."
+        return self._build_response(reply, "SUPPLIER_BATCH_INVESTIGATION", evidence, recommendation, evidence["denominator"])
 
     # -------------------------------------------------------------------------
     # Response Builder

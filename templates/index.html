@@ -42,11 +42,23 @@
         </button>
         <button class="nav-tab" data-tab="tab-orders" role="tab" aria-selected="false" id="tab-btn-orders">
           <span class="tab-icon">⚡</span>
-          <span class="tab-label">Order & Exception Explorer</span>
+          <span class="tab-label">Order Explorer</span>
         </button>
         <button class="nav-tab" data-tab="tab-governance" role="tab" aria-selected="false" id="tab-btn-governance">
           <span class="tab-icon">🛡️</span>
-          <span class="tab-label">Model Governance & Lineage</span>
+          <span class="tab-label">Model Governance</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-access-safety" role="tab" aria-selected="false" id="tab-btn-access-safety">
+          <span class="tab-icon">🚪</span>
+          <span class="tab-label">Access &amp; Safety</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-dispute-inspector" role="tab" aria-selected="false" id="tab-btn-dispute-inspector">
+          <span class="tab-icon">🔍</span>
+          <span class="tab-label">Dispute Inspector</span>
+        </button>
+        <button class="nav-tab" data-tab="tab-adjudication-console" role="tab" aria-selected="false" id="tab-btn-adjudication-console">
+          <span class="tab-icon">⚖️</span>
+          <span class="tab-label">Fair Adjudication</span>
         </button>
       </nav>
 
@@ -860,6 +872,622 @@
 
       </section>
 
+      <!-- ================================================================= -->
+      <!-- TAB 4: ACCESS & SAFETY MONITOR (PHASE 3 SCENARIO 1)               -->
+      <!-- ================================================================= -->
+      <section class="tab-panel" id="tab-access-safety" role="tabpanel" aria-labelledby="tab-btn-access-safety">
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Delivery Location, Doorstep Access &amp; Courier Safety</h1>
+            <p class="panel-desc">Physical access governance, ergonomic walk-up limits, pre-arrival briefings, and ground-floor handoff escalation.</p>
+          </div>
+          <div class="cohort-badge">
+            <span class="badge-label">SAFETY PROTOTYPE</span>
+            <span class="badge-value">25 CALIBRATED SCENARIOS</span>
+          </div>
+        </div>
+
+        <!-- 4 Top Safety KPI Cards -->
+        <div class="kpi-grid">
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 1;">
+            <div class="kpi-header">
+              <span class="kpi-label">Ergonomic Walk-up Limit</span>
+              <span class="kpi-badge badge-amber">THRESHOLD</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number cyan-accent">15.0 kg</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Max unassisted walk-up weight without elevator</span>
+              <span class="kpi-source">Mandatory Courier Ergonomics Charter</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 2;">
+            <div class="kpi-header">
+              <span class="kpi-label">Vertical Staircase Limit</span>
+              <span class="kpi-badge badge-indigo">FLOORS</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number">2 Floors</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Maximum unassisted stair walk-up threshold</span>
+              <span class="kpi-source">Couriers never forced up high-rise stairs</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 3;">
+            <div class="kpi-header">
+              <span class="kpi-label">Pre-Arrival Briefing Rate</span>
+              <span class="kpi-badge badge-emerald">AUTOMATION</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number emerald-accent">100.0%</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Gate codes &amp; entry protocols pushed &lt; 500m</span>
+              <span class="kpi-source">Simulated Vicinity Intelligence</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 4;">
+            <div class="kpi-header">
+              <span class="kpi-label">Ground Handoff Escalation</span>
+              <span class="kpi-badge badge-crimson">PROTECTION</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number cyan-accent">ACTIVE</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Hazard &amp; bulky overrides protect rating &amp; pay</span>
+              <span class="kpi-source">Zero punitive courier penalization</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+        </div>
+
+        <!-- Interactive Safety Scenario Tester & Console Grid -->
+        <div class="scenario-console-grid">
+          <!-- Left: Scenario Selector & Parameters -->
+          <div class="chart-card glass-card reveal-item revealed">
+            <div class="card-title-bar">
+              <h2 class="card-title">Access Scenario &amp; Physical Conditions</h2>
+              <span class="card-tag">SIMULATION SUITE</span>
+            </div>
+            <p class="card-subtitle">Select a pre-calibrated scenario or modify building barriers and courier hazard conditions.</p>
+
+            <div class="console-form-group">
+              <label for="select-access-scenario" class="form-label">Pre-Calibrated Access Scenario (25 Scenarios)</label>
+              <select id="select-access-scenario" class="form-select">
+                <option value="">Loading access scenarios...</option>
+              </select>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="input-access-weight" class="form-label">Parcel Weight (kg)</label>
+                <input type="number" id="input-access-weight" class="form-input" step="0.5" value="18.5" min="0.5" max="50.0">
+              </div>
+              <div class="form-col">
+                <label for="input-access-floor" class="form-label">Drop-off Floor</label>
+                <input type="number" id="input-access-floor" class="form-input" step="1" value="4" min="0" max="40">
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="select-access-elevator" class="form-label">Elevator Available?</label>
+                <select id="select-access-elevator" class="form-select">
+                  <option value="false">No (Stairs Only)</option>
+                  <option value="true">Yes (Working Lift)</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label for="select-access-gate" class="form-label">Gate Code Required?</label>
+                <select id="select-access-gate" class="form-select">
+                  <option value="true">Yes (Gated Community)</option>
+                  <option value="false">No (Direct Street Entry)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="select-access-hazard" class="form-label">Physical Hazard</label>
+                <select id="select-access-hazard" class="form-select">
+                  <option value="none">None</option>
+                  <option value="unleashed_dog">Unleashed Guard Dog / Animal</option>
+                  <option value="broken_stairs">Broken / Unlit Staircase</option>
+                  <option value="waterlogging">Severe Waterlogging &gt; 1ft</option>
+                  <option value="hostile_security">Hostile / Locked Gate Barrier</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label for="input-access-vicinity" class="form-label">Vicinity Distance (m)</label>
+                <input type="number" id="input-access-vicinity" class="form-input" step="50" value="120" min="0" max="2000">
+              </div>
+            </div>
+
+            <div class="console-action-row">
+              <button class="primary-action-btn" id="btn-evaluate-access">
+                <span>🛡️ Evaluate Doorstep Safety &amp; Access</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Real-Time Safety Assessment & Action Protocol -->
+          <div class="chart-card glass-card reveal-item revealed" id="access-result-card">
+            <div class="card-title-bar">
+              <h2 class="card-title">Real-Time Courier Safety Decision</h2>
+              <span class="card-tag" id="access-badge-status">EVALUATING</span>
+            </div>
+            <p class="card-subtitle">Grounded operational protocol generated in compliance with ergonomics and delivery guidelines.</p>
+
+            <div class="decision-hero-box" id="access-decision-box">
+              <div class="decision-main-badge" id="access-decision-name">UNSAFE_PHYSICAL_TASK_ESCALATION</div>
+              <div class="decision-sub-text" id="access-decision-reason">Heavy parcel (18.5kg) on floor 4 with broken elevator exceeds 15.0kg walk-up limit.</div>
+            </div>
+
+            <div class="metric-status-matrix">
+              <div class="matrix-tile">
+                <span class="tile-label">DOORSTEP SAFE</span>
+                <span class="tile-value text-crimson" id="access-doorstep-safe">NO ✕</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">GROUND HANDOFF</span>
+                <span class="tile-value text-emerald" id="access-ground-handoff">AUTHORIZED ✓</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">PRE-ARRIVAL BRIEF</span>
+                <span class="tile-value text-cyan" id="access-brief-pushed">SENT (&lt; 200m)</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">COURIER RATING</span>
+                <span class="tile-value text-amber" id="access-penalty-prot">PROTECTED</span>
+              </div>
+            </div>
+
+            <div class="protocol-directive-box">
+              <div class="directive-header">COURIER ACTION DIRECTIVE</div>
+              <p class="directive-body" id="access-action-brief">Courier is authorized to halt vertical transit. Customer is contacted automatically via IVR / SMS to meet courier in ground lobby.</p>
+            </div>
+
+            <div class="protocol-directive-box customer-note-box">
+              <div class="directive-header">CUSTOMER COORDINATION PREVIEW</div>
+              <p class="directive-body" id="access-customer-msg">"Hello! For courier safety, bulky orders (>15kg) delivered to upper floors without elevator are handed over at the ground lobby. Your delivery partner is arriving downstairs now."</p>
+            </div>
+
+            <div class="truth-engineering-footer">
+              ℹ️ <strong>Truth-in-Engineering:</strong> Simulated vicinity GPS telemetry &amp; policy engine. Physical handoffs rely on simulated scenarios; no physical couriers are reassigned.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 5: QUALITY DISPUTE INSPECTOR (PHASE 3 SCENARIO 2)             -->
+      <!-- ================================================================= -->
+      <section class="tab-panel" id="tab-dispute-inspector" role="tabpanel" aria-labelledby="tab-btn-dispute-inspector">
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Defective Product &amp; Supplier Batch Inspector</h1>
+            <p class="panel-desc">Cold-chain transit latency correlation, photo evidence defect analysis, and supplier batch anomaly clustering.</p>
+          </div>
+          <div class="cohort-badge">
+            <span class="badge-label">SUPPLIER QUALITY</span>
+            <span class="badge-value">BATCH CLUSTERING ACTIVE</span>
+          </div>
+        </div>
+
+        <!-- 4 Top Dispute KPI Cards -->
+        <div class="kpi-grid">
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 1;">
+            <div class="kpi-header">
+              <span class="kpi-label">Cold-Chain Delay Limit</span>
+              <span class="kpi-badge badge-cyan">PERISHABLES</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number cyan-accent">15.0 min</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Delivery delay threshold for dairy &amp; chilled goods</span>
+              <span class="kpi-source">Correlated with ambient summer temperatures</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 2;">
+            <div class="kpi-header">
+              <span class="kpi-label">Batch Anomaly Threshold</span>
+              <span class="kpi-badge badge-amber">TRIGGER</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number">&ge; 2 Claims</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Triggers advisory batch investigation</span>
+              <span class="kpi-source">Aggregated by Supplier ID &amp; Batch ID</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 3;">
+            <div class="kpi-header">
+              <span class="kpi-label">Photo Evidence Tagging</span>
+              <span class="kpi-badge badge-emerald">AUTOMATED</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number emerald-accent">100.0%</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Visual tag verification on uploaded defect photos</span>
+              <span class="kpi-source">Defect categorization &amp; seal inspection</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 4;">
+            <div class="kpi-header">
+              <span class="kpi-label">Investigation Governance</span>
+              <span class="kpi-badge badge-indigo">POLICY</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number cyan-accent">ADVISORY</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Framed as batch investigation recommendation</span>
+              <span class="kpi-source">Never asserts proven supplier legal fault</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+        </div>
+
+        <!-- Supplier Batch Investigation Leaderboard -->
+        <div class="chart-card glass-card reveal-item revealed">
+          <div class="card-title-bar">
+            <h2 class="card-title">Emerging Supplier Batch Defect Clusters</h2>
+            <span class="card-tag">BATCH QUALITY INTELLIGENCE</span>
+          </div>
+          <p class="card-subtitle">Batches with recurring quality disputes (&ge; 2 complaints or &gt; 4.0% defect rate) flagged for warehouse quarantine and supplier QA audit.</p>
+
+          <div class="table-container">
+            <table class="data-table" id="batch-investigation-table">
+              <thead>
+                <tr>
+                  <th>Batch ID</th>
+                  <th>Supplier ID</th>
+                  <th>Category</th>
+                  <th>SKUs Affected</th>
+                  <th>Claims / Units</th>
+                  <th>Defect Rate</th>
+                  <th>Defect Signatures</th>
+                  <th>Recommendation</th>
+                </tr>
+              </thead>
+              <tbody id="batch-table-body">
+                <tr><td colspan="8" class="table-loading">Aggregating supplier defect clusters...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Defect Analysis & Cold-Chain Latency Inspector -->
+        <div class="scenario-console-grid">
+          <!-- Left: Defect Case Inspector -->
+          <div class="chart-card glass-card reveal-item revealed">
+            <div class="card-title-bar">
+              <h2 class="card-title">Defect Inspection &amp; Evidence Review</h2>
+              <span class="card-tag">CASE DOSSIER</span>
+            </div>
+            <p class="card-subtitle">Examine simulated defect cases across perishables, fragile items, and packaged goods.</p>
+
+            <div class="console-form-group">
+              <label for="select-dispute-scenario" class="form-label">Select Defective Product Scenario</label>
+              <select id="select-dispute-scenario" class="form-select">
+                <option value="">Loading defect scenarios...</option>
+              </select>
+            </div>
+
+            <div class="defect-evidence-preview" id="dispute-evidence-box">
+              <div class="evidence-tag-list" id="dispute-evidence-tags">
+                <span class="tag-badge">PHOTO_ATTACHED</span>
+                <span class="tag-badge">BRUISED_SKIN</span>
+              </div>
+              <div class="defect-details-grid">
+                <div><strong>SKU:</strong> <span id="dispute-sku">SKU-PROD-019</span></div>
+                <div><strong>Item:</strong> <span id="dispute-item">Organic Milk 1L</span></div>
+                <div><strong>Category:</strong> <span id="dispute-cat">dairy_chilled</span></div>
+                <div><strong>Price:</strong> <span id="dispute-price">₹85.00</span></div>
+                <div><strong>Reported Defect:</strong> <span id="dispute-desc">Sour smell, curdled on opening</span></div>
+                <div><strong>Batch:</strong> <span id="dispute-batch">BATCH-DAIRY-B102</span></div>
+              </div>
+            </div>
+
+            <div class="console-action-row">
+              <button class="primary-action-btn" id="btn-sync-to-adjudication">
+                <span>⚖️ Send to Fair Adjudication Console &rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Cold-Chain Latency & Temperature Correlator -->
+          <div class="chart-card glass-card reveal-item revealed">
+            <div class="card-title-bar">
+              <h2 class="card-title">Cold-Chain Transit Latency Correlator</h2>
+              <span class="card-tag">THERMAL EXPOSURE</span>
+            </div>
+            <p class="card-subtitle">Simulated transit duration vs thermal preservation degradation.</p>
+
+            <div class="thermal-exposure-meter">
+              <div class="meter-labels">
+                <span>Safe Cold-Chain (&lt; 4°C)</span>
+                <span>Mild Drift (10-15m)</span>
+                <span class="text-crimson">Spoilage Drift (&gt; 20m)</span>
+              </div>
+              <div class="meter-bar">
+                <div class="meter-fill" id="meter-thermal-fill" style="width: 75%;"></div>
+              </div>
+            </div>
+
+            <div class="metric-status-matrix">
+              <div class="matrix-tile">
+                <span class="tile-label">DELIVERY DELAY</span>
+                <span class="tile-value text-crimson" id="dispute-delay-val">+22.0 min</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">AMBIENT TEMP</span>
+                <span class="tile-value text-amber" id="dispute-temp-val">34.0°C</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">CORRELATION</span>
+                <span class="tile-value text-cyan" id="dispute-corr-val">STRONG (Transit Spoilage)</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">CUSTOMER BLAME</span>
+                <span class="tile-value text-emerald" id="dispute-blame-val">EXONERATED</span>
+              </div>
+            </div>
+
+            <div class="protocol-directive-box">
+              <div class="directive-header">WAREHOUSE &amp; SUPPLIER ADVISORY</div>
+              <p class="directive-body" id="dispute-advisory-note">
+                Product spoilage strongly correlated with severe fulfillment delay (+22m at 34°C ambient). Customer exonerated. Dark store cold-box packing procedure flagged for review.
+              </p>
+            </div>
+
+            <div class="truth-engineering-footer">
+              ℹ️ <strong>Truth-in-Engineering:</strong> Synthetic sensor telemetry and batch clustering. Does not claim legal supplier fault; issues advisory investigation tickets.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- TAB 6: FAIR ADJUDICATION CONSOLE (PHASE 3 SCENARIO 3)             -->
+      <!-- ================================================================= -->
+      <section class="tab-panel" id="tab-adjudication-console" role="tabpanel" aria-labelledby="tab-btn-adjudication-console">
+        <div class="panel-header-row">
+          <div>
+            <h1 class="panel-title">Fair Adjudication &amp; Transparent Compensation Console</h1>
+            <p class="panel-desc">Transparent 5-tier recommendation engine, anti-bias frequency safeguards, and customer plain-language previews.</p>
+          </div>
+          <div class="cohort-badge">
+            <span class="badge-label">FAIRNESS CHARTER</span>
+            <span class="badge-value">ZERO AUTOMATED REJECTIONS</span>
+          </div>
+        </div>
+
+        <!-- 4 Top Adjudication KPI Cards -->
+        <div class="kpi-grid">
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 1;">
+            <div class="kpi-header">
+              <span class="kpi-label">Automated Rejections</span>
+              <span class="kpi-badge badge-emerald">PROHIBITED</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number emerald-accent">0.00%</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">No claim is ever denied automatically by AI</span>
+              <span class="kpi-source">Core Operational Fairness Invariant</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 2;">
+            <div class="kpi-header">
+              <span class="kpi-label">Frequency Bias Protection</span>
+              <span class="kpi-badge badge-cyan">SAFEGUARD</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number cyan-accent">ACTIVE</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Complaint frequency alone never triggers refusal</span>
+              <span class="kpi-source">Anti-Bias Charter Clause 4</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 3;">
+            <div class="kpi-header">
+              <span class="kpi-label">Margin Decoupling</span>
+              <span class="kpi-badge badge-indigo">GOVERNANCE</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number">ENFORCED</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Shift P&amp;L decoupled from valid complaint payouts</span>
+              <span class="kpi-source">Eliminates manager claim-denial incentives</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+
+          <article class="kpi-card glass-card reveal-item revealed" style="--index: 4;">
+            <div class="kpi-header">
+              <span class="kpi-label">Adjudication Policy Tiers</span>
+              <span class="kpi-badge badge-amber">5 TIERS</span>
+            </div>
+            <div class="kpi-value-container">
+              <span class="kpi-number cyan-accent">5 TIERS</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-subtext">Refund, Replace, Partial Credit, Evidence, Human Review</span>
+              <span class="kpi-source">Explainable policy routing</span>
+            </div>
+            <div class="card-glow-edge"></div>
+          </article>
+        </div>
+
+        <!-- Interactive Adjudication Simulator Grid -->
+        <div class="scenario-console-grid">
+          <!-- Left: Complaint Inputs & Parameter Adjuster -->
+          <div class="chart-card glass-card reveal-item revealed">
+            <div class="card-title-bar">
+              <h2 class="card-title">Complaint Parameters &amp; Evidence Dossier</h2>
+              <span class="card-tag">ADJUDICATION INPUT</span>
+            </div>
+            <p class="card-subtitle">Load a prototype scenario or simulate a customer claim with specific evidence and history.</p>
+
+            <div class="console-form-group">
+              <label for="select-adjudication-scenario" class="form-label">Pre-Calibrated Complaint Scenario (20 Scenarios)</label>
+              <select id="select-adjudication-scenario" class="form-select">
+                <option value="">Loading complaint scenarios...</option>
+              </select>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="input-adj-item-name" class="form-label">Item Name</label>
+                <input type="text" id="input-adj-item-name" class="form-input" value="Organic Farm Fresh Milk 1L">
+              </div>
+              <div class="form-col">
+                <label for="select-adj-category" class="form-label">Item Category</label>
+                <select id="select-adj-category" class="form-select">
+                  <option value="dairy_chilled">Dairy &amp; Chilled (Perishable)</option>
+                  <option value="perishable_produce">Fresh Produce / Fruit</option>
+                  <option value="packaged_ambient">Packaged Ambient Grocery</option>
+                  <option value="household_essentials">Household Staples</option>
+                  <option value="fragile_glass">Fragile / Glass Goods</option>
+                  <option value="electronics">Electronics / Accessories</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="input-adj-price" class="form-label">Item Price (₹ INR)</label>
+                <input type="number" id="input-adj-price" class="form-input" step="1.0" value="85.0" min="5.0" max="10000.0">
+              </div>
+              <div class="form-col">
+                <label for="select-adj-defect" class="form-label">Complaint Category</label>
+                <select id="select-adj-defect" class="form-select">
+                  <option value="spoiled_perishable">Spoiled / Curdled Perishable</option>
+                  <option value="bruised_produce">Bruised / Overripe Produce</option>
+                  <option value="damaged_packaging_cosmetic">Minor Cosmetic Packaging Dent</option>
+                  <option value="broken_fragile">Broken / Leaking Fragile Item</option>
+                  <option value="wrong_item_delivered">Wrong Item Delivered</option>
+                  <option value="missing_item">Missing Item</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="select-adj-evidence" class="form-label">Photo Evidence Attached?</label>
+                <select id="select-adj-evidence" class="form-select">
+                  <option value="true">Yes (Clear Photo Uploaded)</option>
+                  <option value="false">No (Missing Evidence)</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label for="input-adj-claims-freq" class="form-label">Past Claims (90 Days)</label>
+                <input type="number" id="input-adj-claims-freq" class="form-input" step="1" value="5" min="0" max="30">
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-col">
+                <label for="input-adj-delay" class="form-label">Delivery Delay (Minutes)</label>
+                <input type="number" id="input-adj-delay" class="form-input" step="1.0" value="22.0" min="0.0" max="120.0">
+              </div>
+              <div class="form-col">
+                <label for="input-adj-temp" class="form-label">Ambient Temperature (°C)</label>
+                <input type="number" id="input-adj-temp" class="form-input" step="1.0" value="34.0" min="15.0" max="48.0">
+              </div>
+            </div>
+
+            <div class="console-action-row">
+              <button class="primary-action-btn" id="btn-evaluate-adjudication">
+                <span>⚖️ Evaluate Fair Adjudication Policy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Adjudication Outcome Dossier & Customer Communication -->
+          <div class="chart-card glass-card reveal-item revealed" id="adj-result-card">
+            <div class="card-title-bar">
+              <h2 class="card-title">Adjudication Policy Recommendation</h2>
+              <span class="card-tag" id="adj-badge-status">RECOMMENDED_BY_POLICY</span>
+            </div>
+            <p class="card-subtitle">Transparent, explainable recommendation generated by rule-based fair compensation policy.</p>
+
+            <div class="decision-hero-box" id="adj-decision-box">
+              <div class="decision-main-badge tier-refund" id="adj-action-name">IMMEDIATE_REFUND</div>
+              <div class="decision-sub-text" id="adj-action-reason">Spoiled chilled dairy with 22m fulfillment delay during 34°C ambient weather qualifies for immediate refund.</div>
+            </div>
+
+            <div class="metric-status-matrix">
+              <div class="matrix-tile">
+                <span class="tile-label">PAYOUT AMOUNT</span>
+                <span class="tile-value text-emerald" id="adj-payout-amount">₹85.00 (100%)</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">SETTLEMENT</span>
+                <span class="tile-value text-cyan" id="adj-settlement-mode">ORIGINAL_PAYMENT</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">ANTI-BIAS AUDIT</span>
+                <span class="tile-value text-emerald" id="adj-antibias-audit">PASSED ✓</span>
+              </div>
+              <div class="matrix-tile">
+                <span class="tile-label">HUMAN REVIEW</span>
+                <span class="tile-value text-amber" id="adj-human-review">NOT REQUIRED</span>
+              </div>
+            </div>
+
+            <div class="protocol-directive-box">
+              <div class="directive-header">POLICY RATIONALE &amp; EXPLANATION</div>
+              <p class="directive-body" id="adj-rationale-text">
+                Spoiled chilled dairy with documented 22-minute delivery delay during 34°C ambient weather. System cold-chain telemetry confirms product degradation in transit.
+              </p>
+            </div>
+
+            <div class="protocol-directive-box customer-note-box">
+              <div class="directive-header">CUSTOMER COMMUNICATION PREVIEW (PLAIN LANGUAGE)</div>
+              <p class="directive-body" id="adj-customer-preview">
+                "We sincerely apologize for the quality issue with your Organic Farm Fresh Milk 1L. We have initiated a full refund of ₹85.00 to your original payment method. Thank you for bringing this to our attention!"
+              </p>
+            </div>
+
+            <div class="fairness-checklist-box">
+              <div class="checklist-item"><span class="check-icon">✓</span><span>No automated refusal: claim evaluated without pre-judgment</span></div>
+              <div class="checklist-item"><span class="check-icon">✓</span><span>Protected against complaint-frequency penalty</span></div>
+              <div class="checklist-item"><span class="check-icon">✓</span><span>Decoupled from dark store shift manager P&amp;L quotas</span></div>
+            </div>
+
+            <div class="truth-engineering-footer">
+              ℹ️ <strong>Truth-in-Engineering:</strong> Policy recommendation engine. Financial refunds are modeled proposals; no real banking or payment transfers are executed.
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -965,8 +1593,11 @@
       <!-- Quick Operational Suggestion Chips -->
       <div class="assistant-chips-row" id="assistant-chips">
         <button class="assistant-chip" data-query="What is our overall SLA breach rate?">📊 Overall SLA Breach Rate</button>
+        <button class="assistant-chip" data-query="What is our policy on doorstep access and courier safety?">🚪 Doorstep Access &amp; Safety</button>
+        <button class="assistant-chip" data-query="Explain our fair compensation policy for quality disputes and bruised fruit">⚖️ Fair Dispute Policy</button>
+        <button class="assistant-chip" data-query="Show supplier batch investigations and defective batch reports">🔬 Supplier Batch Alerts</button>
         <button class="assistant-chip" data-query="Which stores have the highest breach rates?">🏪 Worst Performing Stores</button>
-        <button class="assistant-chip" data-query="How is dark store picking performing?">📦 Dark Store Picking Velocity</button>
+        <button class="assistant-chip" data-query="How is dark store picking performing?">📦 Dark Store Picking</button>
         <button class="assistant-chip" data-query="Explain Stage A vs Stage B model thresholds">🛡️ Model Threshold Policy</button>
         <button class="assistant-chip" data-query="Audit ORD-000001">🔍 Audit Order ORD-000001</button>
       </div>

@@ -31,6 +31,8 @@ if WORKSPACE_DIR not in sys.path:
 from services.data_service import DataService
 from services.inference_service import InferenceService
 from services.assistant_service import AssistantService
+from services.delivery_access_service import DeliveryAccessService
+from services.complaint_service import ComplaintService
 
 # Configure logging
 logging.basicConfig(
@@ -51,12 +53,16 @@ app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 DATA_SERVICE: Optional[DataService] = None
 INFERENCE_SERVICE: Optional[InferenceService] = None
 ASSISTANT_SERVICE: Optional[AssistantService] = None
+DELIVERY_ACCESS_SERVICE: Optional[DeliveryAccessService] = None
+COMPLAINT_SERVICE: Optional[ComplaintService] = None
 FEATURE_CACHE: Dict[str, pd.DataFrame] = {}
 
 SERVICE_STATUS = {
     "data_service": False,
     "inference_service": False,
     "assistant_service": False,
+    "delivery_access_service": False,
+    "complaint_service": False,
     "feature_cache": False,
     "init_error": None
 }
@@ -75,8 +81,18 @@ try:
     INFERENCE_SERVICE = InferenceService()
     SERVICE_STATUS["inference_service"] = True
 
+    logger.info("Initializing DeliveryAccessService...")
+    DELIVERY_ACCESS_SERVICE = DeliveryAccessService()
+    SERVICE_STATUS["delivery_access_service"] = True
+
+    logger.info("Initializing ComplaintService...")
+    COMPLAINT_SERVICE = ComplaintService()
+    SERVICE_STATUS["complaint_service"] = True
+
     logger.info("Initializing AssistantService...")
-    ASSISTANT_SERVICE = AssistantService(DATA_SERVICE, INFERENCE_SERVICE)
+    ASSISTANT_SERVICE = AssistantService(
+        DATA_SERVICE, INFERENCE_SERVICE, DELIVERY_ACCESS_SERVICE, COMPLAINT_SERVICE
+    )
     SERVICE_STATUS["assistant_service"] = True
 
     logger.info("Indexing point-in-time feature tables for sub-millisecond scoring...")
@@ -93,6 +109,7 @@ try:
     logger.info("Services and feature indexes initialized successfully.")
 except Exception as e:
     logger.critical(f"Service initialization error: {e}")
+
     SERVICE_STATUS["init_error"] = str(e)
 
 
@@ -198,12 +215,15 @@ def health_check() -> Response:
             "data_service": SERVICE_STATUS["data_service"],
             "inference_service": SERVICE_STATUS["inference_service"],
             "assistant_service": SERVICE_STATUS["assistant_service"],
-            "feature_cache": SERVICE_STATUS["feature_cache"]
+            "feature_cache": SERVICE_STATUS["feature_cache"],
+            "delivery_access_service": SERVICE_STATUS["delivery_access_service"],
+            "complaint_service": SERVICE_STATUS["complaint_service"]
         },
         "database": db_info,
         "models": model_info,
         "synthetic_data_disclaimer": SYNTHETIC_DATA_DISCLAIMER
     }), status_code
+
 
 
 # -----------------------------------------------------------------------------
@@ -557,8 +577,84 @@ def assistant_chat() -> Response:
 
 
 # -----------------------------------------------------------------------------
+# 7. PHASE 3 PROTOTYPE ENDPOINTS: Delivery Location & Doorstep Access (Scenario 1)
+# -----------------------------------------------------------------------------
+@app.route("/api/prototypes/delivery-access/scenarios", methods=["GET"])
+def get_delivery_access_scenarios() -> Response:
+    """Retrieve all synthetic doorstep access, building barrier, and courier safety scenarios."""
+    if not DELIVERY_ACCESS_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Delivery access service uninitialized."}), 503
+
+    scenarios = DELIVERY_ACCESS_SERVICE.get_all_scenarios()
+    return jsonify({
+        "total_scenarios": len(scenarios),
+        "scenarios": scenarios,
+        "governance_note": "Synthetic access intelligence scenarios. Does not claim autonomous vehicle reassignment.",
+        "synthetic_data_disclaimer": SYNTHETIC_DATA_DISCLAIMER
+    }), 200
+
+
+@app.route("/api/prototypes/delivery-access/evaluate", methods=["POST"])
+def evaluate_delivery_access() -> Response:
+    """Evaluate vicinity arrival, doorstep accessibility, bulky item weight, and courier safety."""
+    if not DELIVERY_ACCESS_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Delivery access service uninitialized."}), 503
+
+    payload = request.get_json(silent=True) or {}
+    result = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access(payload)
+    result["synthetic_data_disclaimer"] = SYNTHETIC_DATA_DISCLAIMER
+    return jsonify(result), 200
+
+
+# -----------------------------------------------------------------------------
+# 8. PHASE 3 PROTOTYPE ENDPOINTS: Quality Disputes & Fair Adjudication (Scenarios 2 & 3)
+# -----------------------------------------------------------------------------
+@app.route("/api/prototypes/disputes/scenarios", methods=["GET"])
+def get_complaint_scenarios() -> Response:
+    """Retrieve synthetic product complaint scenarios covering bruises, spoilage, and packaging."""
+    if not COMPLAINT_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Complaint service uninitialized."}), 503
+
+    scenarios = COMPLAINT_SERVICE.get_all_scenarios()
+    return jsonify({
+        "total_scenarios": len(scenarios),
+        "scenarios": scenarios,
+        "governance_note": "Synthetic quality dispute scenarios. Policy recommendations do not constitute executed bank payouts.",
+        "synthetic_data_disclaimer": SYNTHETIC_DATA_DISCLAIMER
+    }), 200
+
+
+@app.route("/api/prototypes/disputes/evaluate", methods=["POST"])
+def evaluate_dispute() -> Response:
+    """Evaluate product-quality complaint and generate an explainable 5-tier fair resolution recommendation."""
+    if not COMPLAINT_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Complaint service uninitialized."}), 503
+
+    payload = request.get_json(silent=True) or {}
+    result = COMPLAINT_SERVICE.evaluate_complaint(payload)
+    result["synthetic_data_disclaimer"] = SYNTHETIC_DATA_DISCLAIMER
+    return jsonify(result), 200
+
+
+@app.route("/api/prototypes/disputes/batch-investigations", methods=["GET"])
+def get_batch_investigations() -> Response:
+    """Retrieve supplier batch defect clusters requiring quality investigation."""
+    if not COMPLAINT_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Complaint service uninitialized."}), 503
+
+    investigations = COMPLAINT_SERVICE.get_batch_investigation_summary()
+    return jsonify({
+        "total_batches_monitored": len(investigations),
+        "batch_investigations": investigations,
+        "governance_note": "Defect clusters represent investigation recommendations, not confirmed supplier legal fault.",
+        "synthetic_data_disclaimer": SYNTHETIC_DATA_DISCLAIMER
+    }), 200
+
+
+# -----------------------------------------------------------------------------
 # MAIN LOCAL ENTRY POINT (Debug mode disabled by default)
 # -----------------------------------------------------------------------------
+
 if __name__ == "__main__":
     port = int(os.environ.get("MACROOPS_PORT", 5000))
     host = os.environ.get("MACROOPS_HOST", "0.0.0.0")

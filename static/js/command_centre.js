@@ -34,7 +34,10 @@
     storeSortBy: 'total_orders',
     cachedValues: {},
     searchDebounceTimer: null,
-    isReducedMotion: false
+    isReducedMotion: false,
+    accessScenarios: [],
+    complaintScenarios: [],
+    batchInvestigations: []
   };
 
   // =========================================================================
@@ -83,7 +86,65 @@
     orderDrawer: document.getElementById('order-drawer'),
     modalOrderId: document.getElementById('modal-order-id'),
     modalContentBody: document.getElementById('modal-content-body'),
-    btnCloseModal: document.getElementById('btn-close-modal')
+    btnCloseModal: document.getElementById('btn-close-modal'),
+
+    // Phase 03 Part 02: Access & Safety Monitor
+    selectAccessScenario: document.getElementById('select-access-scenario'),
+    inputAccessWeight: document.getElementById('input-access-weight'),
+    inputAccessFloor: document.getElementById('input-access-floor'),
+    selectAccessElevator: document.getElementById('select-access-elevator'),
+    selectAccessGate: document.getElementById('select-access-gate'),
+    selectAccessHazard: document.getElementById('select-access-hazard'),
+    inputAccessVicinity: document.getElementById('input-access-vicinity'),
+    btnEvaluateAccess: document.getElementById('btn-evaluate-access'),
+    accessDecisionName: document.getElementById('access-decision-name'),
+    accessDecisionReason: document.getElementById('access-decision-reason'),
+    accessDoorstepSafe: document.getElementById('access-doorstep-safe'),
+    accessGroundHandoff: document.getElementById('access-ground-handoff'),
+    accessBriefPushed: document.getElementById('access-brief-pushed'),
+    accessPenaltyProt: document.getElementById('access-penalty-prot'),
+    accessActionBrief: document.getElementById('access-action-brief'),
+    accessCustomerMsg: document.getElementById('access-customer-msg'),
+    accessBadgeStatus: document.getElementById('access-badge-status'),
+
+    // Phase 03 Part 02: Quality Dispute Inspector & Supplier Batches
+    batchTableBody: document.getElementById('batch-table-body'),
+    selectDisputeScenario: document.getElementById('select-dispute-scenario'),
+    disputeEvidenceTags: document.getElementById('dispute-evidence-tags'),
+    disputeSku: document.getElementById('dispute-sku'),
+    disputeItem: document.getElementById('dispute-item'),
+    disputeCat: document.getElementById('dispute-cat'),
+    disputePrice: document.getElementById('dispute-price'),
+    disputeDesc: document.getElementById('dispute-desc'),
+    disputeBatch: document.getElementById('dispute-batch'),
+    disputeDelayVal: document.getElementById('dispute-delay-val'),
+    disputeTempVal: document.getElementById('dispute-temp-val'),
+    disputeCorrVal: document.getElementById('dispute-corr-val'),
+    disputeBlameVal: document.getElementById('dispute-blame-val'),
+    disputeAdvisoryNote: document.getElementById('dispute-advisory-note'),
+    meterThermalFill: document.getElementById('meter-thermal-fill'),
+    btnSyncToAdjudication: document.getElementById('btn-sync-to-adjudication'),
+
+    // Phase 03 Part 02: Fair Adjudication Console
+    selectAdjudicationScenario: document.getElementById('select-adjudication-scenario'),
+    inputAdjItemName: document.getElementById('input-adj-item-name'),
+    selectAdjCategory: document.getElementById('select-adj-category'),
+    inputAdjPrice: document.getElementById('input-adj-price'),
+    selectAdjDefect: document.getElementById('select-adj-defect'),
+    selectAdjEvidence: document.getElementById('select-adj-evidence'),
+    inputAdjClaimsFreq: document.getElementById('input-adj-claims-freq'),
+    inputAdjDelay: document.getElementById('input-adj-delay'),
+    inputAdjTemp: document.getElementById('input-adj-temp'),
+    btnEvaluateAdjudication: document.getElementById('btn-evaluate-adjudication'),
+    adjActionName: document.getElementById('adj-action-name'),
+    adjActionReason: document.getElementById('adj-action-reason'),
+    adjPayoutAmount: document.getElementById('adj-payout-amount'),
+    adjSettlementMode: document.getElementById('adj-settlement-mode'),
+    adjAntibiasAudit: document.getElementById('adj-antibias-audit'),
+    adjHumanReview: document.getElementById('adj-human-review'),
+    adjRationaleText: document.getElementById('adj-rationale-text'),
+    adjCustomerPreview: document.getElementById('adj-customer-preview'),
+    adjBadgeStatus: document.getElementById('adj-badge-status')
   };
 
   // =========================================================================
@@ -202,6 +263,16 @@
 
     if (targetTabId === 'tab-orders' && state.orders.length === 0) {
       fetchOrders();
+    }
+    if (targetTabId === 'tab-access-safety' && state.accessScenarios.length === 0) {
+      loadAccessScenarios();
+    }
+    if (targetTabId === 'tab-dispute-inspector') {
+      if (state.batchInvestigations.length === 0) loadBatchInvestigations();
+      if (state.complaintScenarios.length === 0) loadDisputeScenarios();
+    }
+    if (targetTabId === 'tab-adjudication-console') {
+      if (state.complaintScenarios.length === 0) loadAdjudicationScenarios();
     }
   }
 
@@ -1002,6 +1073,334 @@
   }
 
   // =========================================================================
+  // Phase 03 Part 02: Access & Safety Monitor
+  // =========================================================================
+  async function loadAccessScenarios() {
+    try {
+      const res = await fetch('/api/prototypes/delivery-access/scenarios');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      state.accessScenarios = data.scenarios || [];
+
+      if (dom.selectAccessScenario) {
+        dom.selectAccessScenario.innerHTML = '';
+        state.accessScenarios.forEach((s) => {
+          const opt = document.createElement('option');
+          opt.value = s.scenario_id;
+          opt.textContent = `${s.scenario_id} — ${s.building_type} (Fl ${s.floor_number}, ${s.parcel_weight_kg}kg, Lift: ${s.elevator_available ? 'Yes' : 'No'})`;
+          dom.selectAccessScenario.appendChild(opt);
+        });
+
+        if (state.accessScenarios.length > 0) {
+          populateAccessForm(state.accessScenarios[0]);
+          evaluateAccessScenario(state.accessScenarios[0]);
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to load access scenarios:', err);
+    }
+  }
+
+  function populateAccessForm(s) {
+    if (dom.inputAccessWeight) dom.inputAccessWeight.value = s.parcel_weight_kg;
+    if (dom.inputAccessFloor) dom.inputAccessFloor.value = s.floor_number;
+    if (dom.selectAccessElevator) dom.selectAccessElevator.value = String(Boolean(s.elevator_available));
+    if (dom.selectAccessGate) dom.selectAccessGate.value = String(Boolean(s.gate_code_required));
+    if (dom.selectAccessHazard) dom.selectAccessHazard.value = s.hazard_reported || 'none';
+    if (dom.inputAccessVicinity) dom.inputAccessVicinity.value = s.courier_distance_meters || 120;
+  }
+
+  function getAccessFormPayload() {
+    return {
+      parcel_weight_kg: parseFloat(dom.inputAccessWeight ? dom.inputAccessWeight.value : 18.5) || 18.5,
+      floor_number: parseInt(dom.inputAccessFloor ? dom.inputAccessFloor.value : 4, 10) || 4,
+      elevator_available: dom.selectAccessElevator ? dom.selectAccessElevator.value === 'true' : false,
+      gate_code_required: dom.selectAccessGate ? dom.selectAccessGate.value === 'true' : true,
+      hazard_reported: dom.selectAccessHazard ? dom.selectAccessHazard.value : 'none',
+      courier_distance_meters: parseFloat(dom.inputAccessVicinity ? dom.inputAccessVicinity.value : 120) || 120
+    };
+  }
+
+  async function evaluateAccessScenario(payload) {
+    try {
+      if (dom.accessBadgeStatus) dom.accessBadgeStatus.textContent = 'EVALUATING...';
+      const res = await fetch('/api/prototypes/delivery-access/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const decision = await res.json();
+
+      renderAccessDecision(decision);
+    } catch (err) {
+      console.warn('Access evaluation error:', err);
+    }
+  }
+
+  function renderAccessDecision(dec) {
+    if (dom.accessBadgeStatus) dom.accessBadgeStatus.textContent = 'POLICY ACTIVE';
+    if (dom.accessDecisionName) {
+      dom.accessDecisionName.textContent = dec.decision;
+      dom.accessDecisionName.className = 'decision-main-badge';
+      if (dec.decision === 'SAFE_DOORSTEP_PROCEED') dom.accessDecisionName.classList.add('tier-safe');
+      else if (dec.decision === 'PRE_ARRIVAL_ACCESS_BRIEF') dom.accessDecisionName.classList.add('tier-brief');
+      else if (dec.decision === 'GROUND_FLOOR_HANDOFF') dom.accessDecisionName.classList.add('tier-handoff');
+      else dom.accessDecisionName.classList.add('tier-review');
+    }
+
+    if (dom.accessDecisionReason) dom.accessDecisionReason.textContent = dec.decision_reason;
+
+    if (dom.accessDoorstepSafe) {
+      dom.accessDoorstepSafe.textContent = dec.is_doorstep_safe ? 'YES ✓' : 'NO ✕';
+      dom.accessDoorstepSafe.className = `tile-value ${dec.is_doorstep_safe ? 'text-emerald' : 'text-crimson'}`;
+    }
+
+    if (dom.accessGroundHandoff) {
+      dom.accessGroundHandoff.textContent = dec.ground_floor_handoff_authorized ? 'AUTHORIZED ✓' : 'OPTIONAL';
+      dom.accessGroundHandoff.className = `tile-value ${dec.ground_floor_handoff_authorized ? 'text-emerald' : 'text-muted'}`;
+    }
+
+    if (dom.accessBriefPushed) {
+      dom.accessBriefPushed.textContent = dec.pre_arrival_brief_pushed ? 'SENT (< 200m)' : 'PENDING';
+      dom.accessBriefPushed.className = `tile-value ${dec.pre_arrival_brief_pushed ? 'text-cyan' : 'text-muted'}`;
+    }
+
+    if (dom.accessPenaltyProt) {
+      dom.accessPenaltyProt.textContent = dec.courier_penalty_protection ? 'PROTECTED' : 'STANDARD';
+      dom.accessPenaltyProt.className = `tile-value ${dec.courier_penalty_protection ? 'text-amber' : 'text-muted'}`;
+    }
+
+    if (dom.accessActionBrief) dom.accessActionBrief.textContent = dec.courier_action_brief;
+    if (dom.accessCustomerMsg) dom.accessCustomerMsg.textContent = `"${dec.customer_coordination_message}"`;
+  }
+
+  // =========================================================================
+  // Phase 03 Part 02: Dispute Inspector & Supplier Batch Leaderboard
+  // =========================================================================
+  async function loadBatchInvestigations() {
+    try {
+      const res = await fetch('/api/prototypes/disputes/batch-investigations');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      state.batchInvestigations = data.batch_investigations || [];
+
+      renderBatchTable();
+    } catch (err) {
+      console.warn('Failed to load batch investigations:', err);
+    }
+  }
+
+  function renderBatchTable() {
+    if (!dom.batchTableBody) return;
+    if (state.batchInvestigations.length === 0) {
+      dom.batchTableBody.innerHTML = '<tr><td colspan="8" class="table-loading">No emerging supplier defect clusters.</td></tr>';
+      return;
+    }
+
+    dom.batchTableBody.innerHTML = state.batchInvestigations.map((b) => {
+      const isAdvisory = b.recommendation === 'RECOMMEND_SUPPLIER_BATCH_INVESTIGATION';
+      const badgeClass = isAdvisory ? 'badge-crimson' : 'badge-emerald';
+      const badgeText = isAdvisory ? 'INVESTIGATE BATCH' : 'NORMAL MONITORING';
+      const sigs = (b.defect_signatures || []).map(s => `<span class="tag-badge">${escapeHtml(s)}</span>`).join(' ');
+
+      return `
+        <tr>
+          <td><strong>${escapeHtml(b.batch_id)}</strong></td>
+          <td><span class="code-pill">${escapeHtml(b.supplier_id)}</span></td>
+          <td>${escapeHtml(b.category)}</td>
+          <td>${b.affected_skus_count} SKUs</td>
+          <td>${b.complaint_count} / ${formatNumber(b.sampled_units_count)}</td>
+          <td><strong>${b.defect_rate_pct.toFixed(2)}%</strong></td>
+          <td>${sigs}</td>
+          <td><span class="kpi-badge ${badgeClass}">${badgeText}</span></td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  async function loadDisputeScenarios() {
+    try {
+      const res = await fetch('/api/prototypes/disputes/scenarios');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      state.complaintScenarios = data.scenarios || [];
+
+      if (dom.selectDisputeScenario) {
+        dom.selectDisputeScenario.innerHTML = '';
+        state.complaintScenarios.forEach((c) => {
+          const opt = document.createElement('option');
+          opt.value = c.complaint_id;
+          opt.textContent = `${c.complaint_id} — ${c.item_name} (₹${c.item_price_inr}, ${c.complaint_category})`;
+          dom.selectDisputeScenario.appendChild(opt);
+        });
+
+        if (state.complaintScenarios.length > 0) {
+          inspectDisputeScenario(state.complaintScenarios[0]);
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to load dispute scenarios:', err);
+    }
+  }
+
+  function inspectDisputeScenario(c) {
+    if (dom.disputeSku) dom.disputeSku.textContent = c.sku_id;
+    if (dom.disputeItem) dom.disputeItem.textContent = c.item_name;
+    if (dom.disputeCat) dom.disputeCat.textContent = c.item_category;
+    if (dom.disputePrice) dom.disputePrice.textContent = `₹${c.item_price_inr.toFixed(2)}`;
+    if (dom.disputeDesc) dom.disputeDesc.textContent = c.defect_description;
+    if (dom.disputeBatch) dom.disputeBatch.textContent = c.batch_id;
+
+    const delay = c.delivery_delay_minutes || 0;
+    const temp = c.ambient_temp_c || 30.0;
+    if (dom.disputeDelayVal) dom.disputeDelayVal.textContent = `+${delay.toFixed(1)} min`;
+    if (dom.disputeTempVal) dom.disputeTempVal.textContent = `${temp.toFixed(1)}°C`;
+
+    const isPerishableDelay = (c.item_category === 'dairy_chilled' || c.item_category === 'perishable_produce') && delay > 15;
+    if (dom.disputeCorrVal) {
+      dom.disputeCorrVal.textContent = isPerishableDelay ? 'STRONG (Transit Spoilage)' : 'LOW / AMBIENT';
+      dom.disputeCorrVal.className = `tile-value ${isPerishableDelay ? 'text-crimson' : 'text-cyan'}`;
+    }
+
+    if (dom.disputeBlameVal) {
+      dom.disputeBlameVal.textContent = isPerishableDelay ? 'EXONERATED' : 'STANDARD';
+      dom.disputeBlameVal.className = `tile-value ${isPerishableDelay ? 'text-emerald' : 'text-secondary'}`;
+    }
+
+    if (dom.meterThermalFill) {
+      const fillPct = Math.min(100, Math.max(15, (delay / 30.0) * 100));
+      dom.meterThermalFill.style.width = `${fillPct}%`;
+    }
+
+    if (dom.disputeEvidenceTags) {
+      const tags = [];
+      if (c.evidence_attached) tags.push('PHOTO_ATTACHED');
+      else tags.push('NO_PHOTO_ATTACHED');
+      if (c.evidence_tags) {
+        c.evidence_tags.forEach(t => tags.push(t.toUpperCase()));
+      }
+      dom.disputeEvidenceTags.innerHTML = tags.map(t => `<span class="tag-badge">${escapeHtml(t)}</span>`).join('');
+    }
+
+    if (dom.disputeAdvisoryNote) {
+      if (isPerishableDelay) {
+        dom.disputeAdvisoryNote.textContent = `Perishable product degradation strongly correlated with severe fulfillment delay (+${delay.toFixed(1)}m at ${temp.toFixed(1)}°C ambient). Customer exonerated. Dark store cold-box packing procedure flagged for review.`;
+      } else {
+        dom.disputeAdvisoryNote.textContent = `Claim logged under ${c.complaint_category}. Supplier batch ${c.batch_id} monitored in cluster registry.`;
+      }
+    }
+  }
+
+  // =========================================================================
+  // Phase 03 Part 02: Fair Adjudication Console
+  // =========================================================================
+  async function loadAdjudicationScenarios() {
+    try {
+      if (state.complaintScenarios.length === 0) {
+        const res = await fetch('/api/prototypes/disputes/scenarios');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        state.complaintScenarios = data.scenarios || [];
+      }
+
+      if (dom.selectAdjudicationScenario) {
+        dom.selectAdjudicationScenario.innerHTML = '';
+        state.complaintScenarios.forEach((c) => {
+          const opt = document.createElement('option');
+          opt.value = c.complaint_id;
+          opt.textContent = `${c.complaint_id} — ${c.item_name} (₹${c.item_price_inr}, ${c.complaint_category})`;
+          dom.selectAdjudicationScenario.appendChild(opt);
+        });
+
+        if (state.complaintScenarios.length > 0) {
+          populateAdjudicationForm(state.complaintScenarios[0]);
+          evaluateAdjudication(state.complaintScenarios[0]);
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to load adjudication scenarios:', err);
+    }
+  }
+
+  function populateAdjudicationForm(c) {
+    if (dom.inputAdjItemName) dom.inputAdjItemName.value = c.item_name;
+    if (dom.selectAdjCategory) dom.selectAdjCategory.value = c.item_category;
+    if (dom.inputAdjPrice) dom.inputAdjPrice.value = c.item_price_inr;
+    if (dom.selectAdjDefect) dom.selectAdjDefect.value = c.complaint_category;
+    if (dom.selectAdjEvidence) dom.selectAdjEvidence.value = String(Boolean(c.evidence_attached));
+    if (dom.inputAdjClaimsFreq) dom.inputAdjClaimsFreq.value = c.customer_claims_90d || 2;
+    if (dom.inputAdjDelay) dom.inputAdjDelay.value = c.delivery_delay_minutes || 0;
+    if (dom.inputAdjTemp) dom.inputAdjTemp.value = c.ambient_temp_c || 30.0;
+  }
+
+  function getAdjudicationFormPayload() {
+    return {
+      item_name: dom.inputAdjItemName ? dom.inputAdjItemName.value.trim() : 'Organic Milk',
+      item_category: dom.selectAdjCategory ? dom.selectAdjCategory.value : 'dairy_chilled',
+      item_price_inr: parseFloat(dom.inputAdjPrice ? dom.inputAdjPrice.value : 85.0) || 85.0,
+      complaint_category: dom.selectAdjDefect ? dom.selectAdjDefect.value : 'spoiled_perishable',
+      evidence_attached: dom.selectAdjEvidence ? dom.selectAdjEvidence.value === 'true' : true,
+      customer_claims_90d: parseInt(dom.inputAdjClaimsFreq ? dom.inputAdjClaimsFreq.value : 2, 10) || 2,
+      delivery_delay_minutes: parseFloat(dom.inputAdjDelay ? dom.inputAdjDelay.value : 22.0) || 22.0,
+      ambient_temp_c: parseFloat(dom.inputAdjTemp ? dom.inputAdjTemp.value : 34.0) || 34.0
+    };
+  }
+
+  async function evaluateAdjudication(payload) {
+    try {
+      if (dom.adjBadgeStatus) dom.adjBadgeStatus.textContent = 'EVALUATING...';
+      const res = await fetch('/api/prototypes/disputes/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const decision = await res.json();
+
+      renderAdjudicationDecision(decision);
+    } catch (err) {
+      console.warn('Adjudication evaluation error:', err);
+    }
+  }
+
+  function renderAdjudicationDecision(dec) {
+    if (dom.adjBadgeStatus) dom.adjBadgeStatus.textContent = dec.adjudication_status || 'RECOMMENDED_BY_POLICY';
+
+    if (dom.adjActionName) {
+      dom.adjActionName.textContent = dec.recommended_action;
+      dom.adjActionName.className = 'decision-main-badge';
+
+      if (dec.recommended_action === 'IMMEDIATE_REFUND') dom.adjActionName.classList.add('tier-refund');
+      else if (dec.recommended_action === 'PRIORITY_REPLACEMENT') dom.adjActionName.classList.add('tier-replacement');
+      else if (dec.recommended_action === 'PARTIAL_COMPENSATION') dom.adjActionName.classList.add('tier-partial');
+      else if (dec.recommended_action === 'REQUEST_EVIDENCE') dom.adjActionName.classList.add('tier-evidence');
+      else dom.adjActionName.classList.add('tier-review');
+    }
+
+    if (dom.adjActionReason) dom.adjActionReason.textContent = dec.policy_rationale;
+
+    const fin = dec.financial_assessment || {};
+    if (dom.adjPayoutAmount) dom.adjPayoutAmount.textContent = `₹${formatDecimal(fin.recommended_payout_inr, 2)} (${fin.payout_percentage ?? 100}%)`;
+    if (dom.adjSettlementMode) dom.adjSettlementMode.textContent = fin.settlement_channel || 'ORIGINAL_PAYMENT';
+
+    const fair = dec.fairness_audit || {};
+    if (dom.adjAntibiasAudit) {
+      dom.adjAntibiasAudit.textContent = fair.automated_rejection_prohibited ? 'PASSED ✓' : 'VIOLATION ✕';
+      dom.adjAntibiasAudit.className = `tile-value ${fair.automated_rejection_prohibited ? 'text-emerald' : 'text-crimson'}`;
+    }
+
+    if (dom.adjHumanReview) {
+      const isReview = dec.recommended_action === 'HUMAN_REVIEW';
+      dom.adjHumanReview.textContent = isReview ? 'REQUIRED' : 'NOT REQUIRED';
+      dom.adjHumanReview.className = `tile-value ${isReview ? 'text-amber' : 'text-emerald'}`;
+    }
+
+    if (dom.adjRationaleText) dom.adjRationaleText.textContent = dec.policy_rationale;
+    if (dom.adjCustomerPreview) dom.adjCustomerPreview.textContent = `"${dec.customer_plain_language_explanation}"`;
+  }
+
+  // =========================================================================
   // Event Listeners & Initialization
   // =========================================================================
   function initEventListeners() {
@@ -1098,6 +1497,64 @@
     if (dom.btnReducedMotion) {
       dom.btnReducedMotion.addEventListener('click', toggleReducedMotion);
     }
+
+    // Phase 03 Part 02 Event Listeners
+    if (dom.selectAccessScenario) {
+      dom.selectAccessScenario.addEventListener('change', (e) => {
+        const found = state.accessScenarios.find(s => s.scenario_id === e.target.value);
+        if (found) {
+          populateAccessForm(found);
+          evaluateAccessScenario(found);
+        }
+      });
+    }
+
+    if (dom.btnEvaluateAccess) {
+      dom.btnEvaluateAccess.addEventListener('click', () => {
+        const payload = getAccessFormPayload();
+        evaluateAccessScenario(payload);
+      });
+    }
+
+    if (dom.selectDisputeScenario) {
+      dom.selectDisputeScenario.addEventListener('change', (e) => {
+        const found = state.complaintScenarios.find(c => c.complaint_id === e.target.value);
+        if (found) {
+          inspectDisputeScenario(found);
+        }
+      });
+    }
+
+    if (dom.btnSyncToAdjudication) {
+      dom.btnSyncToAdjudication.addEventListener('click', () => {
+        switchTab('tab-adjudication-console');
+        if (dom.selectDisputeScenario && dom.selectAdjudicationScenario) {
+          dom.selectAdjudicationScenario.value = dom.selectDisputeScenario.value;
+          const found = state.complaintScenarios.find(c => c.complaint_id === dom.selectDisputeScenario.value);
+          if (found) {
+            populateAdjudicationForm(found);
+            evaluateAdjudication(found);
+          }
+        }
+      });
+    }
+
+    if (dom.selectAdjudicationScenario) {
+      dom.selectAdjudicationScenario.addEventListener('change', (e) => {
+        const found = state.complaintScenarios.find(c => c.complaint_id === e.target.value);
+        if (found) {
+          populateAdjudicationForm(found);
+          evaluateAdjudication(found);
+        }
+      });
+    }
+
+    if (dom.btnEvaluateAdjudication) {
+      dom.btnEvaluateAdjudication.addEventListener('click', () => {
+        const payload = getAdjudicationFormPayload();
+        evaluateAdjudication(payload);
+      });
+    }
   }
 
   // =========================================================================
@@ -1113,7 +1570,10 @@
       fetchSystemHealth(),
       fetchKPIs(),
       fetchStores(),
-      fetchOrders()
+      fetchOrders(),
+      loadAccessScenarios(),
+      loadBatchInvestigations(),
+      loadDisputeScenarios()
     ]);
   }
 
