@@ -238,3 +238,19 @@ Processes conversational inquiries against analytical database views and multi-s
   "synthetic_data_disclaimer": "All data, metrics, and models represent an analytical prototype on 200,000 synthetic quick-commerce records. Not approved for autonomous physical execution."
 }
 ```
+
+---
+
+## 3. Phase 03 Prototype Endpoints (Advisory & Research Simulation)
+
+These prototype routes provide simulation evaluation without executing real-world payments, modifying database records, or touching frozen predictive models:
+
+| Method | Endpoint | Description | Primary Query / Body Parameters |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/prototypes/delivery-access/scenarios` | Lists 25 calibrated access scenarios | None |
+| `POST` | `/api/prototypes/delivery-access/evaluate` | Evaluates courier vicinity access & safety | `{"parcel_weight_kg": 20.0, "floor_number": 4, ...}` |
+| `POST` | `/api/prototypes/delivery-access/diagnose-exception` | Evidence-based doorstep delivery diagnosis | `{"failure_reason": "location_mismatch", ...}` |
+| `GET` | `/api/prototypes/disputes/scenarios` | Lists 20 calibrated complaint scenarios | None |
+| `POST` | `/api/prototypes/disputes/evaluate` | Computes 5-tier fair complaint recommendation | `{"item_price_inr": 85.0, "complaint_category": ...}` |
+| `GET` | `/api/prototypes/disputes/batch-investigations` | Aggregates supplier batch defect clusters | None |
+| `GET` | `/api/prototypes/disputes/tradeoff-benchmarks` | Evaluates 10-scenario business trade-offs | None |

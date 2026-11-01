@@ -95,6 +95,66 @@ class TestPhase03SupervisorScenarios(unittest.TestCase):
         self.assertEqual(res["decision"], "SAFE_DOORSTEP_PROCEED")
         self.assertTrue(res["is_doorstep_safe"])
 
+    def test_05b_hazard_normalization_and_bulky_walkup(self):
+        """Verify string literals 'none', 'null', 'false' are not treated as hazards and bulky limits trigger."""
+        for benign_val in ["none", "None", "null", "false", "", "0"]:
+            payload = {
+                "parcel_weight_kg": 22.5,
+                "floor_number": 4,
+                "elevator_available": False,
+                "hazard_reported": benign_val,
+                "courier_vehicle": "two_wheeler_motorcycle"
+            }
+            res = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access(payload)
+            self.assertEqual(res["decision"], "UNSAFE_PHYSICAL_TASK_ESCALATION", f"Failed for hazard value '{benign_val}'")
+            self.assertFalse(res["is_doorstep_safe"])
+            self.assertTrue(res["ground_floor_handoff_authorized"])
+            self.assertTrue(res["courier_penalty_protection"])
+            self.assertFalse(res["pre_arrival_brief_pushed"])
+            self.assertIn("solitary manual carry", res["instructions_summary"])
+            self.assertIn("NOT expected to carry", res["courier_action_brief"])
+            self.assertIn("heavy items", res["customer_coordination_message"])
+            self.assertNotIn("undefined", res["customer_coordination_message"])
+
+    def test_05c_frontend_contract_field_parity(self):
+        """Verify evaluate_delivery_access returns all frontend contract fields across all branches."""
+        # 1. Hazard branch
+        res_hazard = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access({
+            "parcel_weight_kg": 3.0,
+            "floor_number": 1,
+            "elevator_available": False,
+            "hazard_reported": "unleashed_dog"
+        })
+        self.assertEqual(res_hazard["decision"], "CUSTOMER_COORDINATION_REQUIRED")
+        self.assertTrue(res_hazard["ground_floor_handoff_authorized"])
+        self.assertTrue(res_hazard["courier_penalty_protection"])
+        self.assertFalse(res_hazard["pre_arrival_brief_pushed"])
+        self.assertIn("Do not enter", res_hazard["courier_action_brief"])
+        self.assertIn("unleashed_dog", res_hazard["customer_coordination_message"])
+
+        # 2. Reception branch
+        res_rec = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access({
+            "parcel_weight_kg": 4.0,
+            "floor_number": 5,
+            "elevator_available": True,
+            "access_notes": "leave at society ground reception"
+        })
+        self.assertEqual(res_rec["decision"], "GROUND_FLOOR_HANDOFF_AUTHORIZED")
+        self.assertTrue(res_rec["ground_floor_handoff_authorized"])
+        self.assertTrue(res_rec["courier_penalty_protection"])
+
+        # 3. Gated branch
+        res_gate = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access({
+            "parcel_weight_kg": 4.0,
+            "floor_number": 5,
+            "elevator_available": True,
+            "gate_security_required": True,
+            "gate_code": "CODE-123"
+        })
+        self.assertEqual(res_gate["decision"], "PRE_ARRIVAL_ACCESS_BRIEF")
+        self.assertTrue(res_gate["pre_arrival_brief_pushed"])
+        self.assertTrue(res_gate["courier_penalty_protection"])
+
     # =========================================================================
     # 2. SCENARIO 2 & 3: QUALITY DISPUTES & FAIR COMPENSATION TESTS
     # =========================================================================

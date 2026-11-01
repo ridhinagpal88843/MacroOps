@@ -218,6 +218,9 @@ Full audit logs, test execution matrices, and defect remediation histories are r
 | [`docs/RESEARCH_PAPER_OUTLINE.md`](docs/RESEARCH_PAPER_OUTLINE.md) | Academic research paper structure on SLA risk mitigation and embodied dispatch copilots |
 | [`docs/PROJECT_TRACKER.md`](docs/PROJECT_TRACKER.md) | Milestone execution log, verification gates checklist, and roadmap |
 | [`docs/PHASE_03_PART_01_BUSINESS_PROBLEM_DISCOVERY.md`](docs/PHASE_03_PART_01_BUSINESS_PROBLEM_DISCOVERY.md) | Phase 03 Part 01: Real-world business discovery, doorstep access, dispute AI, and ROI framework |
+| [`docs/DOORSTEP_DELIVERY_DIAGNOSIS.md`](docs/DOORSTEP_DELIVERY_DIAGNOSIS.md) | Phase 03 Part 02: Evidence-based doorstep delivery exception diagnosis and courier safety |
+| [`docs/COMPLAINT_RESOLUTION_POLICY_AND_ECONOMICS.md`](docs/COMPLAINT_RESOLUTION_POLICY_AND_ECONOMICS.md) | Phase 03 Part 02: Fair complaint resolution economics, cost equations, and multi-objective scorecard |
+| [`docs/PHASE_03_DATA_VALIDATION_AND_PILOT_PLAN.md`](docs/PHASE_03_DATA_VALIDATION_AND_PILOT_PLAN.md) | Phase 03 Part 02: Synthetic data governance, empirical field validation, and A/B pilot trial plan |
 | [`docs/KPI_DEFINITIONS.md`](docs/KPI_DEFINITIONS.md) | Mathematical definitions and benchmarks for all 15+ operational KPIs |
 | [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | Relational entity schemas and column attributes for orders, inventory, and delivery |
 

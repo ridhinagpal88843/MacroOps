@@ -87,6 +87,18 @@ MacroOps AI is an end-to-end analytical operations intelligence command platform
 - **State Machine:** Governs 5 discrete animation states (`IDLE`, `LISTENING`, `THINKING`, `SPEAKING`, `ERROR`) at 60 FPS using exponential rotation smoothing.
 - **Speech & Viseme Lip-Sync:** Browser `speechSynthesis` API paired with a procedural syllable cadence generator that drives mouth blendshapes (`viseme_aa`, `viseme_O`, `viseme_E`, `jawOpen`, `mouthOpen`).
 
+### 2.6 Delivery Access & Exception Diagnostic Service (`services/delivery_access_service.py`)
+- **Ergonomic Limits & Access Governance:** Enforces a 15.0 kg solitary walk-up carry limit above Floor 2 without elevator, automatically escalating to ground-floor handovers.
+- **Evidence-Based Doorstep Exception Diagnosis:** Evaluates last-mile failures across 6 mutually exclusive reason categories (`LOCATION_MISMATCH`, `RESTRICTED_ACCESS`, `CUSTOMER_UNAVAILABLE`, `BULKY_ITEM_HANDLING`, `VEHICLE_CAPACITY_CONSTRAINT`, `UNKNOWN`).
+- **Epistemological Integrity:** Separates observed sensor facts, customer notes, worker reports, and model hypotheses, prohibiting worker fault attribution on inferred causes alone.
+
+### 2.7 Complaint Resolution & Fair Adjudication Engine (`services/complaint_service.py`)
+- **Deterministic 5-Tier Decision Rules:** Recommends `IMMEDIATE_REFUND`, `PRIORITY_REPLACEMENT`, `PARTIAL_COMPENSATION` (35%), `REQUEST_EVIDENCE`, or `HUMAN_REVIEW` without training black-box models on unverified data.
+- **Fairness & Anti-Bias Guardrails:** Zero automated rejections guaranteed. Customer claim frequency alone is structurally prevented from denying claims.
+- **Untrusted Input Neutralization:** Treats photos, descriptions, and user text as untrusted; sanitizes embedded prompt injections and malicious instructions.
+- **Transparent Economics:** Reports `insufficient_data` when item price or cost data is missing rather than fabricating financial estimates.
+- **Upstream Vendor Intelligence:** Aggregates recurring defect patterns across intake batches ($\ge 2$ claims) to trigger supplier quarantine advisories.
+
 ---
 
 ## 3. Data Flow & Request Lifecycles

@@ -264,15 +264,15 @@
     if (targetTabId === 'tab-orders' && state.orders.length === 0) {
       fetchOrders();
     }
-    if (targetTabId === 'tab-access-safety' && state.accessScenarios.length === 0) {
+    if (targetTabId === 'tab-access-safety' && (!dom.selectAccessScenario || dom.selectAccessScenario.options.length <= 1)) {
       loadAccessScenarios();
     }
     if (targetTabId === 'tab-dispute-inspector') {
       if (state.batchInvestigations.length === 0) loadBatchInvestigations();
-      if (state.complaintScenarios.length === 0) loadDisputeScenarios();
+      if (!dom.selectDisputeScenario || dom.selectDisputeScenario.options.length <= 1) loadDisputeScenarios();
     }
     if (targetTabId === 'tab-adjudication-console') {
-      if (state.complaintScenarios.length === 0) loadAdjudicationScenarios();
+      if (!dom.selectAdjudicationScenario || dom.selectAdjudicationScenario.options.length <= 1) loadAdjudicationScenarios();
     }
   }
 
@@ -1087,17 +1087,22 @@
         state.accessScenarios.forEach((s) => {
           const opt = document.createElement('option');
           opt.value = s.scenario_id;
-          opt.textContent = `${s.scenario_id} — ${s.building_type} (Fl ${s.floor_number}, ${s.parcel_weight_kg}kg, Lift: ${s.elevator_available ? 'Yes' : 'No'})`;
+          const titleDesc = s.scenario_title || s.address_type || 'Access Scenario';
+          opt.textContent = `${s.scenario_id} — ${titleDesc} (Fl ${s.floor_number}, ${s.parcel_weight_kg}kg, Lift: ${s.elevator_available ? 'Yes' : 'No'})`;
           dom.selectAccessScenario.appendChild(opt);
         });
 
         if (state.accessScenarios.length > 0) {
+          dom.selectAccessScenario.value = state.accessScenarios[0].scenario_id;
           populateAccessForm(state.accessScenarios[0]);
           evaluateAccessScenario(state.accessScenarios[0]);
         }
       }
     } catch (err) {
       console.warn('Failed to load access scenarios:', err);
+      if (dom.selectAccessScenario) {
+        dom.selectAccessScenario.innerHTML = '<option value="__retry__">⚠️ Error loading scenarios — click to retry</option>';
+      }
     }
   }
 
@@ -1105,18 +1110,21 @@
     if (dom.inputAccessWeight) dom.inputAccessWeight.value = s.parcel_weight_kg;
     if (dom.inputAccessFloor) dom.inputAccessFloor.value = s.floor_number;
     if (dom.selectAccessElevator) dom.selectAccessElevator.value = String(Boolean(s.elevator_available));
-    if (dom.selectAccessGate) dom.selectAccessGate.value = String(Boolean(s.gate_code_required));
+    if (dom.selectAccessGate) dom.selectAccessGate.value = String(Boolean(s.gate_security_required ?? s.gate_code_required));
     if (dom.selectAccessHazard) dom.selectAccessHazard.value = s.hazard_reported || 'none';
-    if (dom.inputAccessVicinity) dom.inputAccessVicinity.value = s.courier_distance_meters || 120;
+    if (dom.inputAccessVicinity) dom.inputAccessVicinity.value = s.customer_vicinity_meters ?? s.courier_distance_meters ?? 120;
   }
 
   function getAccessFormPayload() {
+    const rawHazard = dom.selectAccessHazard ? dom.selectAccessHazard.value : 'none';
     return {
       parcel_weight_kg: parseFloat(dom.inputAccessWeight ? dom.inputAccessWeight.value : 18.5) || 18.5,
       floor_number: parseInt(dom.inputAccessFloor ? dom.inputAccessFloor.value : 4, 10) || 4,
       elevator_available: dom.selectAccessElevator ? dom.selectAccessElevator.value === 'true' : false,
-      gate_code_required: dom.selectAccessGate ? dom.selectAccessGate.value === 'true' : true,
-      hazard_reported: dom.selectAccessHazard ? dom.selectAccessHazard.value : 'none',
+      gate_security_required: dom.selectAccessGate ? dom.selectAccessGate.value === 'true' : false,
+      gate_code_required: dom.selectAccessGate ? dom.selectAccessGate.value === 'true' : false,
+      hazard_reported: (rawHazard && rawHazard !== 'none') ? rawHazard : null,
+      customer_vicinity_meters: parseFloat(dom.inputAccessVicinity ? dom.inputAccessVicinity.value : 120) || 120,
       courier_distance_meters: parseFloat(dom.inputAccessVicinity ? dom.inputAccessVicinity.value : 120) || 120
     };
   }
@@ -1145,11 +1153,11 @@
       dom.accessDecisionName.className = 'decision-main-badge';
       if (dec.decision === 'SAFE_DOORSTEP_PROCEED') dom.accessDecisionName.classList.add('tier-safe');
       else if (dec.decision === 'PRE_ARRIVAL_ACCESS_BRIEF') dom.accessDecisionName.classList.add('tier-brief');
-      else if (dec.decision === 'GROUND_FLOOR_HANDOFF') dom.accessDecisionName.classList.add('tier-handoff');
+      else if (dec.decision === 'GROUND_FLOOR_HANDOFF' || dec.decision === 'GROUND_FLOOR_HANDOFF_AUTHORIZED') dom.accessDecisionName.classList.add('tier-handoff');
       else dom.accessDecisionName.classList.add('tier-review');
     }
 
-    if (dom.accessDecisionReason) dom.accessDecisionReason.textContent = dec.decision_reason;
+    if (dom.accessDecisionReason) dom.accessDecisionReason.textContent = dec.decision_reason || dec.instructions_summary || '';
 
     if (dom.accessDoorstepSafe) {
       dom.accessDoorstepSafe.textContent = dec.is_doorstep_safe ? 'YES ✓' : 'NO ✕';
@@ -1157,22 +1165,32 @@
     }
 
     if (dom.accessGroundHandoff) {
-      dom.accessGroundHandoff.textContent = dec.ground_floor_handoff_authorized ? 'AUTHORIZED ✓' : 'OPTIONAL';
-      dom.accessGroundHandoff.className = `tile-value ${dec.ground_floor_handoff_authorized ? 'text-emerald' : 'text-muted'}`;
+      const isGroundHandoff = (typeof dec.ground_floor_handoff_authorized === 'boolean')
+        ? dec.ground_floor_handoff_authorized
+        : (dec.decision === 'GROUND_FLOOR_HANDOFF' || dec.decision === 'GROUND_FLOOR_HANDOFF_AUTHORIZED' || dec.decision === 'UNSAFE_PHYSICAL_TASK_ESCALATION' || dec.decision === 'CUSTOMER_COORDINATION_REQUIRED' || dec.is_doorstep_safe === false);
+      dom.accessGroundHandoff.textContent = isGroundHandoff ? 'AUTHORIZED ✓' : 'OPTIONAL';
+      dom.accessGroundHandoff.className = `tile-value ${isGroundHandoff ? 'text-emerald' : 'text-muted'}`;
     }
 
     if (dom.accessBriefPushed) {
-      dom.accessBriefPushed.textContent = dec.pre_arrival_brief_pushed ? 'SENT (< 200m)' : 'PENDING';
-      dom.accessBriefPushed.className = `tile-value ${dec.pre_arrival_brief_pushed ? 'text-cyan' : 'text-muted'}`;
+      const isBriefPushed = (typeof dec.pre_arrival_brief_pushed === 'boolean')
+        ? dec.pre_arrival_brief_pushed
+        : (dec.decision === 'PRE_ARRIVAL_ACCESS_BRIEF');
+      dom.accessBriefPushed.textContent = isBriefPushed ? 'SENT (< 200m)' : 'PENDING';
+      dom.accessBriefPushed.className = `tile-value ${isBriefPushed ? 'text-cyan' : 'text-muted'}`;
     }
 
     if (dom.accessPenaltyProt) {
-      dom.accessPenaltyProt.textContent = dec.courier_penalty_protection ? 'PROTECTED' : 'STANDARD';
-      dom.accessPenaltyProt.className = `tile-value ${dec.courier_penalty_protection ? 'text-amber' : 'text-muted'}`;
+      const isPenaltyProt = (typeof dec.courier_penalty_protection === 'boolean')
+        ? dec.courier_penalty_protection
+        : (dec.is_doorstep_safe === false || dec.decision === 'UNSAFE_PHYSICAL_TASK_ESCALATION' || dec.decision === 'CUSTOMER_COORDINATION_REQUIRED' || dec.decision === 'GROUND_FLOOR_HANDOFF_AUTHORIZED' || dec.decision === 'PRE_ARRIVAL_ACCESS_BRIEF');
+      dom.accessPenaltyProt.textContent = isPenaltyProt ? 'PROTECTED' : 'STANDARD';
+      dom.accessPenaltyProt.className = `tile-value ${isPenaltyProt ? 'text-amber' : 'text-muted'}`;
     }
 
-    if (dom.accessActionBrief) dom.accessActionBrief.textContent = dec.courier_action_brief;
-    if (dom.accessCustomerMsg) dom.accessCustomerMsg.textContent = `"${dec.customer_coordination_message}"`;
+    if (dom.accessActionBrief) dom.accessActionBrief.textContent = dec.courier_action_brief || dec.courier_guidance || '';
+    const custMsg = dec.customer_coordination_message || dec.customer_prompt || '';
+    if (dom.accessCustomerMsg) dom.accessCustomerMsg.textContent = custMsg ? `"${custMsg}"` : '""';
   }
 
   // =========================================================================
@@ -1219,28 +1237,61 @@
     }).join('');
   }
 
+  // Shared complaint scenarios fetch promise to prevent duplicate concurrent network calls
+  let complaintScenariosPromise = null;
+
+  async function fetchComplaintScenarios() {
+    if (state.complaintScenarios && state.complaintScenarios.length > 0) {
+      return state.complaintScenarios;
+    }
+    if (!complaintScenariosPromise) {
+      complaintScenariosPromise = (async () => {
+        const res = await fetch('/api/prototypes/disputes/scenarios');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        state.complaintScenarios = data.scenarios || [];
+        return state.complaintScenarios;
+      })().finally(() => {
+        complaintScenariosPromise = null;
+      });
+    }
+    return complaintScenariosPromise;
+  }
+
   async function loadDisputeScenarios() {
     try {
-      const res = await fetch('/api/prototypes/disputes/scenarios');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      state.complaintScenarios = data.scenarios || [];
+      if (dom.selectDisputeScenario) {
+        if (dom.selectDisputeScenario.options.length <= 1 || dom.selectDisputeScenario.value === '__retry__') {
+          dom.selectDisputeScenario.innerHTML = '<option value="">Loading defect scenarios...</option>';
+        }
+      }
+
+      const scenarios = await fetchComplaintScenarios();
 
       if (dom.selectDisputeScenario) {
         dom.selectDisputeScenario.innerHTML = '';
-        state.complaintScenarios.forEach((c) => {
+        if (!scenarios || scenarios.length === 0) {
+          dom.selectDisputeScenario.innerHTML = '<option value="">No defect scenarios available</option>';
+          return;
+        }
+
+        scenarios.forEach((c) => {
           const opt = document.createElement('option');
           opt.value = c.complaint_id;
           opt.textContent = `${c.complaint_id} — ${c.item_name} (₹${c.item_price_inr}, ${c.complaint_category})`;
           dom.selectDisputeScenario.appendChild(opt);
         });
 
-        if (state.complaintScenarios.length > 0) {
-          inspectDisputeScenario(state.complaintScenarios[0]);
+        if (scenarios.length > 0) {
+          dom.selectDisputeScenario.value = scenarios[0].complaint_id;
+          inspectDisputeScenario(scenarios[0]);
         }
       }
     } catch (err) {
       console.warn('Failed to load dispute scenarios:', err);
+      if (dom.selectDisputeScenario) {
+        dom.selectDisputeScenario.innerHTML = '<option value="__retry__">⚠️ Error loading scenarios — click to retry</option>';
+      }
     }
   }
 
@@ -1297,29 +1348,39 @@
   // =========================================================================
   async function loadAdjudicationScenarios() {
     try {
-      if (state.complaintScenarios.length === 0) {
-        const res = await fetch('/api/prototypes/disputes/scenarios');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        state.complaintScenarios = data.scenarios || [];
+      if (dom.selectAdjudicationScenario) {
+        if (dom.selectAdjudicationScenario.options.length <= 1 || dom.selectAdjudicationScenario.value === '__retry__') {
+          dom.selectAdjudicationScenario.innerHTML = '<option value="">Loading complaint scenarios...</option>';
+        }
       }
+
+      const scenarios = await fetchComplaintScenarios();
 
       if (dom.selectAdjudicationScenario) {
         dom.selectAdjudicationScenario.innerHTML = '';
-        state.complaintScenarios.forEach((c) => {
+        if (!scenarios || scenarios.length === 0) {
+          dom.selectAdjudicationScenario.innerHTML = '<option value="">No complaint scenarios available</option>';
+          return;
+        }
+
+        scenarios.forEach((c) => {
           const opt = document.createElement('option');
           opt.value = c.complaint_id;
           opt.textContent = `${c.complaint_id} — ${c.item_name} (₹${c.item_price_inr}, ${c.complaint_category})`;
           dom.selectAdjudicationScenario.appendChild(opt);
         });
 
-        if (state.complaintScenarios.length > 0) {
-          populateAdjudicationForm(state.complaintScenarios[0]);
-          evaluateAdjudication(state.complaintScenarios[0]);
+        if (scenarios.length > 0) {
+          dom.selectAdjudicationScenario.value = scenarios[0].complaint_id;
+          populateAdjudicationForm(scenarios[0]);
+          evaluateAdjudication(scenarios[0]);
         }
       }
     } catch (err) {
       console.warn('Failed to load adjudication scenarios:', err);
+      if (dom.selectAdjudicationScenario) {
+        dom.selectAdjudicationScenario.innerHTML = '<option value="__retry__">⚠️ Error loading scenarios — click to retry</option>';
+      }
     }
   }
 
@@ -1378,11 +1439,39 @@
       else dom.adjActionName.classList.add('tier-review');
     }
 
-    if (dom.adjActionReason) dom.adjActionReason.textContent = dec.policy_rationale;
+    // Resolve policy rationale defensively from explainability or direct property
+    const rationale = (dec.explainability && dec.explainability.decision_rationale)
+      || dec.policy_rationale
+      || dec.decision_reason
+      || 'No explanation was provided by the policy engine.';
+
+    if (dom.adjActionReason) dom.adjActionReason.textContent = rationale;
+    if (dom.adjRationaleText) dom.adjRationaleText.textContent = rationale;
 
     const fin = dec.financial_assessment || {};
-    if (dom.adjPayoutAmount) dom.adjPayoutAmount.textContent = `₹${formatDecimal(fin.recommended_payout_inr, 2)} (${fin.payout_percentage ?? 100}%)`;
-    if (dom.adjSettlementMode) dom.adjSettlementMode.textContent = fin.settlement_channel || 'ORIGINAL_PAYMENT';
+    const isReview = dec.recommended_action === 'HUMAN_REVIEW'
+      || Boolean(dec.human_review_required)
+      || (fin.pending_human_review === true);
+
+    if (dom.adjPayoutAmount) {
+      if (isReview) {
+        dom.adjPayoutAmount.textContent = fin.recommended_payout_inr
+          ? `₹${formatDecimal(fin.recommended_payout_inr, 2)} (Pending Review)`
+          : '₹0.00 (Pending Review)';
+      } else {
+        const payoutVal = fin.recommended_payout_inr ?? fin.recommended_compensation_amount ?? 0;
+        const pct = fin.payout_percentage ?? 100;
+        dom.adjPayoutAmount.textContent = `₹${formatDecimal(payoutVal, 2)} (${pct}%)`;
+      }
+    }
+
+    if (dom.adjSettlementMode) {
+      if (isReview) {
+        dom.adjSettlementMode.textContent = fin.settlement_channel || 'ON_HOLD (HUMAN_REVIEW)';
+      } else {
+        dom.adjSettlementMode.textContent = fin.settlement_channel || 'ORIGINAL_PAYMENT';
+      }
+    }
 
     const fair = dec.fairness_audit || {};
     if (dom.adjAntibiasAudit) {
@@ -1391,13 +1480,20 @@
     }
 
     if (dom.adjHumanReview) {
-      const isReview = dec.recommended_action === 'HUMAN_REVIEW';
       dom.adjHumanReview.textContent = isReview ? 'REQUIRED' : 'NOT REQUIRED';
       dom.adjHumanReview.className = `tile-value ${isReview ? 'text-amber' : 'text-emerald'}`;
     }
 
-    if (dom.adjRationaleText) dom.adjRationaleText.textContent = dec.policy_rationale;
-    if (dom.adjCustomerPreview) dom.adjCustomerPreview.textContent = `"${dec.customer_plain_language_explanation}"`;
+    // Resolve customer plain language preview defensively
+    const custExp = (dec.explainability && dec.explainability.customer_facing_explanation)
+      || dec.customer_plain_language_explanation
+      || '';
+
+    if (dom.adjCustomerPreview) {
+      dom.adjCustomerPreview.textContent = custExp
+        ? `"${custExp}"`
+        : '"No customer communication preview was provided by the policy engine."';
+    }
   }
 
   // =========================================================================
@@ -1501,10 +1597,19 @@
     // Phase 03 Part 02 Event Listeners
     if (dom.selectAccessScenario) {
       dom.selectAccessScenario.addEventListener('change', (e) => {
+        if (e.target.value === '__retry__') {
+          loadAccessScenarios();
+          return;
+        }
         const found = state.accessScenarios.find(s => s.scenario_id === e.target.value);
         if (found) {
           populateAccessForm(found);
           evaluateAccessScenario(found);
+        }
+      });
+      dom.selectAccessScenario.addEventListener('click', () => {
+        if (dom.selectAccessScenario.value === '__retry__' || dom.selectAccessScenario.options.length <= 1) {
+          loadAccessScenarios();
         }
       });
     }
@@ -1518,16 +1623,28 @@
 
     if (dom.selectDisputeScenario) {
       dom.selectDisputeScenario.addEventListener('change', (e) => {
+        if (e.target.value === '__retry__') {
+          loadDisputeScenarios();
+          return;
+        }
         const found = state.complaintScenarios.find(c => c.complaint_id === e.target.value);
         if (found) {
           inspectDisputeScenario(found);
         }
       });
+      dom.selectDisputeScenario.addEventListener('click', () => {
+        if (dom.selectDisputeScenario.value === '__retry__' || dom.selectDisputeScenario.options.length <= 1) {
+          loadDisputeScenarios();
+        }
+      });
     }
 
     if (dom.btnSyncToAdjudication) {
-      dom.btnSyncToAdjudication.addEventListener('click', () => {
+      dom.btnSyncToAdjudication.addEventListener('click', async () => {
         switchTab('tab-adjudication-console');
+        if (dom.selectAdjudicationScenario && dom.selectAdjudicationScenario.options.length <= 1) {
+          await loadAdjudicationScenarios();
+        }
         if (dom.selectDisputeScenario && dom.selectAdjudicationScenario) {
           dom.selectAdjudicationScenario.value = dom.selectDisputeScenario.value;
           const found = state.complaintScenarios.find(c => c.complaint_id === dom.selectDisputeScenario.value);
@@ -1541,10 +1658,19 @@
 
     if (dom.selectAdjudicationScenario) {
       dom.selectAdjudicationScenario.addEventListener('change', (e) => {
+        if (e.target.value === '__retry__') {
+          loadAdjudicationScenarios();
+          return;
+        }
         const found = state.complaintScenarios.find(c => c.complaint_id === e.target.value);
         if (found) {
           populateAdjudicationForm(found);
           evaluateAdjudication(found);
+        }
+      });
+      dom.selectAdjudicationScenario.addEventListener('click', () => {
+        if (dom.selectAdjudicationScenario.value === '__retry__' || dom.selectAdjudicationScenario.options.length <= 1) {
+          loadAdjudicationScenarios();
         }
       });
     }
@@ -1573,7 +1699,8 @@
       fetchOrders(),
       loadAccessScenarios(),
       loadBatchInvestigations(),
-      loadDisputeScenarios()
+      loadDisputeScenarios(),
+      loadAdjudicationScenarios()
     ]);
   }
 

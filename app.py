@@ -17,6 +17,7 @@ Strict Engineering & Governance Guarantees:
 
 import os
 import sys
+import json
 import logging
 from typing import Dict, Any, Optional
 
@@ -600,8 +601,26 @@ def evaluate_delivery_access() -> Response:
     if not DELIVERY_ACCESS_SERVICE:
         return jsonify({"error": "Service Unavailable", "message": "Delivery access service uninitialized."}), 503
 
-    payload = request.get_json(silent=True) or {}
-    result = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access(payload)
+    payload = request.get_json(silent=True)
+    if payload is None or not isinstance(payload, dict):
+        return jsonify({
+            "error": "Bad Request",
+            "message": "Malformed JSON or non-dictionary request payload.",
+            "validation_error": True
+        }), 400
+
+    try:
+        result = DELIVERY_ACCESS_SERVICE.evaluate_delivery_access(payload)
+    except ValueError as ve:
+        return jsonify({
+            "error": "Bad Request",
+            "message": str(ve),
+            "validation_error": True
+        }), 400
+    except Exception as e:
+        logger.error(f"Unexpected error in evaluate_delivery_access: {e}")
+        return jsonify({"error": "Internal Server Error", "message": "Evaluation processing failed."}), 500
+
     result["synthetic_data_disclaimer"] = SYNTHETIC_DATA_DISCLAIMER
     return jsonify(result), 200
 
@@ -630,8 +649,26 @@ def evaluate_dispute() -> Response:
     if not COMPLAINT_SERVICE:
         return jsonify({"error": "Service Unavailable", "message": "Complaint service uninitialized."}), 503
 
-    payload = request.get_json(silent=True) or {}
-    result = COMPLAINT_SERVICE.evaluate_complaint(payload)
+    payload = request.get_json(silent=True)
+    if payload is None or not isinstance(payload, dict):
+        return jsonify({
+            "error": "Bad Request",
+            "message": "Malformed JSON or non-dictionary request payload.",
+            "validation_error": True
+        }), 400
+
+    try:
+        result = COMPLAINT_SERVICE.evaluate_complaint(payload)
+    except ValueError as ve:
+        return jsonify({
+            "error": "Bad Request",
+            "message": str(ve),
+            "validation_error": True
+        }), 400
+    except Exception as e:
+        logger.error(f"Unexpected error in evaluate_dispute: {e}")
+        return jsonify({"error": "Internal Server Error", "message": "Complaint evaluation failed."}), 500
+
     result["synthetic_data_disclaimer"] = SYNTHETIC_DATA_DISCLAIMER
     return jsonify(result), 200
 
@@ -649,6 +686,58 @@ def get_batch_investigations() -> Response:
         "governance_note": "Defect clusters represent investigation recommendations, not confirmed supplier legal fault.",
         "synthetic_data_disclaimer": SYNTHETIC_DATA_DISCLAIMER
     }), 200
+
+
+@app.route("/api/prototypes/delivery-access/diagnose-exception", methods=["POST"])
+def diagnose_delivery_exception() -> Response:
+    """Diagnose doorstep delivery exception using multi-source evidence and reason categorization."""
+    if not DELIVERY_ACCESS_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Delivery access service uninitialized."}), 503
+
+    payload = request.get_json(silent=True)
+    if payload is None or not isinstance(payload, dict):
+        return jsonify({
+            "error": "Bad Request",
+            "message": "Malformed JSON or non-dictionary request payload.",
+            "validation_error": True
+        }), 400
+
+    try:
+        result = DELIVERY_ACCESS_SERVICE.diagnose_delivery_exception(payload)
+    except ValueError as ve:
+        return jsonify({
+            "error": "Bad Request",
+            "message": str(ve),
+            "validation_error": True
+        }), 400
+    except Exception as e:
+        logger.error(f"Unexpected error in diagnose_delivery_exception: {e}")
+        return jsonify({"error": "Internal Server Error", "message": "Exception diagnosis failed."}), 500
+
+    result["synthetic_data_disclaimer"] = SYNTHETIC_DATA_DISCLAIMER
+    return jsonify(result), 200
+
+
+@app.route("/api/prototypes/disputes/tradeoff-benchmarks", methods=["GET"])
+def get_tradeoff_benchmarks() -> Response:
+    """Evaluate canonical 10-scenario business trade-off benchmark suite and return 7-dimension scorecard."""
+    if not COMPLAINT_SERVICE:
+        return jsonify({"error": "Service Unavailable", "message": "Complaint service uninitialized."}), 503
+
+    bench_file = os.path.join(
+        WORKSPACE_DIR, "data", "scenario_prototypes", "synthetic_tradeoff_scenarios.json"
+    )
+    scenarios = None
+    if os.path.exists(bench_file):
+        try:
+            with open(bench_file, "r", encoding="utf-8") as f:
+                scenarios = json.load(f)
+        except Exception as e:
+            logger.error(f"Failed to load tradeoff benchmark scenarios: {e}")
+
+    result = COMPLAINT_SERVICE.evaluate_tradeoff_scenarios(scenarios)
+    result["synthetic_data_disclaimer"] = SYNTHETIC_DATA_DISCLAIMER
+    return jsonify(result), 200
 
 
 # -----------------------------------------------------------------------------
