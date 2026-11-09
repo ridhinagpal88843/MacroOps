@@ -124,6 +124,144 @@ body.command-centre-body {
   border-color: var(--border-glass-active);
 }
 
+/* ==========================================================================
+   Opening Cinematic Splash Screen
+   ========================================================================== */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background-color: #070b14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+  transition: opacity 0.5s var(--ease-smooth), visibility 0.5s ease;
+}
+
+.splash-screen.splash-fade-out,
+body.splash-complete .splash-screen,
+body.reduced-motion .splash-screen {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(650px, 85vw);
+  height: min(650px, 85vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.16) 0%, rgba(56, 189, 248, 0.05) 45%, transparent 75%);
+  filter: blur(55px);
+  pointer-events: none;
+  animation: splashGlowPulse 2.8s ease-in-out infinite alternate;
+}
+
+.splash-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 25%, transparent 75%);
+  pointer-events: none;
+}
+
+.splash-center-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.splash-title {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7.5vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  user-select: none;
+  animation: splashTitleEnter 0.45s var(--ease-smooth) forwards;
+  will-change: transform, opacity;
+}
+
+.splash-macro {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 65%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(0, 242, 254, 0.45)) drop-shadow(0 0 75px rgba(0, 242, 254, 0.18));
+}
+
+.splash-ai {
+  color: var(--cyan-primary);
+  margin-left: 0.16em;
+  text-shadow: 0 0 25px rgba(0, 242, 254, 0.8), 0 0 50px rgba(0, 242, 254, 0.4);
+}
+
+.splash-subtitle {
+  font-family: var(--font-mono);
+  font-size: clamp(0.7rem, 1.3vw, 0.92rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 20px;
+  opacity: 0;
+  user-select: none;
+  animation: splashSubtitleEnter 0.4s ease 0.15s forwards;
+  transition: opacity 0.25s ease;
+}
+
+@keyframes splashTitleEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes splashSubtitleEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splashGlowPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+}
+
 /* Application Layout */
 .app-layout {
   position: relative;
@@ -134,6 +272,40 @@ body.command-centre-body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  opacity: 0;
+  transition: opacity 0.85s var(--ease-smooth);
+}
+
+.app-layout > *:not(.top-header) {
+  transform: translateY(14px);
+  transition: transform 0.85s var(--ease-smooth);
+}
+
+body.reveal-dashboard .app-layout,
+body.splash-complete .app-layout,
+body.reduced-motion .app-layout {
+  opacity: 1;
+}
+
+body.reveal-dashboard .app-layout > *:not(.top-header),
+body.splash-complete .app-layout > *:not(.top-header),
+body.reduced-motion .app-layout > *:not(.top-header) {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen {
+    display: none !important;
+  }
+  .app-layout {
+    opacity: 1 !important;
+  }
+  .app-layout > *:not(.top-header) {
+    transform: none !important;
+  }
+  .top-header .brand-title {
+    opacity: 1 !important;
+  }
 }
 
 /* Header & Command Bar */
@@ -185,6 +357,17 @@ body.command-centre-body {
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #fff;
+}
+
+.top-header .brand-title {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+body.reveal-dashboard .top-header .brand-title,
+body.splash-complete .top-header .brand-title,
+body.reduced-motion .top-header .brand-title {
+  opacity: 1;
 }
 
 .cyan-accent {

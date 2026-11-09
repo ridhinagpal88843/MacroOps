@@ -11,6 +11,13 @@
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="/static/css/command_centre.css">
+  <noscript>
+    <style>
+      #splash-screen { display: none !important; }
+      .app-layout { opacity: 1 !important; transform: none !important; }
+      .top-header .brand-title { opacity: 1 !important; }
+    </style>
+  </noscript>
 </head>
 
 <body class="command-centre-body">
@@ -18,6 +25,18 @@
   <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
   <div class="ambient-glow ambient-glow-2" aria-hidden="true"></div>
   <div class="ambient-grid-overlay" aria-hidden="true"></div>
+
+  <!-- Opening Cinematic Splash Screen -->
+  <aside id="splash-screen" class="splash-screen" aria-label="Loading MacroOps Operations Platform">
+    <div class="splash-ambient-glow" aria-hidden="true"></div>
+    <div class="splash-grid-lines" aria-hidden="true"></div>
+    <div class="splash-center-wrap">
+      <div id="splash-title" class="splash-title" aria-label="MacroOps AI">
+        <span class="splash-macro">MACROOPS</span><span class="splash-ai">AI</span>
+      </div>
+      <div id="splash-subtitle" class="splash-subtitle">OPERATIONS INTELLIGENCE PLATFORM</div>
+    </div>
+  </aside>
 
   <!-- Primary Application Wrapper -->
   <div class="app-layout">

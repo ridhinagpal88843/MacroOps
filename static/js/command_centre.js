@@ -1684,10 +1684,95 @@
   }
 
   // =========================================================================
+  // Cinematic Opening Splash Screen
+  // =========================================================================
+  function initSplashScreen() {
+    const splash = document.getElementById('splash-screen');
+    const splashTitle = document.getElementById('splash-title');
+    const splashSubtitle = document.getElementById('splash-subtitle');
+    const appLayout = document.querySelector('.app-layout');
+    const targetBrand = document.querySelector('.brand-title');
+
+    if (!splash || !splashTitle || !appLayout || !targetBrand) {
+      if (splash) splash.style.display = 'none';
+      if (appLayout) {
+        appLayout.style.opacity = '1';
+        appLayout.style.transform = 'none';
+      }
+      document.body.classList.add('splash-complete', 'reveal-dashboard');
+      return;
+    }
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const savedReduced = localStorage.getItem('macroops_reduced_motion') === 'true';
+    const isReduced = prefersReduced || savedReduced || document.body.classList.contains('reduced-motion');
+
+    if (isReduced) {
+      splash.style.display = 'none';
+      appLayout.style.opacity = '1';
+      appLayout.style.transform = 'none';
+      document.body.classList.add('splash-complete', 'reveal-dashboard');
+      return;
+    }
+
+    // Safety fallback timer to prevent splash lockup under any unexpected error
+    const safetyTimer = setTimeout(() => {
+      splash.style.display = 'none';
+      document.body.classList.add('reveal-dashboard', 'splash-complete');
+      appLayout.style.opacity = '1';
+    }, 3500);
+
+    // Initial hold (~850ms) to ensure branding is prominently appreciated
+    setTimeout(() => {
+      if (splashSubtitle) {
+        splashSubtitle.style.opacity = '0';
+      }
+
+      const targetRect = targetBrand.getBoundingClientRect();
+      const startRect = splashTitle.getBoundingClientRect();
+
+      splashTitle.style.transformOrigin = 'top left';
+
+      const scale = targetRect.height / startRect.height;
+      const deltaX = targetRect.left - startRect.left;
+      const deltaY = targetRect.top - startRect.top;
+
+      // Smooth cubic-bezier travel to top-left destination
+      splashTitle.style.transition = 'transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease 0.85s, letter-spacing 1.05s cubic-bezier(0.16, 1, 0.3, 1)';
+      splashTitle.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${scale})`;
+      splashTitle.style.letterSpacing = '-0.02em';
+
+      // Reveal dashboard as title approaches destination
+      setTimeout(() => {
+        document.body.classList.add('reveal-dashboard');
+      }, 450);
+
+      // Fade out splash title cleanly as header brand title reveals
+      setTimeout(() => {
+        splashTitle.style.opacity = '0';
+      }, 880);
+
+      // Fade out splash backdrop overlay
+      setTimeout(() => {
+        splash.classList.add('splash-fade-out');
+      }, 1250);
+
+      // Complete lifecycle and release container
+      setTimeout(() => {
+        clearTimeout(safetyTimer);
+        splash.style.display = 'none';
+        document.body.classList.add('splash-complete');
+      }, 1700);
+
+    }, 850);
+  }
+
+  // =========================================================================
   // Bootstrap Application
   // =========================================================================
   async function init() {
     initReducedMotion();
+    initSplashScreen();
     initRevealObserver();
     initEventListeners();
     initOrderLifecycleLoop();
